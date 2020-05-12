@@ -8,9 +8,9 @@ const GET_USER_GAMES = gql`
     query GetUserGames {
         getUserGames {
             id
-            console
+            name
         }
-        getConsoles {
+        getUserConsoles {
             id
             name
         }
@@ -28,13 +28,20 @@ export default withApollo(() => {
 
     return (
         <Layout>
-            <h1>Current Games</h1>
+            <h2>Current Consoles</h2>
 
-            {data.getConsoles.map(system => console.log(system))}
-
-            {data.getUserGames.map(({ id, console }) => (
+            {data.getUserConsoles.map(({ id, name }) => (
                 <div key={id}>
-                    <h3>{console}</h3>
+                    <h3>{name}</h3>
+                </div>
+            ))}
+
+            <br />
+
+            <h2>Current Games</h2>
+            {data.getUserGames.map(({ id, name }) => (
+                <div key={id}>
+                    <h3>{name}</h3>
                 </div>
             ))}
         </Layout>
