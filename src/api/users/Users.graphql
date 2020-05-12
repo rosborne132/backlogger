@@ -1,9 +1,0 @@
-type User {
-    name: String!
-    nickname: String!
-    picture: String!
-}
-
-type Query {
-    getUser: User
-}

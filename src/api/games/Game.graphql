@@ -1,0 +1,9 @@
+type Game {
+    id: String!
+    name: String!
+    console: String!
+}
+
+type Query {
+    getUserGames: [Game]
+}

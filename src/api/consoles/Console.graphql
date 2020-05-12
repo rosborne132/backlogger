@@ -1,0 +1,8 @@
+type Console {
+    id: String!
+    name: String!
+}
+
+type Query {
+    getConsoles: [Console]
+}
