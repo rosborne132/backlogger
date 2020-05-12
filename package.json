@@ -1,5 +1,5 @@
 {
-  "name": "pokemon-tcg-app",
+  "name": "backlogger",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -32,21 +32,6 @@
     "react-dom": "^16.13.1",
     "swr": "^0.1.15"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn lint",
-      "git add"
-    ],
-    "*.tsx": [
-      "yarn lint",
-      "git add"
-    ]
-  },
   "devDependencies": {
     "@types/next": "^9.0.0",
     "@types/node": "^12.12.14",
@@ -60,9 +45,14 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.4.3",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
     "serverless-next.js": "^1.7.0",
     "typescript": "^3.7.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }

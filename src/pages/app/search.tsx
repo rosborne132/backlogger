@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import useSWR from 'swr'
 import { AppLayout, SearchInput } from '../../components/Elements'
-import withApollo from '../../../lib/apollo'
+import withApollo from '../../lib/apollo'
 
 type Card = {
     id: string,
