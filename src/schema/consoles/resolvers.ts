@@ -25,6 +25,13 @@ export const consoleResolvers = {
             } catch (err) {
                 console.error(err)
             }
+        },
+        getUserConsoles(parent, args) {
+            try {
+                return consoles
+            } catch (err) {
+                console.error(err)
+            }
         }
     }
 }

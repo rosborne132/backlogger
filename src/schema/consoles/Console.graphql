@@ -5,4 +5,5 @@ type Console {
 
 type Query {
     getConsoles: [Console]
+    getUserConsoles: [Console]
 }
