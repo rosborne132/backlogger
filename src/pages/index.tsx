@@ -1,9 +1,9 @@
-import { LandingLayout } from '../components/Elements'
+import { Layout } from '../components/Elements'
 
-const Home: React.FC = (): JSX.Element => (
-    <LandingLayout>
+export default () => (
+    <Layout>
         <h1>Landing Page</h1>
-    </LandingLayout>
+        <h3>Welcome!</h3>
+        <p>This is the landing page.</p>
+    </Layout>
 )
-
-export default Home

@@ -1,9 +1,9 @@
 import { ApolloServer } from 'apollo-server-micro'
 import { mergeResolvers, mergeTypeDefs } from 'graphql-toolkit'
 
-import { consoleResolvers, gameResolvers } from '../../api/resolvers'
+import { consoleResolvers, gameResolvers } from '../../schema/resolvers'
 
-import { Console, Game } from '../../api/types'
+import { Console, Game } from '../../schema/types'
 
 const typeDefs = mergeTypeDefs([Console, Game])
 

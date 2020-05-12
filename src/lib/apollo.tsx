@@ -1,33 +1,34 @@
-/* eslint no-shadow: 0 */
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import auth0 from './auth0'
 
 const isDev = process.env.NODE_ENV !== 'production'
-const url = isDev ? 'http://localhost:3000' : 'https://tracker.rosborne132.now.sh'
+const url = isDev
+    ? 'http://localhost:3000'
+    : 'https://tracker.rosborne132.now.sh'
 
 /**
  * Creates and configures the ApolloClient
  * @param  {Object} [initialState={}]
  */
-const createApolloClient = (initialState = {}, cookie) => {
-    const enchancedFetch = (url, init) => fetch(url, {
-        ...init,
-        headers: {
-            ...init.headers,
-            Cookie: cookie,
-        },
-    }).then((response) => response)
+const createApolloClient = (initialState = {}, cookie = '') => {
+    const enchancedFetch = (url, init) =>
+        fetch(url, {
+            ...init,
+            headers: {
+                ...init.headers,
+                Cookie: cookie
+            }
+        }).then(response => response)
 
     const cache = new InMemoryCache().restore(initialState)
 
     const client = new ApolloClient({
         uri: `${url}/api/graphql`,
         fetch: enchancedFetch,
-        cache,
+        cache
     })
 
     return client
@@ -45,7 +46,7 @@ const initApolloClient = (initialState = {}, cookie = '') => {
     return createApolloClient(initialState)
 }
 
-const withApollo = (PageComponent) => {
+export const withApollo = PageComponent => {
     const WithApollo = ({ apolloClient, apolloState, ...pageProps }) => {
         const client = apolloClient || initApolloClient(apolloState)
 
@@ -56,7 +57,7 @@ const withApollo = (PageComponent) => {
         )
     }
 
-    WithApollo.getInitialProps = async (ctx) => {
+    WithApollo.getInitialProps = async ctx => {
         const { AppTree } = ctx
         let { apolloClient } = ctx
 
@@ -71,19 +72,7 @@ const withApollo = (PageComponent) => {
         }
 
         // If on the server
-        if (typeof (window) === 'undefined') {
-            const { req, res } = ctx
-            const data = await auth0.getSession(req)
-
-            // If there is no user, redirect to the login page
-            if (data === null) {
-                res.writeHead(302, {
-                    Location: '/api/auth/login',
-                })
-                res.end()
-                return
-            }
-
+        if (typeof window === 'undefined') {
             if (ctx.res && ctx.res.finished) {
                 return pageProps
             }
@@ -95,9 +84,9 @@ const withApollo = (PageComponent) => {
                     <AppTree
                         pageProps={{
                             ...pageProps,
-                            apolloClient,
+                            apolloClient
                         }}
-                    />,
+                    />
                 )
             } catch (err) {
                 console.log(err)
@@ -109,11 +98,9 @@ const withApollo = (PageComponent) => {
         const apolloState = apolloClient.cache.extract()
         return {
             ...pageProps,
-            apolloState,
+            apolloState
         }
     }
 
     return WithApollo
 }
-
-export default withApollo

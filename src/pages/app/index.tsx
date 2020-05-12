@@ -1,34 +1,31 @@
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import { AppLayout } from '../../components/Elements'
-import withApollo from '../../lib/apollo'
+import { Layout } from '../../components/Elements'
+import { withApollo } from '../../lib/apollo'
 
-const GET_USER_DECKS = gql`
-    query GetUserDecks {
-        getUserDecks {
-            username
-            deckId
-            deckName
+const GET_USER_GAMES = gql`
+    query GetUserGames {
+        getUserGames {
+            id
+            console
         }
     }
 `
 
-const App: React.FC = (): JSX.Element => {
-    const { data } = useQuery(GET_USER_DECKS)
+export default withApollo(() => {
+    const { data } = useQuery(GET_USER_GAMES)
 
     if (!data) return <div>Loading</div>
 
     return (
-        <AppLayout>
-            <h1>Current Decks</h1>
+        <Layout>
+            <h1>Current Games</h1>
 
-            { data.getUserDecks.map(({ deckId, deckName }) => (
-                <div key={deckId}>
-                    <h3>{ deckName }</h3>
+            {data.getUserGames.map(({ id, console }) => (
+                <div key={id}>
+                    <h3>{console}</h3>
                 </div>
             ))}
-        </AppLayout>
+        </Layout>
     )
-}
-
-export default withApollo(App)
+})
