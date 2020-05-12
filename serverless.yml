@@ -1,0 +1,6 @@
+org: rosborne132
+app: backlogger
+service: backlogger
+
+nextApp:
+  component: "serverless-next.js"
