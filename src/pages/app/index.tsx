@@ -6,7 +6,7 @@ import { withApollo } from '../../lib/apollo'
 
 const GET_USER_GAMES = gql`
     query GetUserGames {
-        getUserGames {
+        getGames {
             id
             name
         }
@@ -25,7 +25,8 @@ export default withApollo(() => {
     return (
         <AppLayout consoles={data.getUserConsoles}>
             <h2>Current Games</h2>
-            {data.getUserGames.map(({ id, name }) => (
+            <br />
+            {data.getGames.map(({ id, name }) => (
                 <div key={id}>
                     <h3>{name}</h3>
                 </div>

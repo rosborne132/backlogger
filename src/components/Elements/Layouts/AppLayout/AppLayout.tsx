@@ -3,8 +3,18 @@ import { Header } from '../../Header/Header'
 import { Meta } from '../../../Utilities'
 import { useRouter } from 'next/router'
 
+type Console = {
+    id: string
+    name: string
+}
+
+type AppLayoutProps = {
+    children: React.ReactNode
+    consoles: Console[]
+}
+
 export const AppLayout: React.FC = React.memo(
-    ({ children, consoles = [] }): JSX.Element => {
+    ({ children, consoles = [] }: AppLayoutProps): JSX.Element => {
         const [selected, setSelected] = React.useState('')
         const router = useRouter()
 
@@ -13,8 +23,6 @@ export const AppLayout: React.FC = React.memo(
                 router.query.id != undefined ? router.query.id : ''
             setSelected(consoleSelected)
         }, [consoles])
-
-        console.log(router)
 
         return (
             <>
@@ -37,7 +45,9 @@ export const AppLayout: React.FC = React.memo(
                                 </li>
                             ))}
                         </ul>
-                        <section>{children}</section>
+                        <section>
+                            <div>{children}</div>
+                        </section>
                     </div>
                     <style jsx>
                         {`

@@ -1,9 +1,15 @@
+type Console {
+    id: String!
+    name: String!
+}
+
 type Game {
     id: String!
     name: String!
-    console: String!
+    console: Console
 }
 
 type Query {
-    getUserGames: [Game]
+    getGames: [Game]
+    getGamesByConsoleId(consoleId: String!): [Game]
 }
