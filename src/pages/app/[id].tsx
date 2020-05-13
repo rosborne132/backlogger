@@ -4,6 +4,8 @@ import gql from 'graphql-tag'
 import { AppLayout } from '../../components/Elements'
 import { withApollo } from '../../lib/apollo'
 
+import { useRouter } from 'next/router'
+
 const GET_USER_GAMES = gql`
     query GetUserGames {
         getUserGames {
@@ -18,18 +20,16 @@ const GET_USER_GAMES = gql`
 `
 
 export default withApollo(() => {
+    const router = useRouter()
+
     const { data } = useQuery(GET_USER_GAMES)
 
     if (!data) return <div>Loading</div>
+    console.log(data)
 
     return (
         <AppLayout consoles={data.getUserConsoles}>
             <h2>Current Games</h2>
-            {data.getUserGames.map(({ id, name }) => (
-                <div key={id}>
-                    <h3>{name}</h3>
-                </div>
-            ))}
         </AppLayout>
     )
 })
