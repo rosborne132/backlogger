@@ -9,13 +9,13 @@ type Console = {
 }
 
 type AppLayoutProps = {
-    children: React.ReactNode
+    children?: React.ReactNode
     consoles: Console[]
 }
 
-export const AppLayout: React.FC = React.memo(
-    ({ children, consoles = [] }: AppLayoutProps): JSX.Element => {
-        const [selected, setSelected] = React.useState('')
+export const AppLayout: React.FC<AppLayoutProps> = React.memo(
+    ({ children, consoles = [] }): JSX.Element => {
+        const [selected, setSelected] = React.useState<string | string[]>('')
         const router = useRouter()
 
         React.useEffect(() => {
@@ -29,13 +29,14 @@ export const AppLayout: React.FC = React.memo(
                 <Meta />
                 <Header />
                 <main>
-                    <div className="layout">
-                        <ul>
+                    <div className="flex">
+                        <ul className="list ml0 pl0 w-10">
                             {consoles.map(({ id, name }) => (
                                 <li
-                                    className={
-                                        selected === id ? 'selected' : ''
-                                    }
+                                    className={`
+                                    ba pointer pl2 pv3
+                                    ${selected === id ? 'bg-black white' : ''}
+                                    `}
                                     key={id}
                                     onClick={() =>
                                         router.push('/app/[id]', `/app/${id}`)
@@ -45,45 +46,10 @@ export const AppLayout: React.FC = React.memo(
                                 </li>
                             ))}
                         </ul>
-                        <section>
+                        <section className="flex justify-center w-90">
                             <div>{children}</div>
                         </section>
                     </div>
-                    <style jsx>
-                        {`
-                            .layout {
-                                display: flex;
-                            }
-
-                            ul {
-                                width: 10%;
-                                list-style: none;
-                                margin-left: 0;
-                                padding-left: 0;
-                            }
-
-                            li {
-                                border: 1px solid #000;
-                                padding: 10px 0;
-                                padding-left: 10px;
-                            }
-
-                            li:hover {
-                                cursor: pointer;
-                            }
-
-                            .selected {
-                                background: #000;
-                                color: #fff;
-                            }
-
-                            section {
-                                width: 90%;
-                                display: flex;
-                                justify-content: center;
-                            }
-                        `}
-                    </style>
                 </main>
             </>
         )

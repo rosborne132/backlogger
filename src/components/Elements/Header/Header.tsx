@@ -2,64 +2,32 @@ import * as React from 'react'
 import Link from 'next/link'
 
 export const Header: React.FC = React.memo(
-    (): JSX.Element => (
-        <header>
-            <nav>
-                <ul>
-                    <li>
-                        <Link href="/">
-                            <a>Home</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/about">
-                            <a>About</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/app">
-                            <a>App</a>
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
-
-            <style jsx>
-                {`
-                    header {
-                        padding: 0.2rem;
-                        color: #fff;
-                        background-color: #333;
-                    }
-                    nav {
-                        max-width: 42rem;
-                        margin: 1.5rem auto;
-                    }
-                    ul {
-                        display: flex;
-                        list-style: none;
-                        margin-left: 0;
-                        padding-left: 0;
-                    }
-                    li {
-                        margin-right: 1rem;
-                    }
-                    li:nth-child(2) {
-                        margin-right: auto;
-                    }
-                    a {
-                        color: #fff;
-                        text-decoration: none;
-                    }
-                    button {
-                        font-size: 1rem;
-                        color: #fff;
-                        cursor: pointer;
-                        border: none;
-                        background: none;
-                    }
-                `}
-            </style>
-        </header>
-    )
+    (): JSX.Element => {
+        const linkStyle = 'no-underline white'
+        return (
+            <header className="bg-black pa1">
+                <nav className="container">
+                    <ul className="list flex justify-between pa0 sans-serif">
+                        <span>
+                            <li className="dib">
+                                <Link href="/">
+                                    <a className={linkStyle}>Home</a>
+                                </Link>
+                            </li>
+                            <li className="dib pl4">
+                                <Link href="/about">
+                                    <a className={linkStyle}>About</a>
+                                </Link>
+                            </li>
+                        </span>
+                        <li>
+                            <Link href="/app">
+                                <a className={linkStyle}>App</a>
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+        )
+    }
 )

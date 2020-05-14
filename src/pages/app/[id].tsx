@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
+import { useRouter } from 'next/router'
 import gql from 'graphql-tag'
+
 import { AppLayout } from '../../components/Elements'
 import { withApollo } from '../../lib/apollo'
-
-import { useRouter } from 'next/router'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
     query($consoleId: String!) {
