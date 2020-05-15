@@ -1,8 +1,8 @@
-import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
-import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const isDev = process.env.NODE_ENV !== 'production'
 const url = isDev

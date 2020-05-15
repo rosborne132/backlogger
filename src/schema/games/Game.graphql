@@ -3,13 +3,28 @@ type Console {
     name: String!
 }
 
+type Cover {
+    id: String!
+    url: String!
+}
+
+type Platform {
+    id: String!
+    name: String!
+    slug: String!
+}
+
 type Game {
     id: String!
     name: String!
+    platforms: [Platform]
+    slug: String!
+    cover: Cover
     console: Console
 }
 
 type Query {
+    fetchGames: [Game]
     getGames: [Game]
     getGamesByConsoleId(consoleId: String!): [Game]
 }

@@ -1,3 +1,4 @@
+import axios from 'axios'
 const games = [
     {
         id: 'sdfkhweriu',
@@ -35,6 +36,24 @@ const games = [
 
 export const gameResolvers = {
     Query: {
+        async fetchGames(parent, args) {
+            try {
+                const gamesFetched = await axios({
+                    url: 'https://api-v3.igdb.com/games',
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'user-key': process.env.API_KEY
+                    },
+                    data:
+                        'fields cover.url, name, slug, platforms.name; limit 100;'
+                })
+
+                return gamesFetched.data
+            } catch (err) {
+                console.error(err)
+            }
+        },
         getGames(parent, args) {
             try {
                 return games

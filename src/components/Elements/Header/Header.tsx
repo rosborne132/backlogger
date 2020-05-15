@@ -20,11 +20,18 @@ export const Header: React.FC = React.memo(
                                 </Link>
                             </li>
                         </span>
-                        <li>
-                            <Link href="/app">
-                                <a className={linkStyle}>App</a>
-                            </Link>
-                        </li>
+                        <span>
+                            <li className="dib">
+                                <Link href="/games">
+                                    <a className={linkStyle}>Games</a>
+                                </Link>
+                            </li>
+                            <li className="dib pl4">
+                                <Link href="/app">
+                                    <a className={linkStyle}>App</a>
+                                </Link>
+                            </li>
+                        </span>
                     </ul>
                 </nav>
             </header>
