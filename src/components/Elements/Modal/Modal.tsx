@@ -1,0 +1,65 @@
+import * as React from 'react'
+// import { Icon } from 'styledoui'
+
+import { motion, AnimatePresence } from 'framer-motion'
+
+type ModalProps = {
+    children: React.ReactNode
+    isShowing: boolean
+    onClose: () => void
+}
+
+export const Modal: React.FC<ModalProps> = React.memo(
+    ({ children, isShowing, onClose }) => {
+        const variants = {
+            open: { y: 0 },
+            closed: { y: 50 }
+        }
+
+        return (
+            <AnimatePresence>
+                {isShowing && (
+                    <motion.div
+                        key="modal"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        style={{
+                            position: 'fixed',
+                            top: '40%',
+                            left: '50%',
+                            transform: 'translate3d(-50%, -40%, 0)',
+                            zIndex: 3
+                        }}
+                    >
+                        <motion.div
+                            className="bg-white black br4 pa2 shadow-2 w6 z-2"
+                            variants={variants}
+                            initial="closed"
+                            animate="open"
+                            exit="closed"
+                        >
+                            <header className="pa0 pb1 tr">
+                                <span
+                                    className="ph2 pointer"
+                                    onClick={onClose}
+                                    onKeyDown={onClose}
+                                    role="button"
+                                    tabIndex={0}
+                                >
+                                    {/* <Icon
+                                        icon="closeAlt"
+                                        size="m1"
+                                        aria-hidden
+                                    /> */}
+                                    X
+                                </span>
+                            </header>
+                            <div>{children}</div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        )
+    }
+)

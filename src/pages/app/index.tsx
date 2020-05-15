@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
+
 import { AppLayout } from '../../components/Elements'
 import { withApollo } from '../../lib/apollo'
 

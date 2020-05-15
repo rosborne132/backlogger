@@ -1,3 +1,6 @@
+export * from './ConsoleForm/ConsoleForm'
 export * from './Game/Game'
+export * from './Header/Header'
 export * from './Layouts/Layout/Layout'
 export * from './Layouts/AppLayout/AppLayout'
+export * from './Modal/Modal'

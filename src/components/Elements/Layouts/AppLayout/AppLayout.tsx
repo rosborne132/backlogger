@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { Header } from '../../Header/Header'
-import { Meta } from '../../../Utilities'
 import { useRouter } from 'next/router'
+
+import { ConsoleForm, Header, Modal } from '../../../Elements'
+import { Meta } from '../../../Utilities'
 
 type Console = {
     id: string
@@ -16,6 +17,7 @@ type AppLayoutProps = {
 export const AppLayout: React.FC<AppLayoutProps> = React.memo(
     ({ children, consoles = [] }): JSX.Element => {
         const [selected, setSelected] = React.useState<string | string[]>('')
+        const [showConsoleForm, setShowConsoleForm] = React.useState(false)
         const router = useRouter()
 
         React.useEffect(() => {
@@ -31,12 +33,19 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                 <main>
                     <div className="flex">
                         <ul className="list ml0 pl0 w-10">
+                            <li
+                                className={`ba pointer pl2 pv3 ${
+                                    showConsoleForm ? 'bg-black white' : ''
+                                }`}
+                                onClick={() => setShowConsoleForm(true)}
+                            >
+                                + Console
+                            </li>
                             {consoles.map(({ id, name }) => (
                                 <li
-                                    className={`
-                                    ba pointer pl2 pv3
-                                    ${selected === id ? 'bg-black white' : ''}
-                                    `}
+                                    className={`ba pointer pl2 pv3 ${
+                                        selected === id ? 'bg-black white' : ''
+                                    }`}
                                     key={id}
                                     onClick={() =>
                                         router.push('/app/[id]', `/app/${id}`)
@@ -48,6 +57,12 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                         </ul>
                         <section className="flex justify-center w-90">
                             <div>{children}</div>
+                            <Modal
+                                isShowing={showConsoleForm}
+                                onClose={() => setShowConsoleForm(false)}
+                            >
+                                <ConsoleForm />
+                            </Modal>
                         </section>
                     </div>
                 </main>

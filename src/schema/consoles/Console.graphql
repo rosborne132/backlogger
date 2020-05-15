@@ -1,6 +1,7 @@
 type Console {
     id: String!
     name: String!
+    slug: String!
 }
 
 type Query {
