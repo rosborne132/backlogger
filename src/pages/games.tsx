@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { Layout } from '../components/Elements'
+import { Game, Layout } from '../components/Elements'
 import { withApollo } from '../lib/apollo'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
@@ -27,15 +27,22 @@ export default withApollo(() => {
 
     if (loading) return <div>Loading</div>
 
+    const renderGames = games =>
+        games.map(({ cover, id, name, platforms, slug }) => (
+            <li key={id} className="list">
+                <Game
+                    cover={cover}
+                    name={name}
+                    platforms={platforms}
+                    slug={slug}
+                />
+            </li>
+        ))
+
     return (
         <Layout>
             <h1>Games</h1>
-            <p>
-                This is the about page, navigating between this page and Home is
-                always pretty fast. However, when you navigate to the Profile
-                page it takes more time because it uses SSR to fetch the user
-                first
-            </p>
+            <ul className="grid">{renderGames(data.fetchGames)}</ul>
         </Layout>
     )
 })
