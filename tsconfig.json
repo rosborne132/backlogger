@@ -17,7 +17,7 @@
     },
     "exclude": ["node_modules", "node_modules/*"],
     "include": [
-        "next-env.d.ts",
+        "src/@types/next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
         "src/components/Elements/Modal/Modal.js"
