@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
 
-import { ConsoleForm, Header, Modal } from '../../../Elements'
+import { ConsoleForm, Header, Icon, Modal } from '../../../Elements'
 import { Meta } from '../../../Utilities'
 
 type Console = {
@@ -39,7 +39,19 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                                 }`}
                                 onClick={() => setShowConsoleForm(true)}
                             >
-                                + Console
+                                <span>
+                                    <Icon
+                                        icon="add"
+                                        size="m1"
+                                        style={{
+                                            fill: showConsoleForm
+                                                ? 'white'
+                                                : 'black'
+                                        }}
+                                        aria-hidden
+                                    />{' '}
+                                    Console
+                                </span>
                             </li>
                             {consoles.map(({ id, name }) => (
                                 <li

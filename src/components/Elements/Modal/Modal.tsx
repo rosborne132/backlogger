@@ -1,7 +1,7 @@
 import * as React from 'react'
-// import { Icon } from 'styledoui'
-
 import { motion, AnimatePresence } from 'framer-motion'
+
+import { Icon } from '../'
 
 type ModalProps = {
     children: React.ReactNode
@@ -39,20 +39,19 @@ export const Modal: React.FC<ModalProps> = React.memo(
                             animate="open"
                             exit="closed"
                         >
-                            <header className="pa0 pb1 tr">
+                            <header className="pa0 pv1 tr">
                                 <span
-                                    className="ph2 pointer"
+                                    className="pa2 pointer"
                                     onClick={onClose}
                                     onKeyDown={onClose}
                                     role="button"
                                     tabIndex={0}
                                 >
-                                    {/* <Icon
+                                    <Icon
                                         icon="closeAlt"
                                         size="m1"
                                         aria-hidden
-                                    /> */}
-                                    X
+                                    />
                                 </span>
                             </header>
                             <div>{children}</div>
