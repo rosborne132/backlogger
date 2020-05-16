@@ -21,7 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         type={type}
         data-testid="button"
-        className="bg-blue ba br3 db pv2 pointer w-100 white"
+        className="bg-blue ba bw0 br3 db pv2 pointer w-100 white"
     >
         <span className="f4">{isLoading ? '...Loading' : children}</span>
     </motion.button>

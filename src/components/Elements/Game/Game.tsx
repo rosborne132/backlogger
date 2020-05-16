@@ -1,14 +1,6 @@
 import * as React from 'react'
 
-type Cover = {
-    id: string
-    url: string
-}
-
-type Platform = {
-    id: string
-    name: string
-}
+import { Cover, Platform } from '@types'
 
 type GameProps = {
     name: string

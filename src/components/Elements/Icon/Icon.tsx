@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { icons } from '../shared/icons'
-import { typography } from '../shared/styles'
+import { icons } from 'components/Elements/shared/icons'
+import { typography } from 'components/Elements/shared/styles'
 
 type IconProps = {
     block?: boolean

@@ -2,10 +2,10 @@ import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { Button } from '../'
+import { Button } from 'components/Elements'
 
 const GET_CONSOLES = gql`
-    query GET_CONSOLES {
+    query GetConsoles {
         getConsoles {
             id
             name
@@ -19,7 +19,7 @@ export const ConsoleForm: React.FC = React.memo(
         const [consoles, setConsoles] = React.useState([])
         const [selectedConsole, setSelectedConsole] = React.useState({})
         const [isLoading, setIsLoading] = React.useState(false)
-        const { data } = useQuery(GET_CONSOLES)
+        const { data, loading } = useQuery(GET_CONSOLES)
 
         React.useEffect(() => {
             if (data !== undefined) {
@@ -40,6 +40,8 @@ export const ConsoleForm: React.FC = React.memo(
                 setIsLoading(false)
             }, 2000)
         }
+
+        if (loading) return <p>loading...</p>
 
         return (
             <form onSubmit={onSubmit}>

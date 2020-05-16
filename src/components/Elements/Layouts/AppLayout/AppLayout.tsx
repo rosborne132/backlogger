@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
 
-import { ConsoleForm, Header, Icon, Modal } from '../../../Elements'
-import { Meta } from '../../../Utilities'
+import { ConsoleForm, Header, Icon, Modal } from 'components/Elements'
+import { Meta } from 'components/Utilities'
 
 type Console = {
     id: string
@@ -69,6 +69,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                         </ul>
                         <section className="flex justify-center w-90">
                             <div>{children}</div>
+
                             <Modal
                                 isShowing={showConsoleForm}
                                 onClose={() => setShowConsoleForm(false)}

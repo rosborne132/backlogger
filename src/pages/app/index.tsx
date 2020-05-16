@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { AppLayout } from '../../components/Elements'
-import { withApollo } from '../../lib/apollo'
+import { AppLayout } from 'components/Elements'
+import { withApollo } from 'lib/apollo'
 
 const GET_USER_GAMES = gql`
     query GetUserGames {
