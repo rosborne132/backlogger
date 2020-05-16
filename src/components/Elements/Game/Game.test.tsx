@@ -1,5 +1,6 @@
 import React from 'react'
 import { cleanup, render } from '@testing-library/react'
+
 import { Game } from './Game'
 
 describe('<Game />', () => {

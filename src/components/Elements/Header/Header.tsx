@@ -5,7 +5,7 @@ export const Header: React.FC = React.memo(
     (): JSX.Element => {
         const linkStyle = 'no-underline white'
         return (
-            <header className="bg-black pa1">
+            <header data-testid="header" className="bg-black pa1">
                 <nav className="container">
                     <ul className="list flex justify-between pa0 sans-serif">
                         <span>
