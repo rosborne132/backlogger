@@ -42,7 +42,9 @@ export default withApollo(() => {
     return (
         <Layout>
             <h1>Games</h1>
-            <ul className="grid">{renderGames(data.fetchGames)}</ul>
+            {data.fetchGames !== null && (
+                <ul className="grid">{renderGames(data.fetchGames)}</ul>
+            )}
         </Layout>
     )
 })

@@ -26,14 +26,14 @@ export const Modal: React.FC<ModalProps> = React.memo(
                         exit={{ opacity: 0 }}
                         style={{
                             position: 'fixed',
-                            top: '40%',
-                            left: '50%',
+                            top: '30%',
+                            left: '55%',
                             transform: 'translate3d(-50%, -40%, 0)',
                             zIndex: 3
                         }}
                     >
                         <motion.div
-                            className="bg-white black br4 pa2 shadow-2 w6 z-2"
+                            className="bg-white black br4 pa2 shadow-2 w6"
                             variants={variants}
                             initial="closed"
                             animate="open"
