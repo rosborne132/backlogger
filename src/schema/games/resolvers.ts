@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 const games = [
     {
         id: 'sdfkhweriu',
@@ -6,7 +7,8 @@ const games = [
         console: {
             id: 'sdfkhwfsk4tfj',
             name: 'Wii'
-        }
+        },
+        inBacklog: false
     },
     {
         id: 'ghj4k3j',
@@ -14,7 +16,8 @@ const games = [
         console: {
             id: 'sdfkhwfsk4tfj',
             name: 'Wii'
-        }
+        },
+        inBacklog: true
     },
     {
         id: 'fldjg24',
@@ -22,7 +25,8 @@ const games = [
         console: {
             id: 'ghj4k34woh8gtj',
             name: 'GBA'
-        }
+        },
+        inBacklog: true
     },
     {
         id: 'gkkkf93j4',
@@ -30,13 +34,14 @@ const games = [
         console: {
             id: 'fldjgiuj2b4t24',
             name: 'DS'
-        }
+        },
+        inBacklog: true
     }
 ]
 
 export const gameResolvers = {
     Query: {
-        async fetchGames(parent, args) {
+        async fetchGames() {
             try {
                 const gamesFetched = await axios({
                     url: 'https://api-v3.igdb.com/games',
@@ -54,9 +59,9 @@ export const gameResolvers = {
                 console.error(err)
             }
         },
-        getGames(parent, args) {
+        getGames() {
             try {
-                return games
+                return games.filter(({ inBacklog }) => inBacklog)
             } catch (err) {
                 console.error(err)
             }

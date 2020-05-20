@@ -15,12 +15,13 @@ type Platform {
 }
 
 type Game {
+    console: Console
+    cover: Cover
     id: String!
+    inBacklog: Boolean!
     name: String!
     platforms: [Platform]
     slug: String!
-    cover: Cover
-    console: Console
 }
 
 type Query {

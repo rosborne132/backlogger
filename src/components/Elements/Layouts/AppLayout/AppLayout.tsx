@@ -21,9 +21,9 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
         const router = useRouter()
 
         React.useEffect(() => {
-            let consoleSelected =
+            let pageSelected =
                 router.query.id != undefined ? router.query.id : ''
-            setSelected(consoleSelected)
+            setSelected(pageSelected)
         }, [consoles])
 
         return (
@@ -52,6 +52,14 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                                     />{' '}
                                     Console
                                 </span>
+                            </li>
+                            <li
+                                className={`ba pointer pl2 pv3 ${
+                                    selected === '' ? 'bg-black white' : ''
+                                }`}
+                                onClick={() => router.push('/app')}
+                            >
+                                Backlog
                             </li>
                             {consoles.map(({ id, name }) => (
                                 <li
