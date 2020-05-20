@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { Game, Layout } from 'components/Elements'
-import { withApollo } from 'lib/apollo'
+import { Game, Layout, LoadingScreen } from '@components/Elements'
+import { withApollo } from '@lib/apollo'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
     query FetchGames {
@@ -25,7 +25,7 @@ const GET_GAMES_BY_CONSOLE_ID = gql`
 export default withApollo(() => {
     const { data, loading } = useQuery(GET_GAMES_BY_CONSOLE_ID)
 
-    if (loading) return <div>Loading</div>
+    if (loading) return <LoadingScreen />
 
     const renderGames = games =>
         games.map(({ cover, id, name, platforms, slug }) => (

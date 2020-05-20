@@ -41,7 +41,7 @@ const games = [
 
 export const gameResolvers = {
     Query: {
-        async fetchGames() {
+        async fetchGames(parent, args) {
             try {
                 const gamesFetched = await axios({
                     url: 'https://api-v3.igdb.com/games',
@@ -59,7 +59,7 @@ export const gameResolvers = {
                 console.error(err)
             }
         },
-        getGames() {
+        getGames(parent, args) {
             try {
                 return games.filter(({ inBacklog }) => inBacklog)
             } catch (err) {

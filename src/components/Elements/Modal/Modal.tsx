@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { Icon } from '../'
+import { Icon } from '@components/Elements'
 
 type ModalProps = {
     children: React.ReactNode

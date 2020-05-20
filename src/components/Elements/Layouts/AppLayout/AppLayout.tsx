@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 
 import { Platform as Console } from '@types'
-import { ConsoleForm, Header, Icon, Modal, Spinner } from 'components/Elements'
-import { Meta } from 'components/Utilities'
+import { ConsoleForm, Header, Icon, Modal } from '@components/Elements'
+import { Meta } from '@components/Utilities'
 
 type AppLayoutProps = {
     children?: React.ReactNode

@@ -1,0 +1,19 @@
+{
+    "presets": ["next/babel"],
+    "plugins": [
+        "import-graphql",
+        [
+            "module-resolver",
+            {
+                "root": ["."],
+                "alias": {
+                    "@components": "./src/components",
+                    "@lib": "./src/lib",
+                    "@schema": "./src/schema",
+                    "@styles": "./src/styles",
+                    "@types": "./src/types"
+                }
+            }
+        ]
+    ]
+}

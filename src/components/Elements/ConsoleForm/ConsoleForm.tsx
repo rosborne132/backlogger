@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { Button } from 'components/Elements'
+import { Button, LoadingScreen } from '@components/Elements'
 
 const GET_CONSOLES = gql`
     query GetConsoles {
@@ -41,7 +41,7 @@ export const ConsoleForm: React.FC = React.memo(
             }, 2000)
         }
 
-        if (loading) return <p>loading...</p>
+        if (loading) return <LoadingScreen />
 
         return (
             <form onSubmit={onSubmit}>

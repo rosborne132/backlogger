@@ -3,9 +3,7 @@
         "browser": true,
         "es6": true
     },
-    "extends": [
-        "airbnb"
-    ],
+    "extends": ["airbnb"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -18,10 +16,7 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
+    "plugins": ["react", "@typescript-eslint"],
     "rules": {
         "consistent-return": "off",
         "jsx-a11y/anchor-is-valid": "off",
@@ -40,7 +35,7 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "extensions": [".js", ".jsx", ".ts", ".tsx", ".css"],
                 "paths": ["./src", "./pages"]
             }
         }
