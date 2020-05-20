@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { AppLayout } from 'components/Elements'
+import { AppLayout, Spinner } from 'components/Elements'
 import { withApollo } from 'lib/apollo'
 
 const GET_USER_GAMES = gql`
@@ -21,7 +21,14 @@ const GET_USER_GAMES = gql`
 export default withApollo(() => {
     const { data } = useQuery(GET_USER_GAMES)
 
-    if (!data) return <div>Loading</div>
+    if (true) {
+        return (
+            <div>
+                <Spinner />
+            </div>
+        )
+    }
+    // if (!data) return <div>Loading</div>
 
     return (
         <AppLayout consoles={data.getUserConsoles}>
