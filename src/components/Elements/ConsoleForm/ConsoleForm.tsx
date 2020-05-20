@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
+import PacmanLoader from 'react-spinners/PacmanLoader'
 
-import { Button, LoadingScreen } from '@components/Elements'
+import { Button } from '@components/Elements'
 
 const GET_CONSOLES = gql`
     query GetConsoles {
@@ -36,12 +37,27 @@ export const ConsoleForm: React.FC = React.memo(
                 const submitedConsole = consoles.find(
                     ({ id }) => id === selectedConsole
                 )
-                console.log(submitedConsole)
+
                 setIsLoading(false)
             }, 2000)
         }
 
-        if (loading) return <LoadingScreen />
+        if (loading)
+            return (
+                <div className="h4 w5">
+                    <div
+                        style={{
+                            position: 'fixed',
+                            top: '50%',
+                            left: '40%',
+                            transform: 'translate3d(-50%, -40%, 0)',
+                            zIndex: 3
+                        }}
+                    >
+                        <PacmanLoader />
+                    </div>
+                </div>
+            )
 
         return (
             <form onSubmit={onSubmit}>

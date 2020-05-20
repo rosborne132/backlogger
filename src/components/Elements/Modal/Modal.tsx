@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { Icon } from '@components/Elements'
+import { Icon } from '../Icon/Icon'
 
 type ModalProps = {
     children: React.ReactNode
@@ -10,7 +10,7 @@ type ModalProps = {
 }
 
 export const Modal: React.FC<ModalProps> = React.memo(
-    ({ children, isShowing, onClose }) => {
+    ({ children, isShowing, onClose }): JSX.Element => {
         const variants = {
             open: { y: 0 },
             closed: { y: 50 }
@@ -21,6 +21,7 @@ export const Modal: React.FC<ModalProps> = React.memo(
                 {isShowing && (
                     <motion.div
                         key="modal"
+                        data-testid="modal"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -33,7 +34,7 @@ export const Modal: React.FC<ModalProps> = React.memo(
                         }}
                     >
                         <motion.div
-                            className="bg-white black br4 pa2 shadow-2 w6"
+                            className="bg-white black br4 pa2 shadow-2"
                             variants={variants}
                             initial="closed"
                             animate="open"
@@ -42,6 +43,7 @@ export const Modal: React.FC<ModalProps> = React.memo(
                             <header className="pa0 pv1 tr">
                                 <span
                                     className="pa2 pointer"
+                                    data-testid="closeButton"
                                     onClick={onClose}
                                     onKeyDown={onClose}
                                     role="button"
@@ -54,6 +56,7 @@ export const Modal: React.FC<ModalProps> = React.memo(
                                     />
                                 </span>
                             </header>
+
                             <div>{children}</div>
                         </motion.div>
                     </motion.div>

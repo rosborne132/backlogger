@@ -4,6 +4,8 @@ import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 
+import { ModalProvider } from '@context'
+
 const isDev = process.env.NODE_ENV !== 'production'
 const url = isDev
     ? 'http://localhost:3000'
@@ -52,7 +54,9 @@ export const withApollo = PageComponent => {
 
         return (
             <ApolloProvider client={client}>
-                <PageComponent {...pageProps} />
+                <ModalProvider>
+                    <PageComponent {...pageProps} />
+                </ModalProvider>
             </ApolloProvider>
         )
     }
