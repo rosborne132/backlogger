@@ -59,7 +59,7 @@
     "husky": {
         "hooks": {
             "pre-commit": "pretty-quick --staged",
-            "pre-push": "export CI=true && yarn run test"
+            "pre-push": "export CI=true"
         }
     },
     "babel": {
