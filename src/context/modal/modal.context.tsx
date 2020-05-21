@@ -2,16 +2,23 @@ import * as React from 'react'
 
 import { Modal } from '@components/Elements'
 
-const defaultValues = {
-    closeModal: () => {},
-    modalIsShowing: false,
-    openModal: content => {},
+type initialValues = {
+    closeModal: () => void
+    modalIsShowing: boolean
+    openModal: (content: any) => void
     modalContent: null
 }
 
-export const ModalContext = React.createContext(defaultValues)
+const initialValues = {
+    closeModal: () => {},
+    modalIsShowing: false,
+    openModal: (content: any) => {},
+    modalContent: null
+}
 
-export const ModalProvider = ({ children }) => {
+export const ModalContext = React.createContext<initialValues>(initialValues)
+
+export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
     let [modalIsShowing, setModalIsShowing] = React.useState(false)
     let [modalContent, setModalContent] = React.useState<React.ReactNode>(null)
 

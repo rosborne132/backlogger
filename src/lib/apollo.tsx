@@ -1,12 +1,14 @@
+import * as React from 'react'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { AppProps } from 'next/app'
 import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 
-import { getServerSideAuth } from '../../Auth'
+import { getServerSideAuth } from '@lib/auth'
 
-import { ModalProvider } from '@context'
+import { ModalProvider, UserContext } from '@context'
 
 const isDev = process.env.NODE_ENV !== 'production'
 const url = isDev
@@ -50,9 +52,23 @@ const initApolloClient = (initialState = {}, cookie = '') => {
     return createApolloClient(initialState)
 }
 
-export const withApollo = PageComponent => {
-    const WithApollo = ({ apolloClient, apolloState, ...pageProps }) => {
+export const withApollo = (PageComponent: AppProps) => {
+    const WithApollo = ({
+        apolloClient,
+        apolloState,
+        initialAuth,
+        ...pageProps
+    }) => {
         const client = apolloClient || initApolloClient(apolloState)
+        const { setUser } = React.useContext(UserContext)
+
+        React.useEffect(() => {
+            if (initialAuth !== null) {
+                const { client_id, username } = initialAuth.accessTokenData
+                const user = { userId: client_id, username }
+                setUser(user)
+            }
+        }, [initialAuth])
 
         return (
             <ApolloProvider client={client}>
@@ -67,16 +83,9 @@ export const withApollo = PageComponent => {
         const { AppTree } = ctx
         let { apolloClient } = ctx
 
-        // console.log(ctx.req.headers.cookie)
-
-        // console.log(getServerSideAuth)
-
         apolloClient = Object.prototype.hasOwnProperty.call(ctx, 'req')
             ? initApolloClient({}, ctx.req.headers.cookie)
             : initApolloClient({})
-
-        // const initialAuth = getServerSideAuth(ctx.req)
-        // console.log(initialAuth)
 
         let pageProps = {}
 
@@ -84,10 +93,12 @@ export const withApollo = PageComponent => {
             pageProps = await PageComponent.getInitialProps(ctx)
         }
 
+        let initialAuth = null
+
         // If on the server
         if (typeof window === 'undefined') {
             const { req, res } = ctx
-            const initialAuth = await getServerSideAuth(req)
+            initialAuth = await getServerSideAuth(req)
 
             // If there is no user, redirect to the login page
             if (initialAuth === null) {
@@ -124,7 +135,8 @@ export const withApollo = PageComponent => {
 
         return {
             ...pageProps,
-            apolloState
+            apolloState,
+            initialAuth
         }
     }
 
