@@ -1,9 +1,13 @@
 import * as React from 'react'
 import Link from 'next/link'
 
+import { useAuthFunctions } from '../../../../Auth'
+
 export const Header: React.FC = React.memo(
     (): JSX.Element => {
+        const { login, logout } = useAuthFunctions()
         const linkStyle = 'no-underline white'
+
         return (
             <header data-testid="header" className="bg-black pa1">
                 <nav className="container">
@@ -30,6 +34,20 @@ export const Header: React.FC = React.memo(
                                 <Link href="/app">
                                     <a className={linkStyle}>App</a>
                                 </Link>
+                            </li>
+                        </span>
+                        <span>
+                            <li
+                                className={`dib ${linkStyle}`}
+                                onClick={() => login()}
+                            >
+                                Login
+                            </li>
+                            <li
+                                className={`dib pl4 ${linkStyle}`}
+                                onClick={() => logout()}
+                            >
+                                Logout
                             </li>
                         </span>
                     </ul>

@@ -4,6 +4,8 @@ import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 
+import { getServerSideAuth } from '../../Auth'
+
 import { ModalProvider } from '@context'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -65,9 +67,16 @@ export const withApollo = PageComponent => {
         const { AppTree } = ctx
         let { apolloClient } = ctx
 
+        // console.log(ctx.req.headers.cookie)
+
+        // console.log(getServerSideAuth)
+
         apolloClient = Object.prototype.hasOwnProperty.call(ctx, 'req')
             ? initApolloClient({}, ctx.req.headers.cookie)
             : initApolloClient({})
+
+        // const initialAuth = getServerSideAuth(ctx.req)
+        // console.log(initialAuth)
 
         let pageProps = {}
 
@@ -77,6 +86,18 @@ export const withApollo = PageComponent => {
 
         // If on the server
         if (typeof window === 'undefined') {
+            const { req, res } = ctx
+            const initialAuth = await getServerSideAuth(req)
+
+            // If there is no user, redirect to the login page
+            if (initialAuth === null) {
+                res.writeHead(302, {
+                    Location: '/'
+                })
+                res.end()
+                return
+            }
+
             if (ctx.res && ctx.res.finished) {
                 return pageProps
             }
@@ -100,6 +121,7 @@ export const withApollo = PageComponent => {
         }
 
         const apolloState = apolloClient.cache.extract()
+
         return {
             ...pageProps,
             apolloState

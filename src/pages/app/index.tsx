@@ -27,7 +27,7 @@ export default withApollo(() => {
         <AppLayout consoles={data.getUserConsoles}>
             <h2>Current Games</h2>
             <br />
-            {data.getGames.map(({ id, name }) => (
+            {data.getGames.map(({ id, name }: { id: string; name: string }) => (
                 <div key={id}>
                     <h3>{name}</h3>
                 </div>
