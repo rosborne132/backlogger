@@ -5,6 +5,7 @@ import { AppProps } from 'next/app'
 import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
+import { ServerRequest } from '@types/node'
 
 import { getServerSideAuth } from '@lib/auth'
 
@@ -20,14 +21,14 @@ const url = isDev
  * @param  {Object} [initialState={}]
  */
 const createApolloClient = (initialState = {}, cookie = '') => {
-    const enchancedFetch = (url, init) =>
+    const enchancedFetch = (url: string, init: any) =>
         fetch(url, {
             ...init,
             headers: {
                 ...init.headers,
                 Cookie: cookie
             }
-        }).then(response => response)
+        }).then((response: any) => response)
 
     const cache = new InMemoryCache().restore(initialState)
 
@@ -58,6 +59,10 @@ export const withApollo = (PageComponent: AppProps) => {
         apolloState,
         initialAuth,
         ...pageProps
+    }: {
+        apolloClient: any
+        apolloState: any
+        initialAuth: any
     }) => {
         const client = apolloClient || initApolloClient(apolloState)
         const { setUser } = React.useContext(UserContext)
@@ -79,7 +84,7 @@ export const withApollo = (PageComponent: AppProps) => {
         )
     }
 
-    WithApollo.getInitialProps = async ctx => {
+    WithApollo.getInitialProps = async (ctx: ServerRequest) => {
         const { AppTree } = ctx
         let { apolloClient } = ctx
 
