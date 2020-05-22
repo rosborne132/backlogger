@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { Icon } from '../Icon/Icon'
+import { Icon } from '@components/Elements'
 
 type ModalProps = {
     children: React.ReactNode
@@ -10,7 +10,7 @@ type ModalProps = {
 }
 
 export const Modal: React.FC<ModalProps> = React.memo(
-    ({ children, isShowing, onClose }): JSX.Element => {
+    ({ children, isShowing, onClose }: ModalProps): JSX.Element => {
         const variants = {
             open: { y: 0 },
             closed: { y: 50 }
