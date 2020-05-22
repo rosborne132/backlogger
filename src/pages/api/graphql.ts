@@ -5,10 +5,16 @@ import { ServerRequest } from '@types/node'
 import { getServerSideAuth } from '@lib/auth'
 
 import { consoleResolvers, gameResolvers } from '@schema/resolvers'
+import { consoleMutations } from '@schema/mutations'
+
 import { Console, Game } from '@schema/types'
 
 const typeDefs = mergeTypeDefs([Console, Game])
-const resolvers = mergeResolvers([consoleResolvers, gameResolvers])
+const resolvers = mergeResolvers([
+    consoleResolvers,
+    consoleMutations,
+    gameResolvers
+])
 
 const apolloServer = new ApolloServer({
     typeDefs,
@@ -18,10 +24,7 @@ const apolloServer = new ApolloServer({
 
         if (data === null) return
 
-        return {
-            ...request,
-            ...data
-        }
+        return { user: { ...data.accessTokenData } }
     }
 })
 

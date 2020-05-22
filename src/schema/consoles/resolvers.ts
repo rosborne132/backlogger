@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { User } from '@types'
+
 const users = [
     {
         userId: '7qusn3cgm9eu9bogliq8pm060m',
@@ -49,7 +51,7 @@ const users = [
 
 export const consoleResolvers = {
     Query: {
-        async getConsoles(parent, args) {
+        async getConsoles() {
             try {
                 const consolesFetched = await axios({
                     url: 'https://api-v3.igdb.com/platforms',
@@ -67,14 +69,17 @@ export const consoleResolvers = {
                 console.error(err)
             }
         },
-        getUserConsoles(parent, args, context) {
-            if (context.accessTokenData === null) return
+        getUserConsoles(parent: any, args: any, { user }: { user: User }) {
+            if (user === null) {
+                return 'Not authorized'
+            }
 
             try {
-                const { client_id } = context.accessTokenData
-                const user = users.find(({ userId }) => userId === client_id)
+                const selectedUser = users.find(
+                    ({ userId }) => userId === user.client_id
+                )
 
-                return user?.consoles
+                return selectedUser?.consoles
             } catch (err) {
                 console.error(err)
             }

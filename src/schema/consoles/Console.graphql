@@ -8,3 +8,13 @@ type Query {
     getConsoles: [Console]
     getUserConsoles: [Console]
 }
+
+input UserConsoleInput {
+    id: String!
+    name: String!
+    slug: String!
+}
+
+type Mutation {
+    addUserConsole(console: UserConsoleInput): Console
+}

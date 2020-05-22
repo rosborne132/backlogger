@@ -2,5 +2,42 @@ org: rosborne132
 app: backlogger
 service: backlogger
 
+provider:
+    name: aws
+    runtime: nodejs12.x
+    stage: dev
+    region: us-west-2
+    tracing:
+        lambda: true
+    environment:
+        USERS_CONSOLE_TABLE: ${self:service}-${opt:stage, self:provider.stage}-user-consoles
+    iamRoleStatements:
+        - Effect: Allow
+          Action:
+              - dynamodb:Query
+              - dynamodb:PutItem
+              - dynamodb:DeleteItem
+              - dynamodb:Scan
+          Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.USERS_CONSOLE_TABLE}'
+
 nextApp:
-  component: "serverless-next.js"
+    component: 'serverless-next.js'
+# database:
+#     component: '@serverless/aws-dynamodb'
+#     inputs:
+#         name: self:provider.environment.USERS_CONSOLE_TABLE
+#         region: us-west-2
+#         attributeDefinitions:
+#             - AttributeName: userId
+#               AttributeType: S
+#         keySchema:
+#             - AttributeName: itemId
+#               KeyType: HASH
+#         billingMode: PROVISIONED
+#         globalSecondaryIndexes:
+#             - IndexName: username-index
+#               KeySchema:
+#                   - AttributeName: username
+#                     KeyType: HASH
+#               Projection:
+#                   ProjectionType: ALL

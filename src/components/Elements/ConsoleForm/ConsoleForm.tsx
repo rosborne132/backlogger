@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useQuery } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 
@@ -15,12 +15,24 @@ const GET_CONSOLES = gql`
     }
 `
 
+const ADD_USER_CONSOLE = gql`
+    mutation addUserConsole($console: UserConsoleInput) {
+        addUserConsole(console: $console) {
+            id
+            name
+            slug
+        }
+    }
+`
+
 export const ConsoleForm: React.FC = React.memo(
     (): JSX.Element => {
         const [consoles, setConsoles] = React.useState([])
         const [selectedConsole, setSelectedConsole] = React.useState({})
         const [isLoading, setIsLoading] = React.useState(false)
         const { data, loading } = useQuery(GET_CONSOLES)
+
+        const [addUserConsole] = useMutation(ADD_USER_CONSOLE)
 
         React.useEffect(() => {
             if (data !== undefined) {
@@ -29,20 +41,21 @@ export const ConsoleForm: React.FC = React.memo(
             }
         }, [data])
 
-        const onSubmit = e => {
+        const onSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
             e.preventDefault()
             setIsLoading(true)
 
-            setTimeout(() => {
-                const submitedConsole = consoles.find(
-                    ({ id }) => id === selectedConsole
-                )
+            const submitedConsole = consoles.find(
+                ({ id }: { id: string }) => id === selectedConsole
+            )
+            const { id, name, slug } = submitedConsole
 
-                setIsLoading(false)
-            }, 2000)
+            addUserConsole({ variables: { console: { id, name, slug } } })
+
+            setIsLoading(false)
         }
 
-        if (loading)
+        if (loading) {
             return (
                 <div className="h4 w5">
                     <div
@@ -58,6 +71,7 @@ export const ConsoleForm: React.FC = React.memo(
                     </div>
                 </div>
             )
+        }
 
         return (
             <form onSubmit={onSubmit}>
@@ -69,18 +83,23 @@ export const ConsoleForm: React.FC = React.memo(
                         name="consoleSelect"
                         id="consoleSelect"
                         className="ba b--black h2 mv3"
-                        onChange={e => setSelectedConsole(e.target.value)}
+                        onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                            setSelectedConsole(e.target.value)
+                        }
                     >
-                        {consoles.map(({ id, name }) => (
-                            <option
-                                className="overflow-scroll"
-                                key={id}
-                                value={id}
-                            >
-                                {name}
-                            </option>
-                        ))}
+                        {consoles.map(
+                            ({ id, name }: { id: string; name: string }) => (
+                                <option
+                                    className="overflow-scroll"
+                                    key={id}
+                                    value={id}
+                                >
+                                    {name}
+                                </option>
+                            )
+                        )}
                     </select>
+
                     <Button type="submit" isLoading={isLoading}>
                         Submit
                     </Button>
