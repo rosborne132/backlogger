@@ -4,9 +4,15 @@ type Console {
     slug: String!
 }
 
+type UserConsole {
+    id: String!
+    console: Console!
+    userId: String!
+}
+
 type Query {
     getConsoles: [Console]
-    getUserConsoles: [Console]
+    getUserConsoles: [UserConsole]
 }
 
 input UserConsoleInput {

@@ -3,3 +3,9 @@ export type Platform = {
     name: string
     slug: string
 }
+
+export type UserConsole = {
+    id: string
+    console: Console
+    userId: string
+}

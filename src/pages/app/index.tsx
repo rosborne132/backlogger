@@ -12,21 +12,25 @@ const GET_USER_GAMES = gql`
             name
         }
         getUserConsoles {
-            id
-            name
+            console {
+                id
+                name
+                slug
+            }
         }
     }
 `
 
 export default withApollo(() => {
-    const { data, loading } = useQuery(GET_USER_GAMES)
+    const { data } = useQuery(GET_USER_GAMES)
 
-    if (loading) return <LoadingScreen />
+    if (!data) return <LoadingScreen />
 
     return (
         <AppLayout consoles={data.getUserConsoles}>
             <h2>Current Games</h2>
             <br />
+
             {data.getGames.map(({ id, name }: { id: string; name: string }) => (
                 <div key={id}>
                     <h3>{name}</h3>

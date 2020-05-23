@@ -32,7 +32,9 @@ export const ConsoleForm: React.FC = React.memo(
         const [isLoading, setIsLoading] = React.useState(false)
         const { data, loading } = useQuery(GET_CONSOLES)
 
-        const [addUserConsole] = useMutation(ADD_USER_CONSOLE)
+        const [addUserConsole] = useMutation(ADD_USER_CONSOLE, {
+            refetchQueries: ['getUserConsoles']
+        })
 
         React.useEffect(() => {
             if (data !== undefined) {
@@ -52,7 +54,7 @@ export const ConsoleForm: React.FC = React.memo(
             )
             const { id, name, slug } = submitedConsole
 
-            addUserConsole({ variables: { console: { id, name, slug } } })
+            await addUserConsole({ variables: { console: { id, name, slug } } })
 
             setIsLoading(false)
         }

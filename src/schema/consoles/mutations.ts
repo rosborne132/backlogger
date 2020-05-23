@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { Platform as Console, User } from 'src/types'
+import { User } from 'src/types'
 import { putConsole } from './services'
 
 export const consoleMutations = {
@@ -8,15 +8,13 @@ export const consoleMutations = {
             if (user === undefined) return
 
             try {
-                // Pass object in Dynamodb helper
                 const userConsole = await putConsole({
                     id: uuid(),
                     console: { ...args.console },
                     userId: user.client_id
                 })
 
-                // Return master created object
-                return userConsole
+                return userConsole.console
             } catch (err) {
                 console.error(err)
             }

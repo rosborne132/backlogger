@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
 
-import { Platform as Console } from 'src/types'
+import { UserConsole } from 'src/types'
 import { ConsoleForm, Header, Icon } from 'src/components/Elements'
 import { Meta } from 'src/components/Utilities'
 import { ModalContext } from 'src/context'
 
 type AppLayoutProps = {
     children?: React.ReactNode
-    consoles: Console[]
+    consoles: any
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = React.memo(
@@ -100,7 +100,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                             >
                                 Backlog
                             </li>
-                            {consoles.map(({ id, name }) => (
+                            {consoles.map(({ console: { id, name } }) => (
                                 <li
                                     className={`ba pointer pl2 pv3 ${
                                         selected === id ? 'bg-black white' : ''
