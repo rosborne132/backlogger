@@ -18,7 +18,7 @@ const initialValues = {
 export const UserContext = React.createContext<initialValues>(initialValues)
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-    let [user, setUser] = React.useState(null)
+    const [user, setUser] = React.useState(null)
 
     return (
         <UserContext.Provider

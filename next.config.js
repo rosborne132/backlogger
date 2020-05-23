@@ -22,7 +22,11 @@ module.exports = phase => {
                     REDIRECT_SIGN_OUT: 'http://localhost:3000/',
                     AUTH_COOKIE_DOMAIN: 'localhost'
                 },
-                target: 'serverless'
+                target: 'serverless',
+                webpack(config) {
+                    config.resolve.modules.push(__dirname)
+                    return config
+                }
             })
         default:
             return withBundleAnalyzer({
@@ -35,7 +39,11 @@ module.exports = phase => {
                     REDIRECT_SIGN_OUT: 'prod',
                     AUTH_COOKIE_DOMAIN: 'prod'
                 },
-                target: 'serverless'
+                target: 'serverless',
+                webpack(config) {
+                    config.resolve.modules.push(__dirname)
+                    return config
+                }
             })
     }
 }

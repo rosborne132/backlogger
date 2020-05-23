@@ -25,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
         className="bg-blue ba bw0 br3 db pv2 pointer shadow-hover w-100 white"
     >
         <span className="f4">
-            {isLoading ? <BeatLoader size={15} color={'#fff'} /> : children}
+            {isLoading ? <BeatLoader size={15} color="#fff" /> : children}
         </span>
     </motion.button>
 )

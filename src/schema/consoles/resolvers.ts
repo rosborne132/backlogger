@@ -64,15 +64,19 @@ export const consoleResolvers = {
                         'fields name,slug; where product_family = (1,2,3,5); limit 100;'
                 })
 
+                if (
+                    consolesFetched.data === null ||
+                    consolesFetched.data === undefined
+                )
+                    return []
+
                 return consolesFetched.data
             } catch (err) {
                 console.error(err)
             }
         },
         getUserConsoles(parent: any, args: any, { user }: { user: User }) {
-            if (user === null) {
-                return 'Not authorized'
-            }
+            if (user === undefined) return []
 
             try {
                 const selectedUser = users.find(

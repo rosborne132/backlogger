@@ -1,19 +1,6 @@
+import { v4 as uuid } from 'uuid'
 import { Platform as Console, User } from '@types'
-
-// export const consoleMutations = {
-//   Mutation: {
-//     async addUserConsole(console) {
-//       //   try {
-//       //     console.log(console);
-//       //     return "hello";
-//       //   } catch (err) {
-//       //     console.error(err);
-//       //   }
-
-//       console.log("hello");
-//     },
-//   },
-// };
+import { putConsole } from './services'
 
 export const consoleMutations = {
     Mutation: {
@@ -22,13 +9,15 @@ export const consoleMutations = {
             args: Console,
             { user }: { user: User }
         ) {
+            if (user === undefined) return
+
             try {
-                console.log(user)
-                console.log(args.console)
-
-                // Create master object
-
                 // Pass object in Dynamodb helper
+                const userConsole = await putConsole({
+                    id: uuid(),
+                    console: { ...args.console },
+                    userId: user.client_id
+                })
 
                 // Return master created object
                 return args.console

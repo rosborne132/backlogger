@@ -19,7 +19,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
         const router = useRouter()
 
         React.useEffect(() => {
-            let pageSelected =
+            const pageSelected =
                 router.query.id != undefined ? router.query.id : ''
             setSelected(pageSelected)
         }, [consoles])

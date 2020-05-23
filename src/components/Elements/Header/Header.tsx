@@ -1,8 +1,8 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { useAuthFunctions } from '@lib/auth'
-import { UserContext } from '@context'
+import { useAuthFunctions } from 'src/lib/auth'
+import { UserContext } from 'src/context'
 
 export const Header: React.FC = React.memo(
     (): JSX.Element => {

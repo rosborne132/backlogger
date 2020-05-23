@@ -19,8 +19,10 @@ const initialValues = {
 export const ModalContext = React.createContext<initialValues>(initialValues)
 
 export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
-    let [modalIsShowing, setModalIsShowing] = React.useState(false)
-    let [modalContent, setModalContent] = React.useState<React.ReactNode>(null)
+    const [modalIsShowing, setModalIsShowing] = React.useState(false)
+    const [modalContent, setModalContent] = React.useState<React.ReactNode>(
+        null
+    )
 
     const openModal = (content: React.ReactNode) => {
         setModalIsShowing(true)

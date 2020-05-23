@@ -34,7 +34,7 @@ describe('<Button />', () => {
 
     test('button is loading', () => {
         const { queryByTestId } = render(
-            <Button {...defaultProps} isLoading={true}>
+            <Button {...defaultProps} isLoading>
                 Loading Button
             </Button>
         )

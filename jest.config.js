@@ -3,12 +3,7 @@ module.exports = {
     moduleFileExtensions: ['js', 'ts', 'tsx', 'json'],
     testPathIgnorePatterns: ['./node_modules/'],
     moduleNameMapper: {
-        '^@components(.*)$': '<rootDir>/src/components$1',
-        '^@context(.*)$': '<rootDir>/src/context$1',
-        '^@lib(.*)$': '<rootDir>/src/lib$1',
-        '^@schema(.*)$': '<rootDir>/src/schema$1',
-        '^@styles(.*)$': '<rootDir>/src/styles$1',
-        '^@types(.*)$': '<rootDir>/src/types$1'
+        '^src(.*)$': '<rootDir>/src$1'
     },
     testEnvironment: 'jsdom',
     transform: {

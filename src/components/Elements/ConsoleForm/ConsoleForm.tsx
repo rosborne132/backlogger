@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 
-import { Button } from '@components/Elements'
+import { Button } from 'src/components/Elements'
 
 const GET_CONSOLES = gql`
     query GetConsoles {

@@ -1,43 +1,37 @@
 org: rosborne132
 app: backlogger
 service: backlogger
+stage: dev
 
-provider:
-    name: aws
-    runtime: nodejs12.x
-    stage: dev
-    region: us-west-2
-    tracing:
-        lambda: true
-    environment:
-        USERS_CONSOLE_TABLE: ${self:service}-${opt:stage, self:provider.stage}-user-consoles
-    iamRoleStatements:
-        - Effect: Allow
-          Action:
-              - dynamodb:Query
-              - dynamodb:PutItem
-              - dynamodb:DeleteItem
-              - dynamodb:Scan
-          Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.USERS_CONSOLE_TABLE}'
+plugins:
+    - serverless-babel-plugin
+    - serverless-bundle
 
 nextApp:
     component: 'serverless-next.js'
-# database:
-#     component: '@serverless/aws-dynamodb'
-#     inputs:
-#         name: self:provider.environment.USERS_CONSOLE_TABLE
-#         region: us-west-2
-#         attributeDefinitions:
-#             - AttributeName: userId
-#               AttributeType: S
-#         keySchema:
-#             - AttributeName: itemId
-#               KeyType: HASH
-#         billingMode: PROVISIONED
-#         globalSecondaryIndexes:
-#             - IndexName: username-index
-#               KeySchema:
-#                   - AttributeName: username
-#                     KeyType: HASH
-#               Projection:
-#                   ProjectionType: ALL
+
+inputs:
+    env:
+        USERS_CONSOLE_TABLE: ${app}-${stage}-user-consoles
+
+consoleDatabase:
+    component: '@serverless/aws-dynamodb'
+    inputs:
+        name: ${inputs.env.USERS_CONSOLE_TABLE}
+        region: us-west-2
+        attributeDefinitions:
+            - AttributeName: id
+              AttributeType: S
+            - AttributeName: userId
+              AttributeType: S
+        keySchema:
+            - AttributeName: id
+              KeyType: HASH
+        billingMode: PROVISIONED
+        globalSecondaryIndexes:
+            - IndexName: userId-index
+              KeySchema:
+                  - AttributeName: userId
+                    KeyType: HASH
+              Projection:
+                  ProjectionType: ALL
