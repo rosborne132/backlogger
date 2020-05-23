@@ -12,8 +12,6 @@ Amplify.configure({
         region: 'us-west-2',
         userPoolId: process.env.USER_POOL_ID,
         userPoolWebClientId: process.env.USER_POOL_CLIENT_ID,
-
-        // example taken from https://aws-amplify.github.io/docs/js/authentication
         cookieStorage: {
             domain: process.env.AUTH_COOKIE_DOMAIN,
             path: '/',

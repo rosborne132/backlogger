@@ -30,10 +30,9 @@ export const ConsoleForm: React.FC = React.memo(
         const [consoles, setConsoles] = React.useState([])
         const [selectedConsole, setSelectedConsole] = React.useState({})
         const [isLoading, setIsLoading] = React.useState(false)
-        const { data, loading } = useQuery(GET_CONSOLES)
-
+        const { data } = useQuery(GET_CONSOLES)
         const [addUserConsole] = useMutation(ADD_USER_CONSOLE, {
-            refetchQueries: ['getUserConsoles']
+            refetchQueries: ['GetConsoles', 'GetUserConsoles']
         })
 
         React.useEffect(() => {
@@ -59,7 +58,9 @@ export const ConsoleForm: React.FC = React.memo(
             setIsLoading(false)
         }
 
-        if (loading) {
+        if (!data) {
+            // Close modal
+
             return (
                 <div className="h4 w5">
                     <div

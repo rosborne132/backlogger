@@ -7,7 +7,7 @@ import { AppLayout, LoadingScreen } from 'src/components/Elements'
 import { withApollo } from 'src/lib/apollo'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
-    query($consoleId: String!) {
+    query getGamesByConsoleId($consoleId: String!) {
         getGamesByConsoleId(consoleId: $consoleId) {
             id
             name
@@ -16,32 +16,41 @@ const GET_GAMES_BY_CONSOLE_ID = gql`
                 name
             }
         }
+    }
+`
+
+export const GET_USER_CONSOLES = gql`
+    query GetUserConsoles {
         getUserConsoles {
-            id
-            name
+            console {
+                id
+                name
+                slug
+            }
         }
     }
 `
 
 export default withApollo(() => {
     const router = useRouter()
-
-    const { data } = useQuery(GET_GAMES_BY_CONSOLE_ID, {
+    const { data: getUserConsoles } = useQuery(GET_USER_CONSOLES)
+    const { data: getGamesByConsoleId } = useQuery(GET_GAMES_BY_CONSOLE_ID, {
         variables: { consoleId: router.query.id }
     })
 
-    if (!data) return <LoadingScreen />
+    if (!getGamesByConsoleId || !getUserConsoles) return <LoadingScreen />
 
-    const consoleName = data.getUserConsoles.filter(
-        ({ id }: { id: string }) => id === router.query.id
-    )[0].name
+    const consoleName = getUserConsoles.getUserConsoles.find(
+        ({ console: { id } }) => id === router.query.id
+    ).console.name
 
     return (
-        <AppLayout consoles={data.getUserConsoles}>
-            <h2>{consoleName}</h2>
+        <AppLayout consoles={getUserConsoles.getUserConsoles}>
+            <h2 className="tc">{consoleName}</h2>
             <br />
-            {data.getGamesByConsoleId.length ? (
-                data.getGamesByConsoleId.map(
+
+            {getGamesByConsoleId.length ? (
+                getGamesByConsoleId.getGamesByConsoleId.map(
                     ({ id, name }: { id: string; name: string }) => (
                         <div key={id}>
                             <h3>{name}</h3>
@@ -49,7 +58,7 @@ export default withApollo(() => {
                     )
                 )
             ) : (
-                <h3>No games listed for this console. :(</h3>
+                <h3 className="tc">No games listed for this console. :(</h3>
             )}
         </AppLayout>
     )

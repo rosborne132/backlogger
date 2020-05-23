@@ -2,8 +2,11 @@ import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
+import { GET_USER_CONSOLES } from './[id]'
+
 import { AppLayout, LoadingScreen } from 'src/components/Elements'
 import { withApollo } from 'src/lib/apollo'
+import { ModalContext } from 'src/context'
 
 const GET_USER_GAMES = gql`
     query GetUserGames {
@@ -11,31 +14,31 @@ const GET_USER_GAMES = gql`
             id
             name
         }
-        getUserConsoles {
-            console {
-                id
-                name
-                slug
-            }
-        }
     }
 `
 
 export default withApollo(() => {
-    const { data } = useQuery(GET_USER_GAMES)
+    const { closeModal } = React.useContext(ModalContext)
+    const { data: getGames } = useQuery(GET_USER_GAMES)
+    const { data: getUserConsoles } = useQuery(GET_USER_CONSOLES)
 
-    if (!data) return <LoadingScreen />
+    if (!getGames || !getUserConsoles) {
+        closeModal()
+        return <LoadingScreen />
+    }
 
     return (
-        <AppLayout consoles={data.getUserConsoles}>
+        <AppLayout consoles={getUserConsoles.getUserConsoles}>
             <h2>Current Games</h2>
             <br />
 
-            {data.getGames.map(({ id, name }: { id: string; name: string }) => (
-                <div key={id}>
-                    <h3>{name}</h3>
-                </div>
-            ))}
+            {getGames.getGames.map(
+                ({ id, name }: { id: string; name: string }) => (
+                    <div key={id}>
+                        <h3>{name}</h3>
+                    </div>
+                )
+            )}
         </AppLayout>
     )
 })
