@@ -6,27 +6,22 @@ type User = {
 }
 
 type initialValues = {
-    user: User
-    setUser: () => void
+    user: User | null
+    setUser: (user: User) => void
 }
 
 const initialValues = {
     user: null,
-    setUser: (user: User) => {}
+    setUser: (user: User) => console.log(user)
 }
 
 export const UserContext = React.createContext<initialValues>(initialValues)
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = React.useState(null)
+    const [user, setUser] = React.useState<User | null>(null)
 
     return (
-        <UserContext.Provider
-            value={{
-                user,
-                setUser
-            }}
-        >
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
     )

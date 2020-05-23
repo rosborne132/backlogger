@@ -2,11 +2,13 @@ import * as React from 'react'
 
 import { Modal } from 'src/components/Elements'
 
+type ModalContent = React.ReactNode | null
+
 type initialValues = {
     closeModal: () => void
     modalIsShowing: boolean
     openModal: (content: any) => void
-    modalContent: null
+    modalContent: ModalContent
 }
 
 const initialValues = {
@@ -20,9 +22,7 @@ export const ModalContext = React.createContext<initialValues>(initialValues)
 
 export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
     const [modalIsShowing, setModalIsShowing] = React.useState(false)
-    const [modalContent, setModalContent] = React.useState<React.ReactNode>(
-        null
-    )
+    const [modalContent, setModalContent] = React.useState<ModalContent>(null)
 
     const openModal = (content: React.ReactNode) => {
         setModalIsShowing(true)

@@ -12,9 +12,7 @@ console.log(stage)
 
 const TableName = 'user-items-prod'
 
-export const putConsole = async (
-    userConsole: UserConsole
-): Promise<UserConsole> => {
+export const putConsole = async (userConsole: UserConsole) => {
     const params = {
         TableName,
         Item: {

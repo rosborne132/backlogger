@@ -1,11 +1,9 @@
 import * as React from 'react'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { AppProps } from 'next/app'
 import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
-import { ServerRequest } from 'src/types/node'
 
 import { getServerSideAuth } from 'src/lib/auth'
 
@@ -53,7 +51,7 @@ const initApolloClient = (initialState = {}, cookie = '') => {
     return createApolloClient(initialState)
 }
 
-export const withApollo = (PageComponent: AppProps) => {
+export const withApollo = (PageComponent: any) => {
     const WithApollo = ({
         apolloClient,
         apolloState,
@@ -84,7 +82,7 @@ export const withApollo = (PageComponent: AppProps) => {
         )
     }
 
-    WithApollo.getInitialProps = async (ctx: ServerRequest) => {
+    WithApollo.getInitialProps = async (ctx: any) => {
         const { AppTree } = ctx
         let { apolloClient } = ctx
 

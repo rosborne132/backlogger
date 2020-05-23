@@ -3,14 +3,6 @@
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
-        // "paths": {
-        //     "@components": ["./src/components"],
-        //     "@context": ["./src/context"],
-        //     "@lib": ["./src/lib"],
-        //     "@schema": ["./src/schema"],
-        //     "@styles": ["./src/styles"],
-        //     "@types": ["./src/types"]
-        // },
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,

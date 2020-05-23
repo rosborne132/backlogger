@@ -11,8 +11,8 @@ type AppLayoutProps = {
     consoles: Console[]
 }
 
-export const AppLayout: React.FC = React.memo(
-    ({ children, consoles = [] }: AppLayoutProps): JSX.Element => {
+export const AppLayout: React.FC<AppLayoutProps> = React.memo(
+    ({ children, consoles }: AppLayoutProps): JSX.Element => {
         const [selected, setSelected] = React.useState<string | string[]>('')
         const [showTab, setShowTab] = React.useState('')
         const { modalIsShowing, openModal } = React.useContext(ModalContext)

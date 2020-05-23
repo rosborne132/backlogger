@@ -1,14 +1,10 @@
 import { v4 as uuid } from 'uuid'
-import { Platform as Console, User } from '@types'
+import { Platform as Console, User } from 'src/types'
 import { putConsole } from './services'
 
 export const consoleMutations = {
     Mutation: {
-        async addUserConsole(
-            parent: any,
-            args: Console,
-            { user }: { user: User }
-        ) {
+        async addUserConsole(parent: any, args: any, { user }: { user: User }) {
             if (user === undefined) return
 
             try {
@@ -20,7 +16,7 @@ export const consoleMutations = {
                 })
 
                 // Return master created object
-                return args.console
+                return userConsole
             } catch (err) {
                 console.error(err)
             }

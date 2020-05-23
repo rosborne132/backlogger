@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import gql from 'graphql-tag'
 
-import { AppLayout } from 'src/components/Elements'
+import { AppLayout, LoadingScreen } from 'src/components/Elements'
 import { withApollo } from 'src/lib/apollo'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
@@ -30,10 +30,10 @@ export default withApollo(() => {
         variables: { consoleId: router.query.id }
     })
 
-    if (!data) return <div>Loading</div>
+    if (!data) return <LoadingScreen />
 
     const consoleName = data.getUserConsoles.filter(
-        ({ id }) => id === router.query.id
+        ({ id }: { id: string }) => id === router.query.id
     )[0].name
 
     return (
@@ -41,11 +41,13 @@ export default withApollo(() => {
             <h2>{consoleName}</h2>
             <br />
             {data.getGamesByConsoleId.length ? (
-                data.getGamesByConsoleId.map(({ id, name }) => (
-                    <div key={id}>
-                        <h3>{name}</h3>
-                    </div>
-                ))
+                data.getGamesByConsoleId.map(
+                    ({ id, name }: { id: string; name: string }) => (
+                        <div key={id}>
+                            <h3>{name}</h3>
+                        </div>
+                    )
+                )
             ) : (
                 <h3>No games listed for this console. :(</h3>
             )}

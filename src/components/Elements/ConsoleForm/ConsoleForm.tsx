@@ -41,7 +41,9 @@ export const ConsoleForm: React.FC = React.memo(
             }
         }, [data])
 
-        const onSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+        const onSubmit = async (
+            e: React.FormEvent<HTMLFormElement>
+        ): Promise<void> => {
             e.preventDefault()
             setIsLoading(true)
 
@@ -74,7 +76,9 @@ export const ConsoleForm: React.FC = React.memo(
         }
 
         return (
-            <form onSubmit={onSubmit}>
+            <form
+                onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
+            >
                 <fieldset className="bn">
                     <label htmlFor="consoleSelect" className="db f4">
                         Console:
@@ -83,7 +87,7 @@ export const ConsoleForm: React.FC = React.memo(
                         name="consoleSelect"
                         id="consoleSelect"
                         className="ba b--black h2 mv3"
-                        onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                             setSelectedConsole(e.target.value)
                         }
                     >
