@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Modal } from '@components/Elements'
+import { Modal } from 'src/components/Elements'
 
 type initialValues = {
     closeModal: () => void

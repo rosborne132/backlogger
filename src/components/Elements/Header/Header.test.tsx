@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cleanup, render } from '@testing-library/react'
 
-import { UserContextWrapper } from '@context/helpers'
+import { UserContextWrapper } from 'src/context/helpers'
 import { Header } from './Header'
 
 describe('<Header />', () => {

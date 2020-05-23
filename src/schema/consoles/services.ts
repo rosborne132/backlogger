@@ -1,6 +1,6 @@
-import { dbClient, docClient, parseData } from '@lib/dynamodb'
-import { stage } from '@lib/stage'
-import { Platform as Console } from '@types'
+import { dbClient, docClient, parseData } from 'src/lib/dynamodb'
+import { stage } from 'src/lib/stage'
+import { Platform as Console } from 'src/types'
 
 type UserConsole = {
     id: string

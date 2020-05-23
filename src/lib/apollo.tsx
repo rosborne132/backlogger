@@ -5,11 +5,11 @@ import { AppProps } from 'next/app'
 import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
-import { ServerRequest } from '@types/node'
+import { ServerRequest } from 'src/types/node'
 
-import { getServerSideAuth } from '@lib/auth'
+import { getServerSideAuth } from 'src/lib/auth'
 
-import { ModalProvider, UserContext } from '@context'
+import { ModalProvider, UserContext } from 'src/context'
 
 const isDev = process.env.NODE_ENV !== 'production'
 const url = isDev

@@ -3,9 +3,9 @@ import { AppProps } from 'next/app'
 import Amplify from '@aws-amplify/core'
 import Auth from '@aws-amplify/auth'
 
-import { UserProvider } from '@context'
+import { UserProvider } from 'src/context'
 
-import '@styles/index.css'
+import 'src/styles/index.css'
 
 Amplify.configure({
     Auth: {

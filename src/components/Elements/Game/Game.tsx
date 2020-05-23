@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Cover, Platform } from '@types'
+import { Cover, Platform } from 'src/types'
 
 type GameProps = {
     name: string

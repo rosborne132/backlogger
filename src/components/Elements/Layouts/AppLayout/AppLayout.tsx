@@ -1,18 +1,18 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
 
-import { Platform as Console } from '@types'
-import { ConsoleForm, Header, Icon } from '@components/Elements'
-import { Meta } from '@components/Utilities'
-import { ModalContext } from '@context'
+import { Platform as Console } from 'src/types'
+import { ConsoleForm, Header, Icon } from 'src/components/Elements'
+import { Meta } from 'src/components/Utilities'
+import { ModalContext } from 'src/context'
 
 type AppLayoutProps = {
     children?: React.ReactNode
     consoles: Console[]
 }
 
-export const AppLayout: React.FC<AppLayoutProps> = React.memo(
-    ({ children, consoles = [] }): JSX.Element => {
+export const AppLayout: React.FC = React.memo(
+    ({ children, consoles = [] }: AppLayoutProps): JSX.Element => {
         const [selected, setSelected] = React.useState<string | string[]>('')
         const [showTab, setShowTab] = React.useState('')
         const { modalIsShowing, openModal } = React.useContext(ModalContext)

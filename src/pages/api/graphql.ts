@@ -1,13 +1,13 @@
 import { ApolloServer } from 'apollo-server-micro'
 import { mergeResolvers, mergeTypeDefs } from 'graphql-toolkit'
-import { ServerRequest } from '@types/node'
+import { ServerRequest } from 'src/types/node'
 
-import { getServerSideAuth } from '@lib/auth'
+import { getServerSideAuth } from 'src/lib/auth'
 
-import { consoleResolvers, gameResolvers } from '@schema/resolvers'
-import { consoleMutations } from '@schema/mutations'
+import { consoleResolvers, gameResolvers } from 'src/schema/resolvers'
+import { consoleMutations } from 'src/schema/mutations'
 
-import { Console, Game } from '@schema/types'
+import { Console, Game } from 'src/schema/types'
 
 const typeDefs = mergeTypeDefs([Console, Game])
 const resolvers = mergeResolvers([

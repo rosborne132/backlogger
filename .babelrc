@@ -1,20 +1,4 @@
 {
     "presets": ["next/babel"],
-    "plugins": [
-        "import-graphql",
-        [
-            "module-resolver",
-            {
-                "root": ["./"],
-                "alias": {
-                    "@components": "./src/components",
-                    "@context": "./src/context",
-                    "@lib": "./src/lib",
-                    "@schema": "./src/schema",
-                    "@styles": "./src/styles",
-                    "@types": "./src/types"
-                }
-            }
-        ]
-    ]
+    "plugins": ["import-graphql"]
 }

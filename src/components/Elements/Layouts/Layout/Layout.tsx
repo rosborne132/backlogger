@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Header } from '../../Header/Header'
-import { Meta } from '../../../Utilities'
+import { Header } from 'src/components/Elements'
+import { Meta } from 'src/components/Utilities'
 
 export const Layout: React.FC = React.memo(
-    ({ children }): JSX.Element => (
+    ({ children }: { children: React.ReactNode }): JSX.Element => (
         <>
             <Meta />
             <Header />

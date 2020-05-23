@@ -3,8 +3,8 @@ import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import gql from 'graphql-tag'
 
-import { AppLayout } from '@components/Elements'
-import { withApollo } from '@lib/apollo'
+import { AppLayout } from 'src/components/Elements'
+import { withApollo } from 'src/lib/apollo'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
     query($consoleId: String!) {

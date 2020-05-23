@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { User } from '@types'
+import { User } from 'src/types'
 
 const users = [
     {
