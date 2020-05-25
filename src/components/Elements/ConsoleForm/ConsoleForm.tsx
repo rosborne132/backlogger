@@ -5,7 +5,7 @@ import PacmanLoader from 'react-spinners/PacmanLoader'
 
 import { Button } from 'src/components/Elements'
 
-const GET_CONSOLES = gql`
+export const GET_CONSOLES = gql`
     query GetConsoles {
         getConsoles {
             id
@@ -15,7 +15,7 @@ const GET_CONSOLES = gql`
     }
 `
 
-const ADD_USER_CONSOLE = gql`
+export const ADD_USER_CONSOLE = gql`
     mutation addUserConsole($console: UserConsoleInput) {
         addUserConsole(console: $console) {
             id
@@ -46,6 +46,7 @@ export const ConsoleForm: React.FC = React.memo(
             e: React.FormEvent<HTMLFormElement>
         ): Promise<void> => {
             e.preventDefault()
+            console.log('Form submit')
             setIsLoading(true)
 
             const submitedConsole = consoles.find(
@@ -53,7 +54,9 @@ export const ConsoleForm: React.FC = React.memo(
             )
             const { id, name, slug } = submitedConsole
 
-            await addUserConsole({ variables: { console: { id, name, slug } } })
+            await addUserConsole({
+                variables: { console: { id, name, slug } }
+            })
 
             setIsLoading(false)
         }
@@ -62,7 +65,7 @@ export const ConsoleForm: React.FC = React.memo(
             // Close modal
 
             return (
-                <div className="h4 w5">
+                <div className="h4 w5" data-testid="loadingScreen">
                     <div
                         style={{
                             position: 'fixed',
@@ -81,6 +84,7 @@ export const ConsoleForm: React.FC = React.memo(
         return (
             <form
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
+                data-testid="consoleForm"
             >
                 <fieldset className="bn">
                     <label htmlFor="consoleSelect" className="db f4">
@@ -89,6 +93,7 @@ export const ConsoleForm: React.FC = React.memo(
                     <select
                         name="consoleSelect"
                         id="consoleSelect"
+                        data-testid="consoleSelect"
                         className="ba b--black h2 mv3"
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                             setSelectedConsole(e.target.value)
