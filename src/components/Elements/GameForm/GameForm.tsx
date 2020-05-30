@@ -30,19 +30,17 @@ export const GameForm: React.FC = React.memo(
         const [selectedConsoleId, setSelectedConsoleId] = React.useState('')
         const [isLoading, setIsLoading] = React.useState(false)
         const [name, setName] = React.useState('')
-        const { data: getUserConsoles } = useQuery(GET_USER_CONSOLES)
+        const { data } = useQuery(GET_USER_CONSOLES)
         const [addUserGame] = useMutation(ADD_USER_GAME, {
             refetchQueries: ['GetUserGames', 'GetGamesByConsoleId']
         })
 
         React.useEffect(() => {
-            if (getUserConsoles.getUserConsoles !== undefined) {
-                setConsoles(getUserConsoles.getUserConsoles)
-                setSelectedConsoleId(
-                    getUserConsoles.getUserConsoles[0].console.id
-                )
+            if (data !== undefined) {
+                setConsoles(data.getUserConsoles)
+                setSelectedConsoleId(data.getUserConsoles[0].console.id)
             }
-        }, [getUserConsoles.getUserConsoles])
+        }, [data])
 
         const onSubmit = async (
             e: React.FormEvent<HTMLFormElement>
@@ -69,7 +67,7 @@ export const GameForm: React.FC = React.memo(
             setIsLoading(false)
         }
 
-        if (!getUserConsoles.getUserConsoles) {
+        if (!data) {
             return (
                 <div className="h4 w5" data-testid="loadingScreen">
                     <div

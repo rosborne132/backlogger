@@ -8,6 +8,7 @@ import {
 } from '@testing-library/react'
 import { MockedProvider } from '@apollo/react-testing'
 
+import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
 import { ADD_USER_CONSOLE, ConsoleForm, GET_CONSOLES } from './ConsoleForm'
 
 describe('<ConsoleForm />', () => {
@@ -53,6 +54,18 @@ describe('<ConsoleForm />', () => {
                                     slug: 'gba'
                                 }
                             ]
+                        }
+                    }
+                }
+            },
+            {
+                request: {
+                    query: GET_USER_CONSOLES
+                },
+                result: () => {
+                    return {
+                        getUserConsoles: {
+                            getUserConsoles: []
                         }
                     }
                 }
