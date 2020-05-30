@@ -4,15 +4,21 @@ import gql from 'graphql-tag'
 
 import { GET_USER_CONSOLES } from './[id]'
 
-import { AppLayout, LoadingScreen } from 'src/components/Elements'
+import { AppLayout, Game, LoadingScreen } from 'src/components/Elements'
 import { withApollo } from 'src/lib/apollo'
 import { ModalContext } from 'src/context'
 
-const GET_USER_GAMES = gql`
+export const GET_USER_GAMES = gql`
     query GetUserGames {
         getGames {
-            id
-            name
+            game {
+                id
+                name
+                slug
+                cover {
+                    url
+                }
+            }
         }
     }
 `
@@ -32,13 +38,14 @@ export default withApollo(() => {
             <h2>Current Games</h2>
             <br />
 
-            {getGames.getGames.map(
-                ({ id, name }: { id: string; name: string }) => (
-                    <div key={id}>
-                        <h3>{name}</h3>
-                    </div>
-                )
-            )}
+            {getGames.getGames.map(({ game }) => (
+                <Game
+                    key={game.id}
+                    cover={game.cover}
+                    name={game.name}
+                    slug={game.slug}
+                />
+            ))}
         </AppLayout>
     )
 })

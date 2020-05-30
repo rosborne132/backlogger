@@ -15,21 +15,19 @@ type Game {
     id: String!
     inBacklog: Boolean!
     name: String!
-    # platforms: [Console]
-    # platforms: [Platform]
     slug: String!
 }
 
 type UserGame {
     game: Game!
-    id: String!
-    userId: String!
+    id: String
+    userId: String
 }
 
 type Query {
     fetchGames: [Game]
-    getGames: [Game]
-    getGamesByConsoleId(consoleId: String!): [Game]
+    getGames: [UserGame]
+    getGamesByConsoleId(consoleId: String!): [UserGame]
 }
 
 input UserGameInput {

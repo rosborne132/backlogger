@@ -12,7 +12,7 @@ type GameProps = {
 export const Game: React.FC<GameProps> = React.memo(
     ({ cover, name, platforms, slug }): JSX.Element => (
         <div data-testid="game" className="w5 flex flex-column">
-            {cover !== null ? (
+            {cover.url.length ? (
                 <div className="h5">
                     <img
                         data-testid="gameImage"

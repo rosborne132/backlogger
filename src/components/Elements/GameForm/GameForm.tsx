@@ -7,30 +7,40 @@ import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
 
 import { Button } from 'src/components/Elements'
 
-// export const ADD_USER_CONSOLE = gql`
-//     mutation addUserConsole($console: UserConsoleInput) {
-//         addUserConsole(console: $console) {
-//             id
-//             name
-//             slug
-//         }
-//     }
-// `
+export const ADD_USER_GAME = gql`
+    mutation addUserGame($game: UserGameInput) {
+        addUserGame(game: $game) {
+            id
+            name
+            inBacklog
+            cover {
+                url
+            }
+            console {
+                id
+                name
+            }
+        }
+    }
+`
 
 export const GameForm: React.FC = React.memo(
     (): JSX.Element => {
         const [consoles, setConsoles] = React.useState([])
-        const [selectedConsole, setSelectedConsole] = React.useState({})
+        const [selectedConsoleId, setSelectedConsoleId] = React.useState('')
         const [isLoading, setIsLoading] = React.useState(false)
+        const [name, setName] = React.useState('')
         const { data: getUserConsoles } = useQuery(GET_USER_CONSOLES)
-        // const [addUserConsole] = useMutation(ADD_USER_CONSOLE, {
-        //     refetchQueries: ['GetConsoles', 'GetUserConsoles']
-        // })
+        const [addUserGame] = useMutation(ADD_USER_GAME, {
+            refetchQueries: ['GetUserGames', 'GetGamesByConsoleId']
+        })
 
         React.useEffect(() => {
             if (getUserConsoles.getUserConsoles !== undefined) {
                 setConsoles(getUserConsoles.getUserConsoles)
-                setSelectedConsole(getUserConsoles.getUserConsoles[0].id)
+                setSelectedConsoleId(
+                    getUserConsoles.getUserConsoles[0].console.id
+                )
             }
         }, [getUserConsoles.getUserConsoles])
 
@@ -38,17 +48,23 @@ export const GameForm: React.FC = React.memo(
             e: React.FormEvent<HTMLFormElement>
         ): Promise<void> => {
             e.preventDefault()
-            console.log('Form submit')
             setIsLoading(true)
 
-            // const submitedConsole = consoles.find(
-            //     ({ id }: { id: string }) => id === selectedConsole
-            // )
-            // const { id, name, slug } = submitedConsole
+            const submitedConsole = consoles.find(
+                ({ console: { id } }: { console: { id: string } }) =>
+                    id === selectedConsoleId
+            )
 
-            // await addUserConsole({
-            //     variables: { console: { id, name, slug } }
-            // })
+            await addUserGame({
+                variables: {
+                    game: {
+                        consoleId: submitedConsole.console.id,
+                        consoleName: submitedConsole.console.name,
+                        consoleSlug: submitedConsole.console.slug,
+                        name
+                    }
+                }
+            })
 
             setIsLoading(false)
         }
@@ -77,34 +93,51 @@ export const GameForm: React.FC = React.memo(
                 data-testid="gameForm"
             >
                 <fieldset className="bn">
-                    <label htmlFor="consoleSelect" className="db f4">
-                        Console:
-                    </label>
-                    <select
-                        name="consoleSelect"
-                        id="consoleSelect"
-                        data-testid="consoleSelect"
-                        className="ba b--black h2 mv3"
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                            setSelectedConsole(e.target.value)
-                        }
-                    >
-                        {consoles.map(
-                            ({
-                                console: { id, name }
-                            }: {
-                                console: { id: string; name: string }
-                            }) => (
-                                <option
-                                    className="overflow-scroll"
-                                    key={id}
-                                    value={id}
-                                >
-                                    {name}
-                                </option>
-                            )
-                        )}
-                    </select>
+                    <div className="pv2">
+                        <label htmlFor="gameInput" className="db f4">
+                            Name:
+                        </label>
+                        <input
+                            id="gameInput"
+                            data-testid="gameInput"
+                            className="ba b--light-white br3 f4 indent h2 mv3 w-100"
+                            type="text"
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => setName(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="pv2">
+                        <label htmlFor="consoleSelect" className="db f4">
+                            Console:
+                        </label>
+                        <select
+                            name="consoleSelect"
+                            id="consoleSelect"
+                            data-testid="consoleSelect"
+                            className="ba b--black br3 h2 mv3 w-100"
+                            onChange={(
+                                e: React.ChangeEvent<HTMLSelectElement>
+                            ) => setSelectedConsoleId(e.target.value)}
+                        >
+                            {consoles.map(
+                                ({
+                                    console: { id, name }
+                                }: {
+                                    console: { id: string; name: string }
+                                }) => (
+                                    <option
+                                        className="overflow-scroll"
+                                        key={id}
+                                        value={id}
+                                    >
+                                        {name}
+                                    </option>
+                                )
+                            )}
+                        </select>
+                    </div>
 
                     <Button type="submit" isLoading={isLoading}>
                         Submit

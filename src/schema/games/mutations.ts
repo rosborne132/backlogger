@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import axios from 'axios'
 import { User } from 'src/types'
-import { createSlug, putGame } from './services'
+import { createSlug, dataIsValid, putGame } from './services'
 
 export const gameMutations = {
     Mutation: {
@@ -18,8 +18,8 @@ export const gameMutations = {
                             slug: args.game.consoleSlug
                         },
                         cover: {
-                            id: null,
-                            url: null
+                            id: '',
+                            url: ''
                         },
                         id: '',
                         inBacklog: true,
@@ -40,10 +40,7 @@ export const gameMutations = {
                     data: `fields cover.url, name, slug, platforms.name; search "${args.game.name}";`
                 })
 
-                if (
-                    gameFetched.data === null ||
-                    gameFetched.data === undefined
-                ) {
+                if (dataIsValid(gameFetched)) {
                     params.game.id = uuid()
                     params.game.slug = createSlug(args.game.name)
 
@@ -53,8 +50,11 @@ export const gameMutations = {
                     return userGame.game
                 }
 
-                params.game.cover.id = gameFetched.data[0].cover.id
-                params.game.cover.url = gameFetched.data[0].cover.url
+                if (gameFetched.data[0].cover !== undefined) {
+                    params.game.cover.id = gameFetched.data[0].cover.id
+                    params.game.cover.url = gameFetched.data[0].cover.url
+                }
+
                 params.game.id = gameFetched.data[0].id
                 params.game.slug = gameFetched.data[0].slug
 

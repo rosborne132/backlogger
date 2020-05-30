@@ -1,43 +1,6 @@
 import axios from 'axios'
-
-const games = [
-    {
-        id: 'sdfkhweriu',
-        name: 'Wario Land Shake It',
-        console: {
-            id: 'sdfkhwfsk4tfj',
-            name: 'Wii'
-        },
-        inBacklog: false
-    },
-    {
-        id: 'ghj4k3j',
-        name: 'Super Paper Mario',
-        console: {
-            id: 'sdfkhwfsk4tfj',
-            name: 'Wii'
-        },
-        inBacklog: true
-    },
-    {
-        id: 'fldjg24',
-        name: 'Sonic Advance 3',
-        console: {
-            id: 'ghj4k34woh8gtj',
-            name: 'GBA'
-        },
-        inBacklog: true
-    },
-    {
-        id: 'gkkkf93j4',
-        name: 'Pokemon Heart Gold',
-        console: {
-            id: 'fldjgiuj2b4t24',
-            name: 'DS'
-        },
-        inBacklog: true
-    }
-]
+import { User } from 'src/types'
+import { getGames, getGamesByConsoleId } from './services'
 
 export const gameResolvers = {
     Query: {
@@ -59,19 +22,16 @@ export const gameResolvers = {
                 console.error(err)
             }
         },
-        getGames(parent, args) {
+        async getGames(parent, args, { user }: { user: User }) {
             try {
-                return games.filter(({ inBacklog }) => inBacklog)
+                return await getGames(user.client_id)
             } catch (err) {
                 console.error(err)
             }
         },
-        getGamesByConsoleId(parent, args) {
-            const gamesByConsoleId = games.filter(
-                ({ console }) => console.id === args.consoleId
-            )
+        async getGamesByConsoleId(parent, args, { user }: { user: User }) {
             try {
-                return gamesByConsoleId
+                return await getGamesByConsoleId(args.consoleId, user.client_id)
             } catch (err) {
                 console.error(err)
             }
