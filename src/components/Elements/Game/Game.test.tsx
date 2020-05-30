@@ -30,7 +30,8 @@ describe('<Game />', () => {
     })
 
     test('game displays no game cover message', () => {
-        defaultProps.cover = null
+        defaultProps.cover.id = ''
+        defaultProps.cover.url = ''
         const { queryByTestId } = render(<Game {...defaultProps} />)
 
         expect(queryByTestId('noGameImage').textContent).toBe('Game Title')
