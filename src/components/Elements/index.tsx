@@ -1,6 +1,7 @@
 export * from './Button/Button'
 export * from './ConsoleForm/ConsoleForm'
 export * from './Game/Game'
+export * from './GameForm/GameForm'
 export * from './Header/Header'
 export * from './Icon/Icon'
 export * from './Layouts/AppLayout/AppLayout'

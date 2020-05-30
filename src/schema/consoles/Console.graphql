@@ -5,8 +5,8 @@ type Console {
 }
 
 type UserConsole {
-    id: String!
     console: Console!
+    id: String!
     userId: String!
 }
 

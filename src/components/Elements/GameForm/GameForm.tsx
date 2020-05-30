@@ -3,66 +3,57 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 
+import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
+
 import { Button } from 'src/components/Elements'
 
-export const GET_CONSOLES = gql`
-    query GetConsoles {
-        getConsoles {
-            id
-            name
-            slug
-        }
-    }
-`
+// export const ADD_USER_CONSOLE = gql`
+//     mutation addUserConsole($console: UserConsoleInput) {
+//         addUserConsole(console: $console) {
+//             id
+//             name
+//             slug
+//         }
+//     }
+// `
 
-export const ADD_USER_CONSOLE = gql`
-    mutation addUserConsole($console: UserConsoleInput) {
-        addUserConsole(console: $console) {
-            id
-            name
-            slug
-        }
-    }
-`
-
-export const ConsoleForm: React.FC = React.memo(
+export const GameForm: React.FC = React.memo(
     (): JSX.Element => {
         const [consoles, setConsoles] = React.useState([])
         const [selectedConsole, setSelectedConsole] = React.useState({})
         const [isLoading, setIsLoading] = React.useState(false)
-        const { data } = useQuery(GET_CONSOLES)
-        const [addUserConsole] = useMutation(ADD_USER_CONSOLE, {
-            refetchQueries: ['GetConsoles', 'GetUserConsoles']
-        })
+        const { data: getUserConsoles } = useQuery(GET_USER_CONSOLES)
+        // const [addUserConsole] = useMutation(ADD_USER_CONSOLE, {
+        //     refetchQueries: ['GetConsoles', 'GetUserConsoles']
+        // })
 
         React.useEffect(() => {
-            if (data !== undefined) {
-                setConsoles(data.getConsoles)
-                setSelectedConsole(data.getConsoles[0].id)
+            if (getUserConsoles.getUserConsoles !== undefined) {
+                setConsoles(getUserConsoles.getUserConsoles)
+                setSelectedConsole(getUserConsoles.getUserConsoles[0].id)
             }
-        }, [data])
+        }, [getUserConsoles.getUserConsoles])
 
         const onSubmit = async (
             e: React.FormEvent<HTMLFormElement>
         ): Promise<void> => {
             e.preventDefault()
+            console.log('Form submit')
             setIsLoading(true)
 
-            const submitedConsole = consoles.find(
-                ({ id }: { id: string }) => id === selectedConsole
-            )
-            const { id, name, slug } = submitedConsole
+            // const submitedConsole = consoles.find(
+            //     ({ id }: { id: string }) => id === selectedConsole
+            // )
+            // const { id, name, slug } = submitedConsole
 
-            await addUserConsole({
-                variables: { console: { id, name, slug } }
-            })
+            // await addUserConsole({
+            //     variables: { console: { id, name, slug } }
+            // })
 
             setIsLoading(false)
         }
 
-        if (!data) {
-            // Close modal
-
+        if (!getUserConsoles.getUserConsoles) {
             return (
                 <div className="h4 w5" data-testid="loadingScreen">
                     <div
@@ -83,7 +74,7 @@ export const ConsoleForm: React.FC = React.memo(
         return (
             <form
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
-                data-testid="consoleForm"
+                data-testid="gameForm"
             >
                 <fieldset className="bn">
                     <label htmlFor="consoleSelect" className="db f4">
@@ -99,7 +90,11 @@ export const ConsoleForm: React.FC = React.memo(
                         }
                     >
                         {consoles.map(
-                            ({ id, name }: { id: string; name: string }) => (
+                            ({
+                                console: { id, name }
+                            }: {
+                                console: { id: string; name: string }
+                            }) => (
                                 <option
                                     className="overflow-scroll"
                                     key={id}

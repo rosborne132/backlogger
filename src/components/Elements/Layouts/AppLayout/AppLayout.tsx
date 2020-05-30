@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
 
-import { UserConsole } from 'src/types'
-import { ConsoleForm, Header, Icon } from 'src/components/Elements'
+import { ConsoleForm, GameForm, Header, Icon } from 'src/components/Elements'
+
 import { Meta } from 'src/components/Utilities'
 import { ModalContext } from 'src/context'
 
@@ -43,12 +43,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                                 }`}
                                 onClick={() => {
                                     setShowTab('game')
-                                    openModal(
-                                        <div>
-                                            <p>Game Form</p>
-                                            <p>Text Fields</p>
-                                        </div>
-                                    )
+                                    openModal(<GameForm />)
                                 }}
                             >
                                 <span>

@@ -1,17 +1,12 @@
 type Console {
     id: String!
     name: String!
+    slug: String!
 }
 
 type Cover {
     id: String!
     url: String!
-}
-
-type Platform {
-    id: String!
-    name: String!
-    slug: String!
 }
 
 type Game {
@@ -20,12 +15,30 @@ type Game {
     id: String!
     inBacklog: Boolean!
     name: String!
-    platforms: [Platform]
+    # platforms: [Console]
+    # platforms: [Platform]
     slug: String!
+}
+
+type UserGame {
+    game: Game!
+    id: String!
+    userId: String!
 }
 
 type Query {
     fetchGames: [Game]
     getGames: [Game]
     getGamesByConsoleId(consoleId: String!): [Game]
+}
+
+input UserGameInput {
+    consoleId: String!
+    consoleName: String!
+    consoleSlug: String!
+    name: String!
+}
+
+type Mutation {
+    addUserGame(game: UserGameInput): Game
 }
