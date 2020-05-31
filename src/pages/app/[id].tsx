@@ -47,9 +47,10 @@ export default withApollo(() => {
     ).console.name
 
     return (
-        <AppLayout consoles={getUserConsoles.getUserConsoles}>
-            <h2 className="tc">{consoleName}</h2>
-            <br />
+        <AppLayout
+            consoles={getUserConsoles.getUserConsoles}
+            header={consoleName}
+        >
             {getGamesByConsoleId.getGamesByConsoleId.length ? (
                 getGamesByConsoleId.getGamesByConsoleId.map(({ game }) => (
                     <Game

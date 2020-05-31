@@ -28,8 +28,8 @@ export const Modal: React.FC<ModalProps> = React.memo(
                         style={{
                             position: 'fixed',
                             top: '30%',
-                            left: '55%',
-                            transform: 'translate3d(-50%, -40%, 0)',
+                            left: '50%',
+                            transform: 'translate3d(-50%, -50%, 0)',
                             zIndex: 3
                         }}
                     >

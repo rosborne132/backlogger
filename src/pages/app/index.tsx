@@ -34,10 +34,10 @@ export default withApollo(() => {
     }
 
     return (
-        <AppLayout consoles={getUserConsoles.getUserConsoles}>
-            <h2>Current Games</h2>
-            <br />
-
+        <AppLayout
+            consoles={getUserConsoles.getUserConsoles}
+            header="Current Games"
+        >
             {getGames.getGames.map(({ game }) => (
                 <Game
                     key={game.id}
