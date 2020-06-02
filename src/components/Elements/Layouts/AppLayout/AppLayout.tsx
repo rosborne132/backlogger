@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Header } from 'src/components/Elements'
 import { ConsoleNavbar } from './ConsoleNavbar/ConsoleNavbar'
-import { Grid, Meta } from 'src/components/Utilities'
+import { Meta } from 'src/components/Utilities'
 
 type AppLayoutProps = {
     children?: React.ReactNode
@@ -23,9 +23,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
 
                     <ConsoleNavbar consoles={consoles} />
 
-                    <section className="container">
-                        <Grid>{children}</Grid>
-                    </section>
+                    <section className="container">{children}</section>
                 </main>
             </>
         )

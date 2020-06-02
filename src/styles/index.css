@@ -8,8 +8,8 @@ html {
 body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        'Helvetica Neue', sans-serif;
 }
 
 h1 {
@@ -754,6 +754,14 @@ img {
     overflow: scroll;
 }
 
+.top-25 {
+    top: 25%;
+}
+
+.left-50 {
+    left: 50%;
+}
+
 .top-0 {
     top: 0;
 }
@@ -1129,9 +1137,8 @@ img {
 }
 
 .sans-serif {
-    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
-        helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial,
-        sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto,
+        segoe ui, arial, sans-serif;
 }
 
 .serif {
@@ -1425,6 +1432,10 @@ code {
 
 .w4 {
     width: 8rem;
+}
+
+.w4-5 {
+    width: 12rem;
 }
 
 .w5 {
@@ -3558,6 +3569,10 @@ code {
     transform: scale(0.95);
 }
 
+.transform {
+    transform: translate3d(-50%, -50%, 0);
+}
+
 .pointer:hover,
 .shadow-hover {
     cursor: pointer;
@@ -3715,8 +3730,7 @@ code {
 }
 
 .debug-grid-8-solid {
-    background: #fff
-        url(data:image/gif;base64,R0lGODdhCAAIAPEAAADw/wDx/////wAAACwAAAAACAAIAAACDZQvgaeb/lxbAIKA8y0AOw==)
+    background: #fff url(data:image/gif;base64,R0lGODdhCAAIAPEAAADw/wDx/////wAAACwAAAAACAAIAAACDZQvgaeb/lxbAIKA8y0AOw==)
         repeat 0 0;
 }
 

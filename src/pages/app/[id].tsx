@@ -4,7 +4,11 @@ import { useRouter } from 'next/router'
 import gql from 'graphql-tag'
 
 import { AppLayout, Game, LoadingScreen } from 'src/components/Elements'
+import { Grid } from 'src/components/Utilities'
+
 import { withApollo } from 'src/lib/apollo'
+
+import { Game as GameType } from 'src/types'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
     query GetGamesByConsoleId($consoleId: String!) {
@@ -43,24 +47,20 @@ export default withApollo(() => {
     if (!getGamesByConsoleId || !getUserConsoles) return <LoadingScreen />
 
     const consoleName = getUserConsoles.getUserConsoles.find(
-        ({ console: { id } }) => id === router.query.id
+        ({ console: { id } }: { console: { id: string } }) => id === router.query.id
     ).console.name
 
     return (
-        <AppLayout
-            consoles={getUserConsoles.getUserConsoles}
-            header={consoleName}
-        >
-            {getGamesByConsoleId.getGamesByConsoleId.length ? (
-                getGamesByConsoleId.getGamesByConsoleId.map(({ game }) => (
-                    <Game
-                        key={game.id}
-                        cover={game.cover}
-                        name={game.name}
-                        slug={game.slug}
-                    />
-                ))
-            ) : (
+        <AppLayout consoles={getUserConsoles.getUserConsoles} header={consoleName}>
+            <Grid>
+                {getGamesByConsoleId.getGamesByConsoleId.length
+                    ? getGamesByConsoleId.getGamesByConsoleId.map(({ game }: { game: GameType }) => (
+                          <Game key={game.id} cover={game.cover} name={game.name} slug={game.slug} />
+                      ))
+                    : null}
+            </Grid>
+
+            {!getGamesByConsoleId.getGamesByConsoleId.length && (
                 <h3 className="tc">No games listed for this console. :(</h3>
             )}
         </AppLayout>

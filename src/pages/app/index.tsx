@@ -5,8 +5,13 @@ import gql from 'graphql-tag'
 import { GET_USER_CONSOLES } from './[id]'
 
 import { AppLayout, Game, LoadingScreen } from 'src/components/Elements'
+import { Grid } from 'src/components/Utilities'
+
 import { withApollo } from 'src/lib/apollo'
+
 import { ModalContext } from 'src/context'
+
+import { Game as GameType } from 'src/types'
 
 export const GET_USER_GAMES = gql`
     query GetUserGames {
@@ -34,18 +39,16 @@ export default withApollo(() => {
     }
 
     return (
-        <AppLayout
-            consoles={getUserConsoles.getUserConsoles}
-            header="Current Games"
-        >
-            {getGames.getGames.map(({ game }) => (
-                <Game
-                    key={game.id}
-                    cover={game.cover}
-                    name={game.name}
-                    slug={game.slug}
-                />
-            ))}
+        <AppLayout consoles={getUserConsoles.getUserConsoles} header="Current Games">
+            <Grid>
+                {getGames.getGames.length
+                    ? getGames.getGames.map(({ game }: { game: GameType }) => (
+                          <Game key={game.id} cover={game.cover} name={game.name} slug={game.slug} />
+                      ))
+                    : null}
+            </Grid>
+
+            {!getGames.getGames.length && <h3 className="tc">No games in your backlog. :(</h3>}
         </AppLayout>
     )
 })

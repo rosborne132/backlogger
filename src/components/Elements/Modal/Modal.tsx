@@ -22,16 +22,10 @@ export const Modal: React.FC<ModalProps> = React.memo(
                     <motion.div
                         key="modal"
                         data-testid="modal"
+                        className="fixed left-50 transform top-25 z-3"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        style={{
-                            position: 'fixed',
-                            top: '30%',
-                            left: '50%',
-                            transform: 'translate3d(-50%, -50%, 0)',
-                            zIndex: 3
-                        }}
                     >
                         <motion.div
                             className="bg-white black br4 pa2 shadow-2"
@@ -49,11 +43,7 @@ export const Modal: React.FC<ModalProps> = React.memo(
                                     role="button"
                                     tabIndex={0}
                                 >
-                                    <Icon
-                                        icon="closeAlt"
-                                        size="m1"
-                                        aria-hidden
-                                    />
+                                    <Icon icon="closeAlt" size="m1" aria-hidden />
                                 </span>
                             </header>
 
