@@ -39,7 +39,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
             <div className="fixed flex flex-wrap left-0 top-0 vh-100 w5 z-3">
                 {isShowing && (
                     <motion.ul
-                        className="h-50 list ml0 overflow-scroll-ns pl0 relative top-25 w4-5"
+                        className="h-50 list ml0 overflow-scroll pl0 relative top-25 w4-5"
                         variants={variants}
                         initial="closed"
                         animate="open"
@@ -106,7 +106,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                     style={{ background: 'none' }}
                     className="bn h-100 pointer"
                 >
-                    <div className="bg-white pa2 br4">{isShowing ? '<' : '>'}</div>
+                    <div className="bg-white br4 pa2 pointer">{isShowing ? '<' : '>'}</div>
                 </button>
             </div>
         </AnimatePresence>
