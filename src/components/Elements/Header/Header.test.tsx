@@ -25,8 +25,8 @@ describe('<Header />', () => {
             </UserContextWrapper>
         )
 
-        expect(getByText('Games')).toBeTruthy()
-        expect(getByText('App')).toBeTruthy()
+        expect(getByText('Home')).toBeTruthy()
+        expect(getByText('About')).toBeTruthy()
         expect(getByText('Logout')).toBeTruthy()
     })
 })
