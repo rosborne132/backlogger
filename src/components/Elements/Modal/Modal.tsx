@@ -22,7 +22,7 @@ export const Modal: React.FC<ModalProps> = React.memo(
                     <motion.div
                         key="modal"
                         data-testid="modal"
-                        className="fixed left-50 transform top-25 z-3"
+                        className="fixed left-50 transform top-25 z-5"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

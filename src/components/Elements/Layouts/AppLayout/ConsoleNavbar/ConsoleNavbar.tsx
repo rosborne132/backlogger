@@ -36,10 +36,10 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
 
     return (
         <AnimatePresence>
-            <div className="fixed flex flex-wrap left-0 top-0 vh-100 w5 z-3">
+            <div className="fixed flex  top-25 vh-50  w5 z-3">
                 {isShowing && (
                     <motion.ul
-                        className="h-50 list ml0 overflow-scroll pl0 relative top-25 w4-5"
+                        className="h-100 list ml0 overflow-auto pl0 relative w4-5"
                         variants={variants}
                         initial="closed"
                         animate="open"

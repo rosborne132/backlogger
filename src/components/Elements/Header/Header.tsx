@@ -8,7 +8,7 @@ export const Header: React.FC = React.memo(
     (): JSX.Element => {
         const { login, logout } = useAuthFunctions()
         const { user } = React.useContext(UserContext)
-        const linkStyle = 'no-underline white'
+        const linkStyle = 'no-underline pointer white'
 
         return (
             <header data-testid="header" className="bg-black pa1">
@@ -16,14 +16,14 @@ export const Header: React.FC = React.memo(
                     <ul className="list flex justify-between pa0 sans-serif">
                         {user !== null ? (
                             <span>
-                                <li className="dib">
-                                    <Link href="/games">
-                                        <a className={linkStyle}>Games</a>
+                                <li className="dib pointer">
+                                    <Link href="/app">
+                                        <a className={linkStyle}>Home</a>
                                     </Link>
                                 </li>
                                 <li className="dib pl4">
-                                    <Link href="/app">
-                                        <a className={linkStyle}>App</a>
+                                    <Link href="/about">
+                                        <a className={linkStyle}>About</a>
                                     </Link>
                                 </li>
                             </span>
@@ -44,17 +44,11 @@ export const Header: React.FC = React.memo(
 
                         <span>
                             {user !== null ? (
-                                <li
-                                    className={`dib pointer ${linkStyle}`}
-                                    onClick={() => logout()}
-                                >
+                                <li className={`dib pointer ${linkStyle}`} onClick={() => logout()}>
                                     Logout
                                 </li>
                             ) : (
-                                <li
-                                    className={`dib pointer ${linkStyle}`}
-                                    onClick={() => login()}
-                                >
+                                <li className={`dib pointer ${linkStyle}`} onClick={() => login()}>
                                     Login
                                 </li>
                             )}
