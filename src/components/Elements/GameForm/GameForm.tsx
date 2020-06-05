@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 
 import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
 
-import { Button, FormLoadingScreen } from 'src/components/Elements'
+import { Button, FormLoadingScreen, Input } from 'src/components/Elements'
 
 export const ADD_USER_GAME = gql`
     mutation addUserGame($game: UserGameInput) {
@@ -69,14 +69,9 @@ export const GameForm: React.FC = React.memo(
             <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="gameForm">
                 <fieldset className="bn">
                     <div className="pv2">
-                        <label htmlFor="gameInput" className="db f4">
-                            Name:
-                        </label>
-                        <input
-                            id="gameInput"
-                            data-testid="gameInput"
-                            className="ba b--light-white br3 f4 indent h2 mv3 w-100"
-                            type="text"
+                        <Input
+                            labelText="Name: "
+                            inputId="gameInput"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                         />
                     </div>
