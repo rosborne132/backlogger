@@ -1,9 +1,9 @@
-import { Layout } from 'src/components/Elements'
+import { LandingLayout } from 'src/components/Elements'
 
 export default () => (
-    <Layout>
+    <LandingLayout>
         <h1>Landing Page</h1>
         <h3>Welcome!</h3>
         <p>This is the landing page.</p>
-    </Layout>
+    </LandingLayout>
 )

@@ -16,7 +16,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
             <>
                 <Meta />
                 <AppHeader />
-                <main>
+                <main data-testid="appLayout">
                     <header className="pv1 tc">
                         <h2>{header}</h2>
                     </header>

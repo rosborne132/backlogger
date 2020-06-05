@@ -12,14 +12,16 @@ type ConsoleNavbarProps = {
     consoles: UserConsole[]
 }
 
+const renderGameForm = () => <GameForm />
+const renderConsoleForm = () => <ConsoleForm />
 const navbarButtons = [
     {
         type: 'game',
-        component: <GameForm />
+        component: renderGameForm
     },
     {
         type: 'console',
-        component: <ConsoleForm />
+        component: renderConsoleForm
     }
 ]
 
@@ -29,11 +31,11 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
     const [showTab, setShowTab] = React.useState('')
     const { modalIsShowing, openModal } = React.useContext(ModalContext)
     const router = useRouter()
+    const linkStyle = 'ba pointer pl2 pv3'
     const variants = {
         open: { opacity: 1, x: '0%' },
         closed: { opacity: 0, x: '-100%' }
     }
-    const linkStyle = 'ba pointer pl2 pv3'
 
     React.useEffect(() => {
         const pageSelected = router.query.id != undefined ? router.query.id : ''
@@ -58,13 +60,13 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         exit="closed"
                         data-testid="consoleNavbar"
                     >
-                        {navbarButtons.map(({ component, type }: { component: JSX.Element; type: string }) => (
+                        {navbarButtons.map(({ component, type }: { component: any; type: string }) => (
                             <li
                                 key={type}
                                 className={`${linkStyle} ${showTab === type ? 'bg-black white' : 'bg-white'}`}
                                 onClick={() => {
                                     setShowTab(type)
-                                    openModal(component)
+                                    openModal(component())
                                 }}
                             >
                                 <span>
