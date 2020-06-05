@@ -3,12 +3,11 @@ import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import gql from 'graphql-tag'
 
-import { AppLayout, Game, LoadingScreen } from 'src/components/Elements'
+import { AppLayout, LoadingScreen } from 'src/components/Elements'
 import { Grid } from 'src/components/Utilities'
+import { renderGames } from './index'
 
 import { withApollo } from 'src/lib/apollo'
-
-import { Game as GameType } from 'src/types'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
     query GetGamesByConsoleId($consoleId: String!) {
@@ -54,9 +53,7 @@ export default withApollo(() => {
         <AppLayout consoles={getUserConsoles.getUserConsoles} header={consoleName}>
             <Grid>
                 {getGamesByConsoleId.getGamesByConsoleId.length
-                    ? getGamesByConsoleId.getGamesByConsoleId.map(({ game }: { game: GameType }) => (
-                          <Game key={game.id} cover={game.cover} name={game.name} slug={game.slug} />
-                      ))
+                    ? renderGames(getGamesByConsoleId.getGamesByConsoleId)
                     : null}
             </Grid>
 

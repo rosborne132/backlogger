@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
+import upperFirst from 'lodash/upperFirst'
 
 import { ConsoleForm, GameForm, Icon } from 'src/components/Elements'
 import { Platform as Console } from 'src/types'
@@ -10,6 +11,17 @@ import { ModalContext } from 'src/context'
 type ConsoleNavbarProps = {
     consoles: Console[]
 }
+
+const navbarButtons = [
+    {
+        type: 'game',
+        component: <GameForm />
+    },
+    {
+        type: 'console',
+        component: <ConsoleForm />
+    }
+]
 
 export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ consoles }) => {
     const [isShowing, setIsShowing] = React.useState(true)
@@ -46,44 +58,29 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         exit="closed"
                         data-testid="consoleNavbar"
                     >
-                        <li
-                            className={`${linkStyle} ${showTab === 'game' ? 'bg-black white' : 'bg-white'}`}
-                            onClick={() => {
-                                setShowTab('game')
-                                openModal(<GameForm />)
-                            }}
-                        >
-                            <span>
-                                <Icon
-                                    icon="add"
-                                    size="m1"
-                                    style={{
-                                        fill: showTab === 'game' ? 'white' : 'black'
-                                    }}
-                                    aria-hidden
-                                />{' '}
-                                Game
-                            </span>
-                        </li>
-                        <li
-                            className={`${linkStyle} ${showTab === 'console' ? 'bg-black white' : 'bg-white'}`}
-                            onClick={() => {
-                                setShowTab('console')
-                                openModal(<ConsoleForm />)
-                            }}
-                        >
-                            <span>
-                                <Icon
-                                    icon="add"
-                                    size="m1"
-                                    style={{
-                                        fill: showTab === 'console' ? 'white' : 'black'
-                                    }}
-                                    aria-hidden
-                                />{' '}
-                                Console
-                            </span>
-                        </li>
+                        {navbarButtons.map(({ component, type }: { component: JSX.Element; type: string }) => (
+                            <li
+                                key={type}
+                                className={`${linkStyle} ${showTab === type ? 'bg-black white' : 'bg-white'}`}
+                                onClick={() => {
+                                    setShowTab(type)
+                                    openModal(component)
+                                }}
+                            >
+                                <span>
+                                    <Icon
+                                        icon="add"
+                                        size="m1"
+                                        style={{
+                                            fill: showTab === type ? 'white' : 'black'
+                                        }}
+                                        aria-hidden
+                                    />
+                                    {` ${upperFirst(type)}`}
+                                </span>
+                            </li>
+                        ))}
+
                         <li
                             className={`${linkStyle} ${selected === '' ? 'bg-black white' : 'bg-white'}`}
                             onClick={() => router.push('/app')}

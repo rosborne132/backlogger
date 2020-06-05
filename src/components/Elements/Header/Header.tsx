@@ -14,33 +14,26 @@ export const Header: React.FC = React.memo(
             <header data-testid="header" className="bg-black pa1">
                 <nav className="container">
                     <ul className="list flex justify-between pa0 sans-serif">
-                        {user !== null ? (
-                            <span>
+                        <span>
+                            {user !== null ? (
                                 <li className="dib pointer">
                                     <Link href="/app">
                                         <a className={linkStyle}>Home</a>
                                     </Link>
                                 </li>
-                                <li className="dib pl4">
-                                    <Link href="/about">
-                                        <a className={linkStyle}>About</a>
-                                    </Link>
-                                </li>
-                            </span>
-                        ) : (
-                            <span>
+                            ) : (
                                 <li className="dib">
                                     <Link href="/">
                                         <a className={linkStyle}>Home</a>
                                     </Link>
                                 </li>
-                                <li className="dib pl4">
-                                    <Link href="/about">
-                                        <a className={linkStyle}>About</a>
-                                    </Link>
-                                </li>
-                            </span>
-                        )}
+                            )}
+                            <li className="dib pl4">
+                                <Link href="/about">
+                                    <a className={linkStyle}>About</a>
+                                </Link>
+                            </li>
+                        </span>
 
                         <span>
                             {user !== null ? (
