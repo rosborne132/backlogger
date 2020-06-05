@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { Button, FormLoadingScreen } from 'src/components/Elements'
+import { Button, ConsoleSelect, FormLoadingScreen } from 'src/components/Elements'
 
 export const GET_CONSOLES = gql`
     query GetConsoles {
@@ -60,22 +60,19 @@ export const ConsoleForm: React.FC = React.memo(
         return (
             <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="consoleForm">
                 <fieldset className="bn">
-                    <label htmlFor="consoleSelect" className="db f4">
-                        Console:
-                    </label>
-                    <select
-                        name="consoleSelect"
-                        id="consoleSelect"
-                        data-testid="consoleSelect"
-                        className="ba b--black h2 mv3"
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsole(e.target.value)}
-                    >
-                        {consoles.map(({ id, name }: { id: string; name: string }) => (
-                            <option className="overflow-scroll" key={id} value={id}>
-                                {name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="pv2">
+                        <ConsoleSelect
+                            inputId="consoleSelect"
+                            labelText="Console: "
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsole(e.target.value)}
+                        >
+                            {consoles.map(({ id, name }: { id: string; name: string }) => (
+                                <option className="overflow-scroll" key={id} value={id}>
+                                    {name}
+                                </option>
+                            ))}
+                        </ConsoleSelect>
+                    </div>
 
                     <Button type="submit" isLoading={isLoading}>
                         Submit

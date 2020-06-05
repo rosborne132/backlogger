@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 
 import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
 
-import { Button, FormLoadingScreen, Input } from 'src/components/Elements'
+import { Button, ConsoleSelect, FormLoadingScreen, Input } from 'src/components/Elements'
 
 export const ADD_USER_GAME = gql`
     mutation addUserGame($game: UserGameInput) {
@@ -77,14 +77,10 @@ export const GameForm: React.FC = React.memo(
                     </div>
 
                     <div className="pv2">
-                        <label htmlFor="consoleSelect" className="db f4">
-                            Console:
-                        </label>
-                        <select
-                            name="consoleSelect"
-                            id="consoleSelect"
-                            data-testid="consoleSelect"
-                            className="ba b--black br3 h2 mv3 w-100"
+                        <ConsoleSelect
+                            consoleOptions={consoles}
+                            inputId="consoleSelect"
+                            labelText="Console: "
                             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsoleId(e.target.value)}
                         >
                             {consoles.map(({ console: { id, name } }: { console: { id: string; name: string } }) => (
@@ -92,7 +88,7 @@ export const GameForm: React.FC = React.memo(
                                     {name}
                                 </option>
                             ))}
-                        </select>
+                        </ConsoleSelect>
                     </div>
 
                     <Button type="submit" isLoading={isLoading}>
