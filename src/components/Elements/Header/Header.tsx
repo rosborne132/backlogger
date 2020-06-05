@@ -1,61 +1,62 @@
 import * as React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
-import { UserContext } from 'src/context'
 
-export const Header: React.FC = React.memo(
+const HeaderLink = ({ className, onClick, text }: { className?: string; onClick: any; text: string }) => (
+    <li className={`dib pointer no-underline pointer white ${className}`} onClick={onClick}>
+        {text}
+    </li>
+)
+
+const Header = ({ children }: { children: React.ReactNode }) => (
+    <header data-testid="header" className="bg-black pa1">
+        <nav className="container">
+            <ul className="list flex justify-between pa0 sans-serif">{children}</ul>
+        </nav>
+    </header>
+)
+
+export const LandingHeader: React.FC = React.memo(
     (): JSX.Element => {
-        const { login, logout } = useAuthFunctions()
-        const { user } = React.useContext(UserContext)
-        const linkStyle = 'no-underline pointer white'
+        const { login } = useAuthFunctions()
+
+        const router = useRouter()
 
         return (
             <header data-testid="header" className="bg-black pa1">
                 <nav className="container">
                     <ul className="list flex justify-between pa0 sans-serif">
-                        {user !== null ? (
-                            <span>
-                                <li className="dib pointer">
-                                    <Link href="/app">
-                                        <a className={linkStyle}>Home</a>
-                                    </Link>
-                                </li>
-                                <li className="dib pl4">
-                                    <Link href="/about">
-                                        <a className={linkStyle}>About</a>
-                                    </Link>
-                                </li>
-                            </span>
-                        ) : (
-                            <span>
-                                <li className="dib">
-                                    <Link href="/">
-                                        <a className={linkStyle}>Home</a>
-                                    </Link>
-                                </li>
-                                <li className="dib pl4">
-                                    <Link href="/about">
-                                        <a className={linkStyle}>About</a>
-                                    </Link>
-                                </li>
-                            </span>
-                        )}
+                        <span>
+                            <HeaderLink onClick={() => router.push('/')} text="Home" />
+                            <HeaderLink className="pl4" onClick={() => router.push('/about')} text="About" />
+                        </span>
 
                         <span>
-                            {user !== null ? (
-                                <li className={`dib pointer ${linkStyle}`} onClick={() => logout()}>
-                                    Logout
-                                </li>
-                            ) : (
-                                <li className={`dib pointer ${linkStyle}`} onClick={() => login()}>
-                                    Login
-                                </li>
-                            )}
+                            <HeaderLink onClick={() => login()} text="Login" />
                         </span>
                     </ul>
                 </nav>
             </header>
+        )
+    }
+)
+
+export const AppHeader: React.FC = React.memo(
+    (): JSX.Element => {
+        const { logout } = useAuthFunctions()
+        const router = useRouter()
+
+        return (
+            <Header>
+                <span>
+                    <HeaderLink onClick={() => router.push('/app')} text="Home" />
+                </span>
+
+                <span>
+                    <HeaderLink onClick={() => logout()} text="Logout" />
+                </span>
+            </Header>
         )
     }
 )

@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { Header } from 'src/components/Elements'
+import { LandingHeader } from 'src/components/Elements'
 import { Meta } from 'src/components/Utilities'
 
-export const Layout: React.FC = React.memo(
+export const LandingLayout: React.FC = React.memo(
     ({ children }: { children: React.ReactNode }): JSX.Element => (
         <>
             <Meta />
-            <Header />
-            <main>
+            <LandingHeader />
+            <main data-testid="landingLayout">
                 <div className="container">{children}</div>
             </main>
         </>

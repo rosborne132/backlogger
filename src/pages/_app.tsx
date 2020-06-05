@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { AppProps } from 'next/app'
 import Amplify from '@aws-amplify/core'
-import Auth from '@aws-amplify/auth'
-
-import { UserProvider } from 'src/context'
+import { Auth } from '@aws-amplify/auth'
 
 import 'src/styles/index.css'
+
+type AppProps = {
+    Component: React.FC
+    pageProps: any
+}
 
 Amplify.configure({
     Auth: {
@@ -31,8 +33,4 @@ Auth.configure({
     }
 })
 
-export default ({ Component, pageProps }: AppProps) => (
-    <UserProvider>
-        <Component {...pageProps} />
-    </UserProvider>
-)
+export default ({ Component, pageProps }: AppProps): JSX.Element => <Component {...pageProps} />
