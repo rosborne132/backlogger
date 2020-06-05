@@ -1,11 +1,10 @@
 import * as React from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import PacmanLoader from 'react-spinners/PacmanLoader'
 
 import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
 
-import { Button } from 'src/components/Elements'
+import { Button, FormLoadingScreen } from 'src/components/Elements'
 
 export const ADD_USER_GAME = gql`
     mutation addUserGame($game: UserGameInput) {
@@ -42,15 +41,12 @@ export const GameForm: React.FC = React.memo(
             }
         }, [data])
 
-        const onSubmit = async (
-            e: React.FormEvent<HTMLFormElement>
-        ): Promise<void> => {
+        const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
             e.preventDefault()
             setIsLoading(true)
 
             const submitedConsole = consoles.find(
-                ({ console: { id } }: { console: { id: string } }) =>
-                    id === selectedConsoleId
+                ({ console: { id } }: { console: { id: string } }) => id === selectedConsoleId
             )
 
             await addUserGame({
@@ -67,29 +63,10 @@ export const GameForm: React.FC = React.memo(
             setIsLoading(false)
         }
 
-        if (!data) {
-            return (
-                <div className="h4 w5" data-testid="loadingScreen">
-                    <div
-                        style={{
-                            position: 'fixed',
-                            top: '50%',
-                            left: '40%',
-                            transform: 'translate3d(-50%, -40%, 0)',
-                            zIndex: 3
-                        }}
-                    >
-                        <PacmanLoader />
-                    </div>
-                </div>
-            )
-        }
+        if (!data) return <FormLoadingScreen />
 
         return (
-            <form
-                onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
-                data-testid="gameForm"
-            >
+            <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="gameForm">
                 <fieldset className="bn">
                     <div className="pv2">
                         <label htmlFor="gameInput" className="db f4">
@@ -100,9 +77,7 @@ export const GameForm: React.FC = React.memo(
                             data-testid="gameInput"
                             className="ba b--light-white br3 f4 indent h2 mv3 w-100"
                             type="text"
-                            onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                            ) => setName(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                         />
                     </div>
 
@@ -115,25 +90,13 @@ export const GameForm: React.FC = React.memo(
                             id="consoleSelect"
                             data-testid="consoleSelect"
                             className="ba b--black br3 h2 mv3 w-100"
-                            onChange={(
-                                e: React.ChangeEvent<HTMLSelectElement>
-                            ) => setSelectedConsoleId(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsoleId(e.target.value)}
                         >
-                            {consoles.map(
-                                ({
-                                    console: { id, name }
-                                }: {
-                                    console: { id: string; name: string }
-                                }) => (
-                                    <option
-                                        className="overflow-scroll"
-                                        key={id}
-                                        value={id}
-                                    >
-                                        {name}
-                                    </option>
-                                )
-                            )}
+                            {consoles.map(({ console: { id, name } }: { console: { id: string; name: string } }) => (
+                                <option className="overflow-scroll" key={id} value={id}>
+                                    {name}
+                                </option>
+                            ))}
                         </select>
                     </div>
 
