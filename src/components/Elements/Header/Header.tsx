@@ -2,7 +2,6 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
-import { UserContext } from 'src/context'
 
 const HeaderLink = ({ className, onClick, text }: { className?: string; onClick: any; text: string }) => (
     <li className={`dib pointer no-underline pointer white ${className}`} onClick={onClick}>
@@ -10,10 +9,18 @@ const HeaderLink = ({ className, onClick, text }: { className?: string; onClick:
     </li>
 )
 
-export const Header: React.FC = React.memo(
+const Header = ({ children }: { children: React.ReactNode }) => (
+    <header data-testid="header" className="bg-black pa1">
+        <nav className="container">
+            <ul className="list flex justify-between pa0 sans-serif">{children}</ul>
+        </nav>
+    </header>
+)
+
+export const LandingHeader: React.FC = React.memo(
     (): JSX.Element => {
-        const { login, logout } = useAuthFunctions()
-        const { user } = React.useContext(UserContext)
+        const { login } = useAuthFunctions()
+
         const router = useRouter()
 
         return (
@@ -21,25 +28,35 @@ export const Header: React.FC = React.memo(
                 <nav className="container">
                     <ul className="list flex justify-between pa0 sans-serif">
                         <span>
-                            {user !== null ? (
-                                <HeaderLink onClick={() => router.push('/app')} text="Home" />
-                            ) : (
-                                <HeaderLink onClick={() => router.push('/')} text="Home" />
-                            )}
-
+                            <HeaderLink onClick={() => router.push('/')} text="Home" />
                             <HeaderLink className="pl4" onClick={() => router.push('/about')} text="About" />
                         </span>
 
                         <span>
-                            {user !== null ? (
-                                <HeaderLink onClick={() => logout()} text="Logout" />
-                            ) : (
-                                <HeaderLink onClick={() => login()} text="Login" />
-                            )}
+                            <HeaderLink onClick={() => login()} text="Login" />
                         </span>
                     </ul>
                 </nav>
             </header>
+        )
+    }
+)
+
+export const AppHeader: React.FC = React.memo(
+    (): JSX.Element => {
+        const { logout } = useAuthFunctions()
+        const router = useRouter()
+
+        return (
+            <Header>
+                <span>
+                    <HeaderLink onClick={() => router.push('/app')} text="Home" />
+                </span>
+
+                <span>
+                    <HeaderLink onClick={() => logout()} text="Logout" />
+                </span>
+            </Header>
         )
     }
 )

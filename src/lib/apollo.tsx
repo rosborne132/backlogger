@@ -7,12 +7,10 @@ import Head from 'next/head'
 
 import { getServerSideAuth } from 'src/lib/auth'
 
-import { ModalProvider, UserContext } from 'src/context'
+import { ModalProvider } from 'src/context'
 
 const isDev = process.env.NODE_ENV !== 'production'
-const url = isDev
-    ? 'http://localhost:3000'
-    : 'https://tracker.rosborne132.now.sh'
+const url = isDev ? 'http://localhost:3000' : 'https://tracker.rosborne132.now.sh'
 
 /**
  * Creates and configures the ApolloClient
@@ -63,15 +61,6 @@ export const withApollo = (PageComponent: any) => {
         initialAuth: any
     }) => {
         const client = apolloClient || initApolloClient(apolloState)
-        const { setUser } = React.useContext(UserContext)
-
-        React.useEffect(() => {
-            if (initialAuth !== null) {
-                const { client_id, username } = initialAuth.accessTokenData
-                const user = { userId: client_id, username }
-                setUser(user)
-            }
-        }, [initialAuth])
 
         return (
             <ApolloProvider client={client}>

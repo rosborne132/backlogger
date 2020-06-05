@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Header } from 'src/components/Elements'
+import { AppHeader } from 'src/components/Elements'
 import { ConsoleNavbar } from './ConsoleNavbar/ConsoleNavbar'
 import { Meta } from 'src/components/Utilities'
 
@@ -15,7 +15,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
         return (
             <>
                 <Meta />
-                <Header />
+                <AppHeader />
                 <main>
                     <header className="pv1 tc">
                         <h2>{header}</h2>

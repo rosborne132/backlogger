@@ -4,12 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import upperFirst from 'lodash/upperFirst'
 
 import { ConsoleForm, GameForm, Icon } from 'src/components/Elements'
-import { Platform as Console } from 'src/types'
+import { UserConsole } from 'src/types'
 
 import { ModalContext } from 'src/context'
 
 type ConsoleNavbarProps = {
-    consoles: Console[]
+    consoles: UserConsole[]
 }
 
 const navbarButtons = [
@@ -89,8 +89,8 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         </li>
                         {consoles.map(({ console: { id, name } }: { console: { id: string; name: string } }) => (
                             <li
-                                className={`${linkStyle} ${selected === id ? 'bg-black white' : 'bg-white'}`}
                                 key={id}
+                                className={`${linkStyle} ${selected === id ? 'bg-black white' : 'bg-white'}`}
                                 onClick={() => router.push('/app/[id]', `/app/${id}`)}
                             >
                                 {name}

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Amplify from '@aws-amplify/core'
-
-import { UserProvider } from 'src/context'
+import { Auth } from '@aws-amplify/auth'
 
 import 'src/styles/index.css'
 
@@ -24,7 +23,7 @@ Amplify.configure({
     }
 })
 
-Amplify.Auth.configure({
+Auth.configure({
     oauth: {
         domain: process.env.IDP_DOMAIN,
         scope: ['email', 'openid'],
@@ -34,8 +33,4 @@ Amplify.Auth.configure({
     }
 })
 
-export default ({ Component, pageProps }: AppProps): JSX.Element => (
-    <UserProvider>
-        <Component {...pageProps} />
-    </UserProvider>
-)
+export default ({ Component, pageProps }: AppProps): JSX.Element => <Component {...pageProps} />

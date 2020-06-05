@@ -68,28 +68,24 @@ export const GameForm: React.FC = React.memo(
         return (
             <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="gameForm">
                 <fieldset className="bn">
-                    <div className="pv2">
-                        <Input
-                            labelText="Name: "
-                            inputId="gameInput"
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-                        />
-                    </div>
+                    <Input
+                        labelText="Name: "
+                        inputId="gameInput"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                    />
 
-                    <div className="pv2">
-                        <ConsoleSelect
-                            consoleOptions={consoles}
-                            inputId="consoleSelect"
-                            labelText="Console: "
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsoleId(e.target.value)}
-                        >
-                            {consoles.map(({ console: { id, name } }: { console: { id: string; name: string } }) => (
-                                <option className="overflow-scroll" key={id} value={id}>
-                                    {name}
-                                </option>
-                            ))}
-                        </ConsoleSelect>
-                    </div>
+                    <ConsoleSelect
+                        consoleOptions={consoles}
+                        inputId="consoleSelect"
+                        labelText="Console: "
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsoleId(e.target.value)}
+                    >
+                        {consoles.map(({ console: { id, name } }: { console: { id: string; name: string } }) => (
+                            <option className="overflow-scroll" key={id} value={id}>
+                                {name}
+                            </option>
+                        ))}
+                    </ConsoleSelect>
 
                     <Button type="submit" isLoading={isLoading}>
                         Submit

@@ -8,7 +8,7 @@ export type SelectType = {
 }
 
 export const ConsoleSelect = ({ children, labelText = '', inputId, onChange }: SelectType) => (
-    <>
+    <div className="pv2">
         {labelText.length ? (
             <label htmlFor={inputId} className="db f4">
                 {labelText}
@@ -23,5 +23,5 @@ export const ConsoleSelect = ({ children, labelText = '', inputId, onChange }: S
         >
             {children}
         </select>
-    </>
+    </div>
 )

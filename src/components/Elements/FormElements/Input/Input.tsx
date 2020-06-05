@@ -8,7 +8,7 @@ export type InputType = {
 }
 
 export const Input = ({ labelText = '', inputId, inputType = 'text', onChange }: InputType) => (
-    <>
+    <div className="pv2">
         {labelText.length ? (
             <label htmlFor={inputId} className="db f4">
                 {labelText}
@@ -21,5 +21,5 @@ export const Input = ({ labelText = '', inputId, inputType = 'text', onChange }:
             type={inputType}
             onChange={onChange}
         />
-    </>
+    </div>
 )

@@ -1,32 +1,24 @@
 import * as React from 'react'
 import { cleanup, render } from '@testing-library/react'
 
-import { UserContextWrapper } from 'src/context/helpers'
-import { Header } from './Header'
+import { AppHeader, LandingHeader } from './Header'
 
-describe('<Header />', () => {
+describe('Headers', () => {
     afterEach(cleanup)
 
-    beforeEach(() => {})
-
-    test('renders header', () => {
-        const { getByText, queryByTestId } = render(<Header />)
+    test('renders <AppHeader/>', () => {
+        const { getByText, queryByTestId } = render(<AppHeader />)
 
         expect(queryByTestId('header')).toBeTruthy()
         expect(getByText('Home')).toBeTruthy()
-        expect(getByText('About')).toBeTruthy()
-        expect(getByText('Login')).toBeTruthy()
+        expect(getByText('Logout')).toBeTruthy()
     })
 
-    test('displays in app header links', () => {
-        const { getByText } = render(
-            <UserContextWrapper>
-                <Header />
-            </UserContextWrapper>
-        )
+    test('renders <LandingHeader/>', () => {
+        const { getByText } = render(<LandingHeader />)
 
         expect(getByText('Home')).toBeTruthy()
         expect(getByText('About')).toBeTruthy()
-        expect(getByText('Logout')).toBeTruthy()
+        expect(getByText('Login')).toBeTruthy()
     })
 })

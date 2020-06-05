@@ -60,19 +60,17 @@ export const ConsoleForm: React.FC = React.memo(
         return (
             <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="consoleForm">
                 <fieldset className="bn">
-                    <div className="pv2">
-                        <ConsoleSelect
-                            inputId="consoleSelect"
-                            labelText="Console: "
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsole(e.target.value)}
-                        >
-                            {consoles.map(({ id, name }: { id: string; name: string }) => (
-                                <option className="overflow-scroll" key={id} value={id}>
-                                    {name}
-                                </option>
-                            ))}
-                        </ConsoleSelect>
-                    </div>
+                    <ConsoleSelect
+                        inputId="consoleSelect"
+                        labelText="Console: "
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsole(e.target.value)}
+                    >
+                        {consoles.map(({ id, name }: { id: string; name: string }) => (
+                            <option className="overflow-scroll" key={id} value={id}>
+                                {name}
+                            </option>
+                        ))}
+                    </ConsoleSelect>
 
                     <Button type="submit" isLoading={isLoading}>
                         Submit
