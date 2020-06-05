@@ -1,14 +1,20 @@
 import * as React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
 import { UserContext } from 'src/context'
+
+const HeaderLink = ({ className, onClick, text }: { className?: string; onClick: any; text: string }) => (
+    <li className={`dib pointer no-underline pointer white ${className}`} onClick={onClick}>
+        {text}
+    </li>
+)
 
 export const Header: React.FC = React.memo(
     (): JSX.Element => {
         const { login, logout } = useAuthFunctions()
         const { user } = React.useContext(UserContext)
-        const linkStyle = 'no-underline pointer white'
+        const router = useRouter()
 
         return (
             <header data-testid="header" className="bg-black pa1">
@@ -16,34 +22,19 @@ export const Header: React.FC = React.memo(
                     <ul className="list flex justify-between pa0 sans-serif">
                         <span>
                             {user !== null ? (
-                                <li className="dib pointer">
-                                    <Link href="/app">
-                                        <a className={linkStyle}>Home</a>
-                                    </Link>
-                                </li>
+                                <HeaderLink onClick={() => router.push('/app')} text="Home" />
                             ) : (
-                                <li className="dib">
-                                    <Link href="/">
-                                        <a className={linkStyle}>Home</a>
-                                    </Link>
-                                </li>
+                                <HeaderLink onClick={() => router.push('/')} text="Home" />
                             )}
-                            <li className="dib pl4">
-                                <Link href="/about">
-                                    <a className={linkStyle}>About</a>
-                                </Link>
-                            </li>
+
+                            <HeaderLink className="pl4" onClick={() => router.push('/about')} text="About" />
                         </span>
 
                         <span>
                             {user !== null ? (
-                                <li className={`dib pointer ${linkStyle}`} onClick={() => logout()}>
-                                    Logout
-                                </li>
+                                <HeaderLink onClick={() => logout()} text="Logout" />
                             ) : (
-                                <li className={`dib pointer ${linkStyle}`} onClick={() => login()}>
-                                    Login
-                                </li>
+                                <HeaderLink onClick={() => login()} text="Login" />
                             )}
                         </span>
                     </ul>
