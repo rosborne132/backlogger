@@ -28,7 +28,7 @@ export const GET_USER_GAMES = gql`
     }
 `
 
-export const renderGames = (games: GameType[]): JSX.Element[] => {
+export const renderGames = (games: any[]): JSX.Element[] => {
     return games.map(({ game }: { game: GameType }) => (
         <Game key={game.id} cover={game.cover} name={game.name} slug={game.slug} />
     ))

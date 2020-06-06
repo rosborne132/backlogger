@@ -1,17 +1,19 @@
 import { dbClient, docClient, parseData } from 'src/lib/dynamodb'
 import { stage } from 'src/lib/stage'
-import { UserGame } from 'src/types'
+import { Game as GameType, UserGame } from 'src/types'
 
 export const dataIsValid = (fetchedData: any) => fetchedData !== null || fetchedData !== undefined || fetchedData.length
 
-export const getGameByConsole = (games: UserGame[], params: UserGame) => {
+export const getGameByConsole = (games: GameType[], params: GameType) => {
     if (!dataIsValid(games)) return null
 
     const result = games.find(game => {
         if (game.platforms === undefined) return false
 
         // Select game does not exist within the console the user selected
-        const checkConsole = game.platforms.find(gameConsole => gameConsole.id === parseInt(params.console.id))
+        const checkConsole = game.platforms.find(
+            gameConsole => parseInt(gameConsole.id) === parseInt(params.console.id)
+        )
 
         return checkConsole
     })

@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import axios from 'axios'
 import { User } from 'src/types'
-import { createSlug, dataIsValid, getGameByConsole, putGame } from './services'
+import { createSlug, getGameByConsole, putGame } from './services'
 
 export const gameMutations = {
     Mutation: {
@@ -52,7 +52,6 @@ export const gameMutations = {
                     return userGame.game
                 }
 
-                // Prep game for DB
                 if (selectedGame.cover !== undefined) {
                     params.game.cover.id = selectedGame.cover.id
                     params.game.cover.url = selectedGame.cover.url

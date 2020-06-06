@@ -75,7 +75,6 @@ export const GameForm: React.FC = React.memo(
                     />
 
                     <ConsoleSelect
-                        consoleOptions={consoles}
                         inputId="consoleSelect"
                         labelText="Console: "
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsoleId(e.target.value)}

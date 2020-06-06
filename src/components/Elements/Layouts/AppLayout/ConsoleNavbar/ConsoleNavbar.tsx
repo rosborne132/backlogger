@@ -4,12 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import upperFirst from 'lodash/upperFirst'
 
 import { ConsoleForm, GameForm, Icon } from 'src/components/Elements'
-import { UserConsole } from 'src/types'
 
 import { ModalContext } from 'src/context'
 
 type ConsoleNavbarProps = {
-    consoles: UserConsole[]
+    consoles: any[]
 }
 
 const navbarButtons = [
