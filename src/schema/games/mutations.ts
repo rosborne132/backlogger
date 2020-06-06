@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import axios from 'axios'
 import { User } from 'src/types'
-import { createSlug, dataIsValid, putGame } from './services'
+import { createSlug, dataIsValid, getGameByConsole, putGame } from './services'
 
 export const gameMutations = {
     Mutation: {
@@ -40,7 +40,9 @@ export const gameMutations = {
                     data: `fields cover.url, name, slug, platforms.name; search "${args.game.name}";`
                 })
 
-                if (dataIsValid(gameFetched)) {
+                const selectedGame = await getGameByConsole(gameFetched.data, params.game)
+
+                if (selectedGame === null) {
                     params.game.id = uuid()
                     params.game.slug = createSlug(args.game.name)
 
@@ -50,13 +52,14 @@ export const gameMutations = {
                     return userGame.game
                 }
 
-                if (gameFetched.data[0].cover !== undefined) {
-                    params.game.cover.id = gameFetched.data[0].cover.id
-                    params.game.cover.url = gameFetched.data[0].cover.url
+                // Prep game for DB
+                if (selectedGame.cover !== undefined) {
+                    params.game.cover.id = selectedGame.cover.id
+                    params.game.cover.url = selectedGame.cover.url
                 }
 
-                params.game.id = gameFetched.data[0].id
-                params.game.slug = gameFetched.data[0].slug
+                params.game.id = selectedGame.id
+                params.game.slug = selectedGame.slug
 
                 // insert into DB
                 userGame = await putGame(params)

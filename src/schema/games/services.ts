@@ -2,10 +2,22 @@ import { dbClient, docClient, parseData } from 'src/lib/dynamodb'
 import { stage } from 'src/lib/stage'
 import { UserGame } from 'src/types'
 
-export const dataIsValid = fetchedData =>
-    fetchedData.data === null ||
-    fetchedData.data === undefined ||
-    !fetchedData.data.length
+export const dataIsValid = (fetchedData: any) => fetchedData !== null || fetchedData !== undefined || fetchedData.length
+
+export const getGameByConsole = (games: UserGame[], params: UserGame) => {
+    if (!dataIsValid(games)) return null
+
+    const result = games.find(game => {
+        if (game.platforms === undefined) return false
+
+        // Select game does not exist within the console the user selected
+        const checkConsole = game.platforms.find(gameConsole => gameConsole.id === parseInt(params.console.id))
+
+        return checkConsole
+    })
+
+    return result !== undefined ? result : null
+}
 
 export const createSlug = (str: string) =>
     str
@@ -40,10 +52,7 @@ export const getGames = async (userId: string) => {
     return Items.map(item => parseData.unmarshall(item))
 }
 
-export const getGamesByConsoleId = async (
-    consoleId: string,
-    userId: string
-) => {
+export const getGamesByConsoleId = async (consoleId: string, userId: string) => {
     const { Items } = await dbClient
         .query({
             TableName,
