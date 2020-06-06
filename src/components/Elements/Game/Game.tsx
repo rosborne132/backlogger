@@ -14,12 +14,7 @@ export const Game: React.FC<GameProps> = React.memo(
         <div data-testid="game" className="w5 flex flex-column">
             {cover.url.length ? (
                 <div className="h5">
-                    <img
-                        data-testid="gameImage"
-                        src={cover.url}
-                        alt={slug}
-                        className="w-100"
-                    />
+                    <img data-testid="gameImage" src={cover.url} alt={slug} className="w-100" />
                 </div>
             ) : (
                 <div className="bg-near-white h5 flex justify-center items-center tc">
