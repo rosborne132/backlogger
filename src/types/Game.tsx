@@ -1,11 +1,12 @@
 import { Cover, Platform as Console } from 'src/types'
 
 export type Game = {
-    console: Console
-    cover: Cover
+    console?: Console
+    cover?: Cover
     id: string
-    inBacklog: boolean
+    inBacklog?: boolean
     name: string
+    platforms?: Console[]
     slug: string
 }
 

@@ -4,24 +4,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 import upperFirst from 'lodash/upperFirst'
 
 import { ConsoleForm, GameForm, Icon } from 'src/components/Elements'
-import { UserConsole } from 'src/types'
 
 import { ModalContext } from 'src/context'
 
 type ConsoleNavbarProps = {
-    consoles: UserConsole[]
+    consoles: any[]
 }
 
-const renderGameForm = () => <GameForm />
-const renderConsoleForm = () => <ConsoleForm />
 const navbarButtons = [
     {
         type: 'game',
-        component: renderGameForm
+        component: () => <GameForm />
     },
     {
         type: 'console',
-        component: renderConsoleForm
+        component: () => <ConsoleForm />
     }
 ]
 
@@ -34,7 +31,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
     const linkStyle = 'ba pointer pl2 pv3'
     const variants = {
         open: { opacity: 1, x: '0%' },
-        closed: { opacity: 0, x: '-100%' }
+        closed: { opacity: 1, x: '-75%' }
     }
 
     React.useEffect(() => {
@@ -50,38 +47,35 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
 
     return (
         <AnimatePresence>
-            <div className="fixed flex  top-25 vh-50  w5 z-3">
-                {isShowing && (
-                    <motion.ul
-                        className="h-100 list ml0 overflow-auto pl0 relative w4-5"
-                        variants={variants}
-                        initial="closed"
-                        animate="open"
-                        exit="closed"
-                        data-testid="consoleNavbar"
-                    >
-                        {navbarButtons.map(({ component, type }: { component: any; type: string }) => (
-                            <li
-                                key={type}
-                                className={`${linkStyle} ${showTab === type ? 'bg-black white' : 'bg-white'}`}
-                                onClick={() => {
-                                    setShowTab(type)
-                                    openModal(component())
-                                }}
-                            >
-                                <span>
-                                    <Icon
-                                        icon="add"
-                                        size="m1"
-                                        style={{
-                                            fill: showTab === type ? 'white' : 'black'
-                                        }}
-                                        aria-hidden
-                                    />
-                                    {` ${upperFirst(type)}`}
-                                </span>
-                            </li>
-                        ))}
+            <motion.div className="fixed top-25" animate={isShowing ? 'open' : 'closed'} variants={variants}>
+                <div className="flex w5 z-3" style={{ minHeight: '100%', maxHeight: '50vh' }}>
+                    <ul className="list ml0 overflow-auto pl0 relative w4-5" data-testid="consoleNavbar">
+                        {navbarButtons.map(({ component, type }: { component: any; type: string }) => {
+                            if (type === 'game' && !consoles.length) return false
+
+                            return (
+                                <li
+                                    key={type}
+                                    className={`${linkStyle} ${showTab === type ? 'bg-black white' : 'bg-white'}`}
+                                    onClick={() => {
+                                        setShowTab(type)
+                                        openModal(component())
+                                    }}
+                                >
+                                    <span>
+                                        <Icon
+                                            icon="add"
+                                            size="m1"
+                                            style={{
+                                                fill: showTab === type ? 'white' : 'black'
+                                            }}
+                                            aria-hidden
+                                        />
+                                        {` ${upperFirst(type)}`}
+                                    </span>
+                                </li>
+                            )
+                        })}
 
                         <li
                             className={`${linkStyle} ${selected === '' ? 'bg-black white' : 'bg-white'}`}
@@ -98,16 +92,17 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                                 {name}
                             </li>
                         ))}
-                    </motion.ul>
-                )}
-                <button
-                    onClick={() => setIsShowing(!isShowing)}
-                    style={{ background: 'none' }}
-                    className="bn h-100 pointer"
-                >
-                    <div className="bg-white br4 pa2 pointer">{isShowing ? '<' : '>'}</div>
-                </button>
-            </div>
+                    </ul>
+
+                    <button
+                        onClick={() => setIsShowing(!isShowing)}
+                        style={{ background: 'none' }}
+                        className="bn pointer"
+                    >
+                        <div className="bg-white br4 pa2 flex align-center pointer">{isShowing ? '<' : '>'}</div>
+                    </button>
+                </div>
+            </motion.div>
         </AnimatePresence>
     )
 })

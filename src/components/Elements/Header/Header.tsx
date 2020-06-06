@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
 
@@ -21,23 +20,14 @@ export const LandingHeader: React.FC = React.memo(
     (): JSX.Element => {
         const { login } = useAuthFunctions()
 
-        const router = useRouter()
-
         return (
-            <header data-testid="header" className="bg-black pa1">
-                <nav className="container">
-                    <ul className="list flex justify-between pa0 sans-serif">
-                        <span>
-                            <HeaderLink onClick={() => router.push('/')} text="Home" />
-                            <HeaderLink className="pl4" onClick={() => router.push('/about')} text="About" />
-                        </span>
+            <Header>
+                <span></span>
 
-                        <span>
-                            <HeaderLink onClick={() => login()} text="Login" />
-                        </span>
-                    </ul>
-                </nav>
-            </header>
+                <span>
+                    <HeaderLink onClick={() => login()} text="Login" />
+                </span>
+            </Header>
         )
     }
 )
@@ -45,13 +35,10 @@ export const LandingHeader: React.FC = React.memo(
 export const AppHeader: React.FC = React.memo(
     (): JSX.Element => {
         const { logout } = useAuthFunctions()
-        const router = useRouter()
 
         return (
             <Header>
-                <span>
-                    <HeaderLink onClick={() => router.push('/app')} text="Home" />
-                </span>
+                <span></span>
 
                 <span>
                     <HeaderLink onClick={() => logout()} text="Logout" />
