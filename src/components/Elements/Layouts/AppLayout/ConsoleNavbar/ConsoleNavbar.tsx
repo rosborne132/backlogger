@@ -60,28 +60,31 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         exit="closed"
                         data-testid="consoleNavbar"
                     >
-                        {navbarButtons.map(({ component, type }: { component: any; type: string }) => (
-                            <li
-                                key={type}
-                                className={`${linkStyle} ${showTab === type ? 'bg-black white' : 'bg-white'}`}
-                                onClick={() => {
-                                    setShowTab(type)
-                                    openModal(component())
-                                }}
-                            >
-                                <span>
-                                    <Icon
-                                        icon="add"
-                                        size="m1"
-                                        style={{
-                                            fill: showTab === type ? 'white' : 'black'
-                                        }}
-                                        aria-hidden
-                                    />
-                                    {` ${upperFirst(type)}`}
-                                </span>
-                            </li>
-                        ))}
+                        {navbarButtons.map(({ component, type }: { component: any; type: string }) => {
+                            if (type === 'game' && !consoles.length) return false
+                            return (
+                                <li
+                                    key={type}
+                                    className={`${linkStyle} ${showTab === type ? 'bg-black white' : 'bg-white'}`}
+                                    onClick={() => {
+                                        setShowTab(type)
+                                        openModal(component())
+                                    }}
+                                >
+                                    <span>
+                                        <Icon
+                                            icon="add"
+                                            size="m1"
+                                            style={{
+                                                fill: showTab === type ? 'white' : 'black'
+                                            }}
+                                            aria-hidden
+                                        />
+                                        {` ${upperFirst(type)}`}
+                                    </span>
+                                </li>
+                            )
+                        })}
 
                         <li
                             className={`${linkStyle} ${selected === '' ? 'bg-black white' : 'bg-white'}`}
