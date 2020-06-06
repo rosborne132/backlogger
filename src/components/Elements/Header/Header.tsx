@@ -21,17 +21,13 @@ export const LandingHeader: React.FC = React.memo(
         const { login } = useAuthFunctions()
 
         return (
-            <header data-testid="header" className="bg-black pa1">
-                <nav className="container">
-                    <ul className="list flex justify-between pa0 sans-serif">
-                        <span></span>
+            <Header>
+                <span></span>
 
-                        <span>
-                            <HeaderLink onClick={() => login()} text="Login" />
-                        </span>
-                    </ul>
-                </nav>
-            </header>
+                <span>
+                    <HeaderLink onClick={() => login()} text="Login" />
+                </span>
+            </Header>
         )
     }
 )
