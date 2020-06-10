@@ -28,6 +28,7 @@ type Query {
     fetchGames: [Game]
     getGames: [UserGame]
     getGamesByConsoleId(consoleId: String!): [UserGame]
+    getGameByGameId(gameId: String!): Game
 }
 
 input UserGameInput {

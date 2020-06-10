@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { dbClient, docClient, parseData } from 'src/lib/dynamodb'
 import { stage } from 'src/lib/stage'
 import { Game as GameType, UserGame } from 'src/types'
@@ -94,5 +95,52 @@ export const putGame = async (userGame: UserGame) => {
         console.error(err)
     } finally {
         return userGame
+    }
+}
+
+export const getGameByGameId = async (gameId: string, userId: string) => {
+    console.log(gameId)
+
+    const gameFetched = await axios({
+        url: 'https://api-v3.igdb.com/games',
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'user-key': process.env.API_KEY
+        },
+        data: `
+            fields 
+            artworks.url, 
+            cover.url, 
+            name, 
+            platforms.name, 
+            screenshots.url, 
+            similar_games.name, 
+            slug, 
+            storyline, 
+            summary, 
+            themes, 
+            themes.name, 
+            time_to_beat
+            ; search "${gameId}";`
+        // data: `fields cover.url, name, slug, platforms.name; where id = ${gameId};`
+    })
+
+    console.log(gameFetched.data)
+
+    return {
+        console: {
+            id: 'consoleId',
+            name: 'consoleName',
+            slug: 'consoleSlug'
+        },
+        cover: {
+            id: 'coverId',
+            url: 'coverUrl'
+        },
+        id: 'testid',
+        inBacklog: true,
+        name: 'testName',
+        slug: 'testSlug'
     }
 }

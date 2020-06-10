@@ -47,8 +47,8 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
 
     return (
         <AnimatePresence>
-            <motion.div className="fixed top-25" animate={isShowing ? 'open' : 'closed'} variants={variants}>
-                <div className="flex w5 z-3" style={{ minHeight: '100%', maxHeight: '50vh' }}>
+            <motion.div className="fixed top-25 z-9999" animate={isShowing ? 'open' : 'closed'} variants={variants}>
+                <div className="flex w5" style={{ minHeight: '100%', maxHeight: '50vh' }}>
                     <ul className="list ml0 overflow-auto pl0 relative w4-5" data-testid="consoleNavbar">
                         {navbarButtons.map(({ component, type }: { component: any; type: string }) => {
                             if (type === 'game' && !consoles.length) return false

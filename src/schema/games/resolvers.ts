@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { User } from 'src/types'
-import { getGames, getGamesByConsoleId } from './services'
+import { getGames, getGamesByConsoleId, getGameByGameId } from './services'
 
 export const gameResolvers = {
     Query: {
@@ -13,8 +13,7 @@ export const gameResolvers = {
                         Accept: 'application/json',
                         'user-key': process.env.API_KEY
                     },
-                    data:
-                        'fields cover.url, name, slug, platforms.name; limit 100;'
+                    data: 'fields cover.url, name, slug, platforms.name; limit 100;'
                 })
 
                 return gamesFetched.data
@@ -32,6 +31,14 @@ export const gameResolvers = {
         async getGamesByConsoleId(parent, args, { user }: { user: User }) {
             try {
                 return await getGamesByConsoleId(args.consoleId, user.client_id)
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        async getGameByGameId(parent, args, { user }: { user: User }) {
+            try {
+                return await getGameByGameId(args.gameId, 'user.client_id')
+                // return await getGameByGameId(args.gameId, user.client_id)
             } catch (err) {
                 console.error(err)
             }
