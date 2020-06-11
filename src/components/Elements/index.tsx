@@ -1,4 +1,5 @@
 export * from './Button/Button'
+export * from './Badge/Badge'
 export * from './ConsoleForm/ConsoleForm'
 export * from './FormElements'
 export * from './Game/Game'

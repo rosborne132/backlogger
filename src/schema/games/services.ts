@@ -109,19 +109,22 @@ export const putGame = async (userGame: UserGame) => {
     }
 }
 
-export const getGameByGameId = async (gameId: string, userId: string) => {
+export const getGameByGameId = async (gameId: string) => {
     const query = `
-    fields 
-    artworks.url, 
-    cover.url, 
-    name, 
-    platforms.name, 
-    screenshots.url, 
-    similar_games.name, 
-    slug, 
-    storyline, 
-    summary, 
-    themes.name; 
+    fields
+    artworks.url,
+    cover.url,
+    name,
+    platforms.abbreviation,
+    platforms.name,
+    screenshots.url,
+    similar_games.name,
+    similar_games.cover.url,
+    slug,
+    storyline,
+    summary,
+    themes.name,
+    themes.slug;
     where id = ${gameId};`
 
     const gameFetched = await queryAPI('games', query)

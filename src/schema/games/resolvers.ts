@@ -35,10 +35,9 @@ export const gameResolvers = {
                 console.error(err)
             }
         },
-        async getGameByGameId(parent, args, { user }: { user: User }) {
+        async getGameByGameId(parent, args) {
             try {
-                return await getGameByGameId(args.gameId, 'user.client_id')
-                // return await getGameByGameId(args.gameId, user.client_id)
+                return await getGameByGameId(args.gameId)
             } catch (err) {
                 console.error(err)
             }

@@ -1434,6 +1434,10 @@ code {
     width: 4rem;
 }
 
+.w3-5 {
+    width: 6rem;
+}
+
 .w4 {
     width: 8rem;
 }
@@ -9076,4 +9080,34 @@ code {
     .v-btm-l {
         vertical-align: bottom;
     }
+}
+
+.action {
+    background-color: #e7040f;
+    color: #fff;
+}
+
+.fantasy {
+    background-color: #137752;
+    color: #fff;
+}
+
+.kids {
+    background-color: #357edd;
+    color: #fff;
+}
+
+.science-fiction {
+    background-color: #001b44;
+    color: #fff;
+}
+
+.comedy {
+    background-color: #5e2ca5;
+    color: #fff;
+}
+
+.horror {
+    background-color: #111111;
+    color: #fff;
 }

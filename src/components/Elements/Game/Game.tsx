@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { Cover, Platform } from 'src/types'
 
 type GameProps = {
+    id: string
     name: string
     slug: string
     cover?: Cover
@@ -12,8 +13,9 @@ type GameProps = {
 }
 
 export const Game: React.FC<GameProps> = React.memo(
-    ({ cover, name, platforms, slug }): JSX.Element => {
+    ({ cover, id, name, slug }): JSX.Element => {
         const router = useRouter()
+        const coverUrl = cover.url.length ? cover.url.replace('t_thumb', 't_cover_big') : ''
 
         return (
             <motion.div
@@ -21,16 +23,11 @@ export const Game: React.FC<GameProps> = React.memo(
                 className="flex flex-column pointer w5"
                 whileHover={{ y: -5 }}
                 whileTap={{ y: -3 }}
-                onClick={() => router.push('/app/game/[id]', `/app/game/${slug}`)}
+                onClick={() => router.push('/app/game/[id]', `/app/game/${id}`)}
             >
-                {cover.url.length ? (
+                {coverUrl.length ? (
                     <div className="h5">
-                        <img
-                            data-testid="gameImage"
-                            src={cover.url}
-                            alt={slug}
-                            className="bg-transparent ba bn br4 w-100"
-                        />
+                        <img data-testid="gameImage" src={coverUrl} alt={slug} className="ba bn br4 h5 w-100" />
                     </div>
                 ) : (
                     <div className="ba bn br4 bg-near-white h5 flex justify-center items-center tc">
