@@ -5,6 +5,17 @@ import { Game as GameType, UserGame } from 'src/types'
 
 export const dataIsValid = (fetchedData: any) => fetchedData !== null || fetchedData !== undefined || fetchedData.length
 
+export const queryAPI = async (endpoint: string, query: string) =>
+    await axios({
+        url: `https://api-v3.igdb.com/${endpoint}`,
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'user-key': process.env.API_KEY
+        },
+        data: query
+    })
+
 export const getGameByConsole = (games: GameType[], params: GameType) => {
     if (!dataIsValid(games)) return null
 
@@ -99,48 +110,21 @@ export const putGame = async (userGame: UserGame) => {
 }
 
 export const getGameByGameId = async (gameId: string, userId: string) => {
-    console.log(gameId)
+    const query = `
+    fields 
+    artworks.url, 
+    cover.url, 
+    name, 
+    platforms.name, 
+    screenshots.url, 
+    similar_games.name, 
+    slug, 
+    storyline, 
+    summary, 
+    themes.name; 
+    where id = ${gameId};`
 
-    const gameFetched = await axios({
-        url: 'https://api-v3.igdb.com/games',
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'user-key': process.env.API_KEY
-        },
-        data: `
-            fields 
-            artworks.url, 
-            cover.url, 
-            name, 
-            platforms.name, 
-            screenshots.url, 
-            similar_games.name, 
-            slug, 
-            storyline, 
-            summary, 
-            themes, 
-            themes.name, 
-            time_to_beat
-            ; search "${gameId}";`
-        // data: `fields cover.url, name, slug, platforms.name; where id = ${gameId};`
-    })
+    const gameFetched = await queryAPI('games', query)
 
-    console.log(gameFetched.data)
-
-    return {
-        console: {
-            id: 'consoleId',
-            name: 'consoleName',
-            slug: 'consoleSlug'
-        },
-        cover: {
-            id: 'coverId',
-            url: 'coverUrl'
-        },
-        id: 'testid',
-        inBacklog: true,
-        name: 'testName',
-        slug: 'testSlug'
-    }
+    return gameFetched.data[0]
 }

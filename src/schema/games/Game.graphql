@@ -1,3 +1,7 @@
+type Artwork {
+    url: String!
+}
+
 type Console {
     id: String!
     name: String!
@@ -9,6 +13,14 @@ type Cover {
     url: String!
 }
 
+type Screenshot {
+    url: String!
+}
+
+type Theme {
+    name: String
+}
+
 type Game {
     console: Console
     cover: Cover
@@ -16,6 +28,20 @@ type Game {
     inBacklog: Boolean!
     name: String!
     slug: String!
+}
+
+type APIGame {
+    artworks: [Artwork]
+    cover: Cover
+    id: String!
+    name: String!
+    platforms: [Console]
+    screenshots: [Screenshot]
+    similar_games: [APIGame]
+    slug: String!
+    storyline: String!
+    summary: String!
+    themes: [Theme]
 }
 
 type UserGame {
@@ -28,7 +54,7 @@ type Query {
     fetchGames: [Game]
     getGames: [UserGame]
     getGamesByConsoleId(consoleId: String!): [UserGame]
-    getGameByGameId(gameId: String!): Game
+    getGameByGameId(gameId: String!): APIGame
 }
 
 input UserGameInput {
