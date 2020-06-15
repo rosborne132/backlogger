@@ -2,6 +2,9 @@ import * as React from 'react'
 import Amplify from '@aws-amplify/core'
 import { Auth } from '@aws-amplify/auth'
 
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
 import 'src/styles/index.css'
 
 type AppProps = {

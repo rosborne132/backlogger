@@ -117,6 +117,7 @@ export const getGameByGameId = async (gameId: string) => {
     name,
     platforms.abbreviation,
     platforms.name,
+    screenshots.id,
     screenshots.url,
     similar_games.name,
     similar_games.cover.url,

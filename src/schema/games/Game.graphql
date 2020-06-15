@@ -15,6 +15,7 @@ type Cover {
 }
 
 type Screenshot {
+    id: String!
     url: String!
 }
 

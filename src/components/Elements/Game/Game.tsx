@@ -13,7 +13,7 @@ type GameProps = {
 }
 
 export const Game: React.FC<GameProps> = React.memo(
-    ({ cover, id, name, slug }): JSX.Element => {
+    ({ cover, id, name, slug }: GameProps): JSX.Element => {
         const router = useRouter()
         const coverUrl = cover.url.length ? cover.url.replace('t_thumb', 't_cover_big') : ''
 
