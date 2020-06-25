@@ -9111,3 +9111,13 @@ code {
     background-color: #111111;
     color: #fff;
 }
+
+#game {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    #game {
+        display: block;
+    }
+}

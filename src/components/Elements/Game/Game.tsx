@@ -5,26 +5,45 @@ import { motion } from 'framer-motion'
 import { Cover, Platform } from 'src/types'
 
 type GameProps = {
+    canHover: boolean
+    cover?: Cover
     id: string
     name: string
-    slug: string
-    cover?: Cover
     platforms?: [Platform]
+    slug: string
+}
+
+type GameWrapperProps = {
+    canHover: boolean
+    children: React.ReactNode
+    id: string
+}
+
+export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id }) => {
+    const router = useRouter()
+    return canHover ? (
+        <motion.div
+            data-testid="game"
+            className="flex flex-column pointer w5"
+            whileHover={{ y: -5 }}
+            whileTap={{ y: -3 }}
+            onClick={() => router.push('/app/game/[id]', `/app/game/${id}`)}
+        >
+            {children}
+        </motion.div>
+    ) : (
+        <div data-testid="game" className="flex flex-column w5">
+            {children}
+        </div>
+    )
 }
 
 export const Game: React.FC<GameProps> = React.memo(
-    ({ cover, id, name, slug }: GameProps): JSX.Element => {
-        const router = useRouter()
+    ({ canHover = true, cover, id, name, slug }: GameProps): JSX.Element => {
         const coverUrl = cover.url.length ? cover.url.replace('t_thumb', 't_cover_big') : ''
 
         return (
-            <motion.div
-                data-testid="game"
-                className="flex flex-column pointer w5"
-                whileHover={{ y: -5 }}
-                whileTap={{ y: -3 }}
-                onClick={() => router.push('/app/game/[id]', `/app/game/${id}`)}
-            >
+            <GameWrapper canHover={canHover} id={id}>
                 {coverUrl.length ? (
                     <div className="h5">
                         <img data-testid="gameImage" src={coverUrl} alt={slug} className="ba bn br4 h5 w-100" />
@@ -34,7 +53,7 @@ export const Game: React.FC<GameProps> = React.memo(
                         <p data-testid="noGameImage">{name}</p>
                     </div>
                 )}
-            </motion.div>
+            </GameWrapper>
         )
     }
 )

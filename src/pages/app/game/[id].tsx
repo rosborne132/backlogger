@@ -70,14 +70,27 @@ export default withApollo(() => {
         <AppLayout displayNav={false} images={screenshots}>
             <button
                 onClick={() => router.back()}
-                className="ba bn br4 fixed h2 mv2 pointer shadow-1 w2 z-5"
+                className="ba bg-white bn br4 fixed h2 mv2 pointer shadow-1 w2 z-5"
                 style={{ top: '60px', left: '20px' }}
             >
                 {'<'}
             </button>
 
-            <header>
+            <header className="relative pv3">
                 <h1 className="tc">{name}</h1>
+                {!isEmpty(game, 'getGameByGameId') ? (
+                    <div className="absolute" id="game" style={{ bottom: '100px' }}>
+                        <Game
+                            canHover={false}
+                            cover={game.getGameByGameId.cover}
+                            id={game.getGameByGameId.id}
+                            name={game.getGameByGameId.name}
+                            slug={game.getGameByGameId.slug}
+                        />
+                    </div>
+                ) : (
+                    ''
+                )}
             </header>
 
             <section>

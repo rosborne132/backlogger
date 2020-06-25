@@ -1,10 +1,19 @@
 import * as React from 'react'
+import Link from 'next/link'
 
 import { useAuthFunctions } from 'src/lib/auth'
 
-const HeaderLink = ({ className, onClick, text }: { className?: string; onClick: any; text: string }) => (
+const HeaderLink = ({
+    className,
+    children,
+    onClick
+}: {
+    className?: string
+    children: React.ReactNode
+    onClick?: any
+}) => (
     <li className={`dib pointer no-underline pointer white ${className}`} onClick={onClick}>
-        {text}
+        {children}
     </li>
 )
 
@@ -25,7 +34,7 @@ export const LandingHeader: React.FC = React.memo(
                 <span></span>
 
                 <span>
-                    <HeaderLink onClick={() => login()} text="Login" />
+                    <HeaderLink onClick={() => login()}>Login</HeaderLink>
                 </span>
             </Header>
         )
@@ -38,10 +47,16 @@ export const AppHeader: React.FC = React.memo(
 
         return (
             <Header>
-                <span></span>
+                <span>
+                    <HeaderLink>
+                        <Link href="/app">
+                            <a className="white link">Home</a>
+                        </Link>
+                    </HeaderLink>
+                </span>
 
                 <span>
-                    <HeaderLink onClick={() => logout()} text="Logout" />
+                    <HeaderLink onClick={() => logout()}>Logout</HeaderLink>
                 </span>
             </Header>
         )
