@@ -47,7 +47,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
 
     return (
         <AnimatePresence>
-            <motion.div className="fixed top-25 z-9999" animate={isShowing ? 'open' : 'closed'} variants={variants}>
+            <motion.div className="fixed top-25 z-4" animate={isShowing ? 'open' : 'closed'} variants={variants}>
                 <div className="flex w5" style={{ minHeight: '100%', maxHeight: '50vh' }}>
                     <ul className="list ml0 overflow-auto pl0 relative w4-5" data-testid="consoleNavbar">
                         {navbarButtons.map(({ component, type }: { component: any; type: string }) => {
@@ -99,7 +99,12 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         style={{ background: 'none' }}
                         className="bn pointer"
                     >
-                        <div className="bg-white br4 pa2 flex align-center pointer">{isShowing ? '<' : '>'}</div>
+                        <div
+                            className="bg-white br4 pa2 flex align-center pointer"
+                            style={{ top: '60px', left: '20px' }}
+                        >
+                            {isShowing ? '<' : '>'}
+                        </div>
                     </button>
                 </div>
             </motion.div>
