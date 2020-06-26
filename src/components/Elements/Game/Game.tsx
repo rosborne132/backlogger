@@ -11,23 +11,30 @@ type GameProps = {
     name: string
     platforms?: [Platform]
     slug: string
+    userGameId?: string
 }
 
 type GameWrapperProps = {
     canHover: boolean
     children: React.ReactNode
     id: string
+    userGameId?: string
 }
 
-export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id }) => {
+export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id, userGameId }) => {
     const router = useRouter()
+    const gameRoute =
+        userGameId !== undefined
+            ? ['/app/game/[id]?id=[gameId]', `/app/game/${id}?id=${userGameId}`]
+            : ['/app/game/[id]', `/app/game/${id}`]
+
     return canHover ? (
         <motion.div
             data-testid="game"
             className="flex flex-column pointer w5"
             whileHover={{ y: -5 }}
             whileTap={{ y: -3 }}
-            onClick={() => router.push('/app/game/[id]', `/app/game/${id}`)}
+            onClick={() => router.push(...gameRoute)}
         >
             {children}
         </motion.div>
@@ -39,11 +46,11 @@ export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id
 }
 
 export const Game: React.FC<GameProps> = React.memo(
-    ({ canHover = true, cover, id, name, slug }: GameProps): JSX.Element => {
+    ({ canHover = true, cover, id, name, slug, userGameId }: GameProps): JSX.Element => {
         const coverUrl = cover.url.length ? cover.url.replace('t_thumb', 't_cover_big') : ''
 
         return (
-            <GameWrapper canHover={canHover} id={id}>
+            <GameWrapper canHover={canHover} id={id} userGameId={userGameId}>
                 {coverUrl.length ? (
                     <div className="h5">
                         <img data-testid="gameImage" src={coverUrl} alt={slug} className="ba bn br4 h5 w-100" />

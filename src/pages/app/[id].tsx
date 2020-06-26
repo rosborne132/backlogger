@@ -5,13 +5,14 @@ import gql from 'graphql-tag'
 
 import { AppLayout, LoadingScreen } from 'src/components/Elements'
 import { Grid } from 'src/components/Utilities'
-import { renderGames } from './index'
+import { renderUserGames } from './index'
 
 import { withApollo } from 'src/lib/apollo'
 
 const GET_GAMES_BY_CONSOLE_ID = gql`
     query GetGamesByConsoleId($consoleId: String!) {
         getGamesByConsoleId(consoleId: $consoleId) {
+            id
             game {
                 id
                 name
@@ -51,11 +52,7 @@ export default withApollo(() => {
 
     return (
         <AppLayout consoles={getUserConsoles.getUserConsoles} header={consoleName}>
-            <Grid>
-                {getGamesByConsoleId.getGamesByConsoleId.length
-                    ? renderGames(getGamesByConsoleId.getGamesByConsoleId)
-                    : null}
-            </Grid>
+            <Grid>{getGamesByConsoleId.getGamesByConsoleId.length ? renderUserGames(getGamesByConsoleId) : null}</Grid>
 
             {!getGamesByConsoleId.getGamesByConsoleId.length && (
                 <h3 className="tc">No games listed for this console. :(</h3>

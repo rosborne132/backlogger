@@ -48,7 +48,7 @@ export const getGames = async (userId: string) => {
         .query({
             TableName,
             IndexName: 'userId-index',
-            ProjectionExpression: 'game',
+            ProjectionExpression: 'game, id',
             KeyConditionExpression: '#user = :v_user',
             FilterExpression: '#game.#inBacklog = :inBacklog',
             ExpressionAttributeNames: {
@@ -71,7 +71,7 @@ export const getGamesByConsoleId = async (consoleId: string, userId: string) => 
         .query({
             TableName,
             IndexName: 'userId-index',
-            ProjectionExpression: 'game',
+            ProjectionExpression: 'game, id',
             KeyConditionExpression: '#user = :v_user',
             FilterExpression: '#game.#console.#id = :consoleId',
             ExpressionAttributeNames: {

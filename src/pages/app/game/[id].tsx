@@ -60,6 +60,8 @@ export default withApollo(() => {
         variables: { gameId: router.query.id }
     })
 
+    console.log(router)
+
     if (!game) return <LoadingScreen />
 
     const screenshots = !isEmpty(game, 'screenshots') ? game.getGameByGameId.screenshots : []

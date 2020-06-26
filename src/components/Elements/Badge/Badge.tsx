@@ -6,7 +6,7 @@ type BadgeProps = {
 }
 
 export const Badge: React.FC<BadgeProps> = React.memo(({ name, slug }) => (
-    <div data-testid="badge" className={`ba br4 pa1 ma1 tc w3-5 ${slug}`}>
+    <div data-testid="badge" className={`ba br4 flex items-center justify-center ma1 pa1 tc w3-5 ${slug}`}>
         {name}
     </div>
 ))

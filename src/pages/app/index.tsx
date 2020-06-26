@@ -16,6 +16,7 @@ import { Game as GameType } from 'src/types'
 export const GET_USER_GAMES = gql`
     query GetUserGames {
         getGames {
+            id
             game {
                 id
                 name
@@ -28,10 +29,24 @@ export const GET_USER_GAMES = gql`
     }
 `
 
-export const renderGames = (games: any[]): JSX.Element[] => {
-    return games.map(({ game }: { game: GameType }) => (
-        <Game key={game.id} cover={game.cover} id={game.id} name={game.name} slug={game.slug} />
-    ))
+export const renderUserGames = (games: any[]): JSX.Element[] => {
+    return games.getGames.map(listedGame => {
+        const { game } = listedGame
+        const userGameId = listedGame.id !== undefined ? listedGame.id : ''
+
+        console.log(userGameId)
+
+        return (
+            <Game
+                key={game.id}
+                cover={game.cover}
+                id={game.id}
+                name={game.name}
+                slug={game.slug}
+                userGameId={userGameId}
+            />
+        )
+    })
 }
 
 export default withApollo(() => {
@@ -46,7 +61,7 @@ export default withApollo(() => {
 
     return (
         <AppLayout consoles={getUserConsoles.getUserConsoles} header="Current Games">
-            <Grid>{getGames.getGames.length ? renderGames(getGames.getGames) : null}</Grid>
+            <Grid>{getGames.getGames.length ? renderUserGames(getGames) : null}</Grid>
 
             {!getGames.getGames.length && <h3 className="tc">No games in your backlog. :(</h3>}
         </AppLayout>
