@@ -8,6 +8,9 @@ import { Grid } from 'src/components/Utilities'
 
 import { withApollo } from 'src/lib/apollo'
 
+// todo
+// Use query on load to see if the user has this game in there backlog
+
 const GET_GAME_BY_GAME_ID = gql`
     query GetGameByGameId($gameId: String!) {
         getGameByGameId(gameId: $gameId) {
@@ -60,8 +63,6 @@ export default withApollo(() => {
         variables: { gameId: router.query.id }
     })
 
-    console.log(router)
-
     if (!game) return <LoadingScreen />
 
     const screenshots = !isEmpty(game, 'screenshots') ? game.getGameByGameId.screenshots : []
@@ -79,7 +80,9 @@ export default withApollo(() => {
             </button>
 
             <header className="relative pv3">
-                <h1 className="tc">{name}</h1>
+                <h1 className="tc">
+                    {name} {router.query.userGameId && <button>Remove</button>}
+                </h1>
                 {!isEmpty(game, 'getGameByGameId') ? (
                     <div className="absolute" id="game" style={{ bottom: '100px' }}>
                         <Game

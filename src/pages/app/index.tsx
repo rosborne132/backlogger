@@ -34,8 +34,6 @@ export const renderUserGames = (games: any[]): JSX.Element[] => {
         const { game } = listedGame
         const userGameId = listedGame.id !== undefined ? listedGame.id : ''
 
-        console.log(userGameId)
-
         return (
             <Game
                 key={game.id}

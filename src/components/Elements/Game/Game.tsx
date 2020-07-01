@@ -23,10 +23,6 @@ type GameWrapperProps = {
 
 export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id, userGameId }) => {
     const router = useRouter()
-    const gameRoute =
-        userGameId !== undefined
-            ? ['/app/game/[id]?id=[gameId]', `/app/game/${id}?id=${userGameId}`]
-            : ['/app/game/[id]', `/app/game/${id}`]
 
     return canHover ? (
         <motion.div
@@ -34,7 +30,7 @@ export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id
             className="flex flex-column pointer w5"
             whileHover={{ y: -5 }}
             whileTap={{ y: -3 }}
-            onClick={() => router.push(...gameRoute)}
+            onClick={() => router.push({ pathname: `/app/game/${id}`, query: { userGameId } })}
         >
             {children}
         </motion.div>
