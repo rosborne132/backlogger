@@ -7,8 +7,8 @@ export const LandingLayout: React.FC = React.memo(
         <>
             <Meta />
             <LandingHeader />
-            <main data-testid="landingLayout">
-                <div className="container">{children}</div>
+            <main data-testid="landingLayout" className="layout">
+                {children}
             </main>
         </>
     )

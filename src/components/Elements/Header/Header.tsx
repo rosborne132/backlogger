@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
 
@@ -17,13 +17,25 @@ const HeaderLink = ({
     </li>
 )
 
-const Header = ({ children }: { children: React.ReactNode }) => (
-    <header data-testid="header" className="bg-black pa1">
-        <nav className="container">
-            <ul className="list flex justify-between pa0 sans-serif">{children}</ul>
-        </nav>
-    </header>
-)
+// const Header = ({ children }: { children: React.ReactNode }) => (
+//     <header data-testid="header" className="bg-black pa1">
+//         <nav className="container">
+//             <ul className="list flex justify-between pa0 sans-serif">{children}</ul>
+//         </nav>
+//     </header>
+// )
+
+const Header = ({ children }: { children: React.ReactNode }) => {
+    const router = useRouter()
+    return (
+        <header data-testid="header">
+            <h1 className="fake-logo">
+                <a onClick={() => router.push({ pathname: `/app` })}>Backlogger</a>
+            </h1>
+            <nav>{children}</nav>
+        </header>
+    )
+}
 
 export const LandingHeader: React.FC = React.memo(
     (): JSX.Element => {
@@ -31,11 +43,7 @@ export const LandingHeader: React.FC = React.memo(
 
         return (
             <Header>
-                <span></span>
-
-                <span>
-                    <HeaderLink onClick={() => login()}>Login</HeaderLink>
-                </span>
+                <a onClick={() => login()}>Login</a>
             </Header>
         )
     }
@@ -47,17 +55,7 @@ export const AppHeader: React.FC = React.memo(
 
         return (
             <Header>
-                <span>
-                    <HeaderLink>
-                        <Link href="/app">
-                            <a className="white link">Home</a>
-                        </Link>
-                    </HeaderLink>
-                </span>
-
-                <span>
-                    <HeaderLink onClick={() => logout()}>Logout</HeaderLink>
-                </span>
+                <a onClick={() => logout()}>Logout</a>
             </Header>
         )
     }

@@ -2,10 +2,12 @@ import * as React from 'react'
 import Amplify from '@aws-amplify/core'
 import { Auth } from '@aws-amplify/auth'
 
+import 'src/styles/normalize.css'
+import 'src/styles/main.css'
+import 'src/styles/style.css'
+
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-
-import 'src/styles/index.css'
 
 type AppProps = {
     Component: React.FC
