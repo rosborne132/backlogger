@@ -8,19 +8,9 @@ export type SelectType = {
 }
 
 export const ConsoleSelect = ({ children, labelText = '', inputId, onChange }: SelectType) => (
-    <div className="pv2">
-        {labelText.length ? (
-            <label htmlFor={inputId} className="db f4">
-                {labelText}
-            </label>
-        ) : null}
-        <select
-            name={inputId}
-            id={inputId}
-            data-testid={inputId}
-            className="ba b--black br3 h2 mv3 w-100"
-            onChange={onChange}
-        >
+    <div style={{ paddingTop: 'var(--spacing-md)', paddingBottom: 'var(--spacing-md)' }}>
+        {labelText.length ? <label htmlFor={inputId}>{labelText}</label> : null}
+        <select name={inputId} id={inputId} data-testid={inputId} onChange={onChange}>
             {children}
         </select>
     </div>

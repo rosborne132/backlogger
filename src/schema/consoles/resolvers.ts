@@ -15,23 +15,15 @@ export const consoleResolvers = {
                         Accept: 'application/json',
                         'user-key': process.env.API_KEY
                     },
-                    data:
-                        'fields name,slug; where product_family = (1,2,3,5); limit 100;'
+                    data: 'fields name, slug; where product_family = (1,2,3,5); limit 100;'
                 })
 
-                if (
-                    consolesFetched.data === null ||
-                    consolesFetched.data === undefined
-                )
-                    return []
+                if (consolesFetched.data === null || consolesFetched.data === undefined) return []
 
                 const userConsoles = await getConsoles(user.client_id)
 
                 const consoleChoices = consolesFetched.data.filter(
-                    ({ id }) =>
-                        !userConsoles.some(
-                            ({ console }) => parseInt(console.id) === id
-                        )
+                    ({ id }) => !userConsoles.some(({ console }) => parseInt(console.id) === id)
                 )
 
                 return consoleChoices
@@ -39,11 +31,7 @@ export const consoleResolvers = {
                 console.error(err)
             }
         },
-        async getUserConsoles(
-            parent: any,
-            args: any,
-            { user }: { user: User }
-        ) {
+        async getUserConsoles(parent: any, args: any, { user }: { user: User }) {
             if (user === undefined) return []
 
             try {

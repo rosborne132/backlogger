@@ -8,18 +8,12 @@ export type InputType = {
 }
 
 export const Input = ({ labelText = '', inputId, inputType = 'text', onChange }: InputType) => (
-    <div className="pv2">
+    <div>
         {labelText.length ? (
             <label htmlFor={inputId} className="db f4">
                 {labelText}
             </label>
         ) : null}
-        <input
-            id={inputId}
-            data-testid={inputId}
-            className="ba b--light-white br3 f4 indent h2 mv3 w-100"
-            type={inputType}
-            onChange={onChange}
-        />
+        <input id={inputId} data-testid={inputId} type={inputType} onChange={onChange} />
     </div>
 )

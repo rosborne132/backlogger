@@ -33,7 +33,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
             <>
                 <Meta />
                 <AppHeader />
-                <main data-testid="appLayout" className="layout">
+                <main data-testid="appLayout">
                     {header?.length ? (
                         <header className="tc">
                             <h2>{header}</h2>
@@ -44,7 +44,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
 
                     {displayNav ? <ConsoleNavbar consoles={consoles} /> : null}
 
-                    <section>{children}</section>
+                    <section className="layout">{children}</section>
                 </main>
             </>
         )

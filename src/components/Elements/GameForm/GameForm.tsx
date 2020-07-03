@@ -6,6 +6,8 @@ import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
 
 import { Button, ConsoleSelect, FormLoadingScreen, Input } from 'src/components/Elements'
 
+import { ModalContext } from 'src/context'
+
 export const ADD_USER_GAME = gql`
     mutation addUserGame($game: UserGameInput) {
         addUserGame(game: $game) {
@@ -28,6 +30,7 @@ export const GameForm: React.FC = React.memo(
         const [consoles, setConsoles] = React.useState([])
         const [selectedConsoleId, setSelectedConsoleId] = React.useState('')
         const [isLoading, setIsLoading] = React.useState(false)
+        const { closeModal } = React.useContext(ModalContext)
         const [name, setName] = React.useState('')
         const { data } = useQuery(GET_USER_CONSOLES)
         const [addUserGame] = useMutation(ADD_USER_GAME, {
@@ -63,6 +66,13 @@ export const GameForm: React.FC = React.memo(
             setIsLoading(false)
         }
 
+        const closeForm = (e: React.MouseEvent<HTMLButtonElement>): any => {
+            e.preventDefault()
+            setName('')
+            setSelectedConsoleId('')
+            closeModal()
+        }
+
         if (!data) return <FormLoadingScreen />
 
         return (
@@ -86,9 +96,19 @@ export const GameForm: React.FC = React.memo(
                         ))}
                     </ConsoleSelect>
 
-                    <Button type="submit" isLoading={isLoading}>
-                        Submit
-                    </Button>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Button
+                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
+                            className="cancel"
+                            isLoading={isLoading}
+                        >
+                            Cancel
+                        </Button>
+
+                        <Button type="submit" isLoading={isLoading}>
+                            Submit
+                        </Button>
+                    </div>
                 </fieldset>
             </form>
         )

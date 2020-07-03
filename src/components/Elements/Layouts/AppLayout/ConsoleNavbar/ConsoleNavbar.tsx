@@ -31,8 +31,8 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
     const { modalIsShowing, openModal } = React.useContext(ModalContext)
     const router = useRouter()
     const variants = {
-        open: { opacity: 1, x: '-10%' },
-        closed: { opacity: 1, x: '-80%' }
+        open: { opacity: 1, x: '0vw' },
+        closed: { opacity: 1, x: '-70%' }
     }
 
     React.useEffect(() => {
@@ -41,9 +41,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
     }, [consoles])
 
     React.useEffect(() => {
-        if (!modalIsShowing) {
-            setShowTab('')
-        }
+        if (!modalIsShowing) setShowTab('')
     }, [modalIsShowing])
 
     return (

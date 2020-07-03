@@ -46,7 +46,17 @@
     /* Positioning */
     --containerPadding: 2.5%;
     --headerHeight: 3rem;
-    --borderRadius: 10px;
+    --borderRadius: 5px;
+
+    /* Spacing */
+    --spacing-none: 0;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xlg: 4rem;
+    --spacing-xxlg: 8rem;
+    --spacing-xxxlg: 16rem;
 }
 
 /* FROM Type Scale */
@@ -190,6 +200,9 @@ textarea {
 
 select {
     border: var(--line);
+    border-radius: var(--borderRadius);
+    width: 100%;
+    padding: var(--spacing-xs);
 }
 
 hr {
