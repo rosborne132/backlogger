@@ -7,6 +7,8 @@ import { ConsoleForm, GameForm, Icon } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
+import style from './ConsoleNavbar.module.css'
+
 type ConsoleNavbarProps = {
     consoles: any[]
 }
@@ -28,10 +30,9 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
     const [showTab, setShowTab] = React.useState('')
     const { modalIsShowing, openModal } = React.useContext(ModalContext)
     const router = useRouter()
-    const linkStyle = 'ba pointer pl2 pv3'
     const variants = {
-        open: { opacity: 1, x: '0%' },
-        closed: { opacity: 1, x: '-75%' }
+        open: { opacity: 1, x: '-10%' },
+        closed: { opacity: 1, x: '-80%' }
     }
 
     React.useEffect(() => {
@@ -47,16 +48,20 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
 
     return (
         <AnimatePresence>
-            <motion.div className="fixed top-25 z-4" animate={isShowing ? 'open' : 'closed'} variants={variants}>
-                <div className="flex w5" style={{ minHeight: '100%', maxHeight: '50vh' }}>
-                    <ul className="list ml0 overflow-auto pl0 relative w4-5" data-testid="consoleNavbar">
+            <motion.div
+                style={{ position: 'fixed', top: '25%', zIndex: 4 }}
+                animate={isShowing ? 'open' : 'closed'}
+                variants={variants}
+            >
+                <div className={style.consoleNavbar}>
+                    <ul data-testid="consoleNavbar">
                         {navbarButtons.map(({ component, type }: { component: any; type: string }) => {
                             if (type === 'game' && !consoles.length) return false
 
                             return (
                                 <li
                                     key={type}
-                                    className={`${linkStyle} ${showTab === type ? 'bg-black white' : 'bg-white'}`}
+                                    className={showTab === type ? style.consoleListItemSelect : style.consoleListItem}
                                     onClick={() => {
                                         setShowTab(type)
                                         openModal(component())
@@ -78,7 +83,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         })}
 
                         <li
-                            className={`${linkStyle} ${selected === '' ? 'bg-black white' : 'bg-white'}`}
+                            className={selected === '' ? style.consoleListItemSelect : style.consoleListItem}
                             onClick={() => router.push('/app')}
                         >
                             Backlog
@@ -86,7 +91,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         {consoles.map(({ console: { id, name } }: { console: { id: string; name: string } }) => (
                             <li
                                 key={id}
-                                className={`${linkStyle} ${selected === id ? 'bg-black white' : 'bg-white'}`}
+                                className={selected === id ? style.consoleListItemSelect : style.consoleListItem}
                                 onClick={() => router.push('/app/[id]', `/app/${id}`)}
                             >
                                 {name}
@@ -96,13 +101,10 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
 
                     <button
                         onClick={() => setIsShowing(!isShowing)}
-                        style={{ background: 'none' }}
+                        style={{ background: 'none', boxShadow: 'none', outline: 'none' }}
                         className="bn pointer"
                     >
-                        <div
-                            className="bg-white br4 pa2 flex align-center pointer"
-                            style={{ top: '60px', left: '20px' }}
-                        >
+                        <div className={style.consoleButton} style={{ top: '60px', left: '20px' }}>
                             {isShowing ? '<' : '>'}
                         </div>
                     </button>
