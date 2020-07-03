@@ -29,8 +29,8 @@ export const GET_USER_GAMES = gql`
     }
 `
 
-export const renderUserGames = (games: any[]): JSX.Element[] => {
-    return games.getGames.map(listedGame => {
+export const renderUserGames = (games: any[], objName: string): JSX.Element[] =>
+    games[objName].map(listedGame => {
         const { game } = listedGame
         const userGameId = listedGame.id !== undefined ? listedGame.id : ''
 
@@ -45,7 +45,6 @@ export const renderUserGames = (games: any[]): JSX.Element[] => {
             />
         )
     })
-}
 
 export default withApollo(() => {
     const { closeModal } = React.useContext(ModalContext)
@@ -59,7 +58,7 @@ export default withApollo(() => {
 
     return (
         <AppLayout consoles={getUserConsoles.getUserConsoles} header="Current Games">
-            <Grid>{getGames.getGames.length ? renderUserGames(getGames) : null}</Grid>
+            <Grid>{getGames.getGames.length ? renderUserGames(getGames, 'getGames') : null}</Grid>
 
             {!getGames.getGames.length && <h3 className="tc">No games in your backlog. :(</h3>}
         </AppLayout>

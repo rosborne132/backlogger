@@ -1,0 +1,19 @@
+.noGameImg {
+    align-items: center;
+    background-color: #cccccc;
+    border-radius: 1rem;
+    border-style: none;
+    border-width: 0;
+    display: flex;
+    height: 16rem;
+    justify-content: center;
+    width: 12rem;
+    text-align: center;
+}
+
+.gameImg {
+    border-radius: 1rem;
+    border-style: none;
+    border-width: 0;
+    height: 16rem;
+}

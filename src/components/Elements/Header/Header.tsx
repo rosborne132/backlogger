@@ -3,22 +3,20 @@ import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
 
-const Header = ({ children }: { children: React.ReactNode }) => <header data-testid="header">{children}</header>
-
 export const LandingHeader: React.FC = React.memo(
     (): JSX.Element => {
         const router = useRouter()
         const { login } = useAuthFunctions()
 
         return (
-            <Header>
-                <h1 className="fake-logo">
+            <header data-testid="header" className="header">
+                <h1 className="logo">
                     <a onClick={() => router.push({ pathname: `/` })}>Backlogger</a>
                 </h1>
                 <nav>
                     <a onClick={() => login()}>Login</a>
                 </nav>
-            </Header>
+            </header>
         )
     }
 )
@@ -29,14 +27,14 @@ export const AppHeader: React.FC = React.memo(
         const { logout } = useAuthFunctions()
 
         return (
-            <Header>
-                <h1 className="fake-logo">
+            <header data-testid="header" className="header">
+                <h1 className="logo">
                     <a onClick={() => router.push({ pathname: `/app` })}>Backlogger</a>
                 </h1>
                 <nav>
                     <a onClick={() => logout()}>Logout</a>
                 </nav>
-            </Header>
+            </header>
         )
     }
 )

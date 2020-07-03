@@ -23,7 +23,7 @@ const settings = {
 const renderScreenshots = (screenshots: any) =>
     screenshots.map(({ id, url }: { id: string; url: string }) => (
         <div key={id}>
-            <img className="center" src={url.replace('t_thumb', 't_1080p')} />
+            <img src={url.replace('t_thumb', 't_1080p')} />
         </div>
     ))
 
@@ -35,7 +35,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                 <AppHeader />
                 <main data-testid="appLayout" className="layout">
                     {header?.length ? (
-                        <header>
+                        <header className="tc">
                             <h2>{header}</h2>
                         </header>
                     ) : null}

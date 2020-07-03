@@ -70,7 +70,7 @@ body {
     color: var(--textColor);
 }
 
-header {
+.header {
     color: white;
     width: 100%;
     height: var(--headerHeight);
@@ -82,13 +82,13 @@ header {
     padding: 0 var(--containerPadding);
 }
 
-header nav a {
+.header nav a {
     color: white;
     text-decoration: none;
     cursor: pointer;
 }
 
-header nav a + a {
+.header nav a + a {
     margin-left: 10px;
 }
 
@@ -275,30 +275,21 @@ button.small {
     }
 }
 
-.fake-logo {
+.logo {
     font-size: var(--baseFontSize);
     margin: 0;
 }
 
-.fake-logo a {
+.logo a {
     cursor: pointer;
 }
 
-.card {
-    padding: 2em;
-    background: var(--cardBg);
-    box-shadow: var(--level-3);
-    border-radius: var(--borderRadius);
+.tc {
+    text-align: center;
 }
 
-/* First item will never have margin top */
-.card > *:first-child {
-    margin-top: 0;
-}
-
-/* Last item will never have margin bottom */
-.card > *:last-child {
-    margin-bottom: 0;
+.pointer {
+    cursor: pointer;
 }
 
 .dark {
