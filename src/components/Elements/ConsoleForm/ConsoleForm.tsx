@@ -4,6 +4,8 @@ import gql from 'graphql-tag'
 
 import { Button, ConsoleSelect, FormLoadingScreen } from 'src/components/Elements'
 
+import { ModalContext } from 'src/context'
+
 export const GET_CONSOLES = gql`
     query GetConsoles {
         getConsoles {
@@ -28,6 +30,7 @@ export const ConsoleForm: React.FC = React.memo(
     (): JSX.Element => {
         const [consoles, setConsoles] = React.useState([])
         const [selectedConsole, setSelectedConsole] = React.useState({})
+        const { closeModal } = React.useContext(ModalContext)
         const [isLoading, setIsLoading] = React.useState(false)
         const { data } = useQuery(GET_CONSOLES)
         const [addUserConsole] = useMutation(ADD_USER_CONSOLE, {
@@ -55,26 +58,46 @@ export const ConsoleForm: React.FC = React.memo(
             setIsLoading(false)
         }
 
+        const closeForm = (e: React.MouseEvent<HTMLButtonElement>): any => {
+            e.preventDefault()
+            setSelectedConsole({})
+            closeModal()
+        }
+
         if (!data) return <FormLoadingScreen />
 
         return (
-            <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="consoleForm">
-                <fieldset className="bn">
+            <form
+                style={{ width: 'var(--spacing-xxxlg)', height: 'var(--spacing-xxlg)' }}
+                onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
+                data-testid="consoleForm"
+            >
+                <fieldset style={{ border: 'none' }}>
                     <ConsoleSelect
                         inputId="consoleSelect"
                         labelText="Console: "
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsole(e.target.value)}
                     >
                         {consoles.map(({ id, name }: { id: string; name: string }) => (
-                            <option className="overflow-scroll" key={id} value={id}>
+                            <option key={id} value={id}>
                                 {name}
                             </option>
                         ))}
                     </ConsoleSelect>
 
-                    <Button type="submit" isLoading={isLoading}>
-                        Submit
-                    </Button>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', top: 20 }}>
+                        <Button
+                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
+                            className="cancel"
+                            isLoading={isLoading}
+                        >
+                            Cancel
+                        </Button>
+
+                        <Button type="submit" isLoading={isLoading}>
+                            Submit
+                        </Button>
+                    </div>
                 </fieldset>
             </form>
         )

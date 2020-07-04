@@ -1,0 +1,21 @@
+.loadingScreen {
+    background-color: var(--white);
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 4;
+}
+
+.formLoadingScreen {
+    height: var(--spacing-xxlg);
+    width: var(--spacing-xxxlg);
+}
+
+.formLoadingScreenBody {
+    left: 45%;
+    position: fixed;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 4;
+}

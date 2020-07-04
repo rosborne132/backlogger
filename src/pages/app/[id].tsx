@@ -52,7 +52,11 @@ export default withApollo(() => {
 
     return (
         <AppLayout consoles={getUserConsoles.getUserConsoles} header={consoleName}>
-            <Grid>{getGamesByConsoleId.getGamesByConsoleId.length ? renderUserGames(getGamesByConsoleId) : null}</Grid>
+            <Grid>
+                {getGamesByConsoleId.getGamesByConsoleId.length
+                    ? renderUserGames(getGamesByConsoleId, 'getGamesByConsoleId')
+                    : null}
+            </Grid>
 
             {!getGamesByConsoleId.getGamesByConsoleId.length && (
                 <h3 className="tc">No games listed for this console. :(</h3>

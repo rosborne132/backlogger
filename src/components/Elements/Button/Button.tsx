@@ -3,18 +3,14 @@ import { motion } from 'framer-motion'
 import BeatLoader from 'react-spinners/BeatLoader'
 
 type ButtonProps = {
+    className?: string
     children: React.ReactNode
     isLoading?: boolean
-    onClick?: () => void
+    onClick?: any
     type?: 'button' | 'submit' | 'reset'
 }
 
-export const Button: React.FC<ButtonProps> = ({
-    children,
-    isLoading,
-    onClick,
-    type
-}): JSX.Element => (
+export const Button: React.FC<ButtonProps> = ({ className, children, isLoading, onClick, type }): JSX.Element => (
     <motion.button
         whileHover={{ scale: 1.005 }}
         whileTap={{ scale: 0.99 }}
@@ -22,10 +18,8 @@ export const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         type={type}
         data-testid="button"
-        className="bg-blue ba bw0 br3 db pv2 pointer shadow-hover w-100 white"
+        className={className}
     >
-        <span className="f4">
-            {isLoading ? <BeatLoader size={15} color="#fff" /> : children}
-        </span>
+        <span>{isLoading ? <BeatLoader size={15} color="#fff" /> : children}</span>
     </motion.button>
 )

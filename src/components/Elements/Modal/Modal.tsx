@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import { Icon } from 'src/components/Elements'
 
+import styles from './Modal.module.css'
+
 type ModalProps = {
     children: React.ReactNode
     isShowing: boolean
@@ -20,30 +22,27 @@ export const Modal: React.FC<ModalProps> = React.memo(
             <AnimatePresence>
                 {isShowing && (
                     <motion.div
-                        className="db fixed h-100 left-0 top-0 w-100 z-5"
-                        style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+                        className={styles.modalBackground}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                     >
                         <motion.div
-                            key="modal"
                             data-testid="modal"
-                            className="fixed left-50 transform top-25 z-9999"
+                            className={styles.modal}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
                             <motion.div
-                                className="bg-white black br4 pa2 shadow-2"
+                                className={styles.modalBody}
                                 variants={variants}
                                 initial="closed"
                                 animate="open"
                                 exit="closed"
                             >
-                                <header className="pa0 pv1 tr">
+                                <header>
                                     <span
-                                        className="pa2 pointer"
                                         data-testid="closeButton"
                                         onClick={onClose}
                                         onKeyDown={onClose}

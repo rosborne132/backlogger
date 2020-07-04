@@ -15,6 +15,8 @@ type AppLayoutProps = {
 
 const settings = {
     infinite: true,
+    dots: false,
+    arrows: false,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000
@@ -23,7 +25,7 @@ const settings = {
 const renderScreenshots = (screenshots: any) =>
     screenshots.map(({ id, url }: { id: string; url: string }) => (
         <div key={id}>
-            <img className="center" src={url.replace('t_thumb', 't_1080p')} />
+            <img style={{ width: '100%' }} src={url.replace('t_thumb', 't_1080p')} />
         </div>
     ))
 
@@ -35,7 +37,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
                 <AppHeader />
                 <main data-testid="appLayout">
                     {header?.length ? (
-                        <header className="pv1 tc">
+                        <header className="tc">
                             <h2>{header}</h2>
                         </header>
                     ) : null}
@@ -44,7 +46,7 @@ export const AppLayout: React.FC<AppLayoutProps> = React.memo(
 
                     {displayNav ? <ConsoleNavbar consoles={consoles} /> : null}
 
-                    <section className="container">{children}</section>
+                    <section className="layout">{children}</section>
                 </main>
             </>
         )

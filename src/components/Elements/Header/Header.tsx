@@ -1,64 +1,40 @@
 import * as React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
 
-const HeaderLink = ({
-    className,
-    children,
-    onClick
-}: {
-    className?: string
-    children: React.ReactNode
-    onClick?: any
-}) => (
-    <li className={`dib pointer no-underline pointer white ${className}`} onClick={onClick}>
-        {children}
-    </li>
-)
-
-const Header = ({ children }: { children: React.ReactNode }) => (
-    <header data-testid="header" className="bg-black pa1">
-        <nav className="container">
-            <ul className="list flex justify-between pa0 sans-serif">{children}</ul>
-        </nav>
-    </header>
-)
-
 export const LandingHeader: React.FC = React.memo(
     (): JSX.Element => {
+        const router = useRouter()
         const { login } = useAuthFunctions()
 
         return (
-            <Header>
-                <span></span>
-
-                <span>
-                    <HeaderLink onClick={() => login()}>Login</HeaderLink>
-                </span>
-            </Header>
+            <header data-testid="header" className="header">
+                <h1 className="logo">
+                    <a onClick={() => router.push({ pathname: `/` })}>Backlogger</a>
+                </h1>
+                <nav>
+                    <a onClick={() => login()}>Login</a>
+                </nav>
+            </header>
         )
     }
 )
 
 export const AppHeader: React.FC = React.memo(
     (): JSX.Element => {
+        const router = useRouter()
         const { logout } = useAuthFunctions()
 
         return (
-            <Header>
-                <span>
-                    <HeaderLink>
-                        <Link href="/app">
-                            <a className="white link">Home</a>
-                        </Link>
-                    </HeaderLink>
-                </span>
-
-                <span>
-                    <HeaderLink onClick={() => logout()}>Logout</HeaderLink>
-                </span>
-            </Header>
+            <header data-testid="header" className="header">
+                <h1 className="logo">
+                    <a onClick={() => router.push({ pathname: `/app` })}>Backlogger</a>
+                </h1>
+                <nav>
+                    <a onClick={() => logout()}>Logout</a>
+                </nav>
+            </header>
         )
     }
 )

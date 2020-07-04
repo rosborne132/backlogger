@@ -1,0 +1,40 @@
+.consoleNavbar {
+    display: flex;
+    width: 16rem;
+    min-height: 100%;
+    max-height: 50vh;
+}
+
+.consoleNavbar ul {
+    overflow: auto;
+    padding-left: 0;
+    position: relative;
+    margin-left: 0;
+    list-style: none;
+    width: 18rem;
+}
+
+.consoleNavbar ul li {
+    padding: 1rem;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.consoleListItemSelect {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.consoleListItem {
+    background-color: var(--white);
+}
+
+.consoleButton {
+    background-color: var(--white);
+    border-radius: 1rem;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+}

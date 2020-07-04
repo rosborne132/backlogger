@@ -1,0 +1,37 @@
+.modalBackground {
+    background-color: rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+}
+
+.modal {
+    left: 50%;
+    position: fixed;
+    top: 25%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 9999;
+}
+
+.modalBody {
+    background-color: var(--white);
+    border-radius: var(--spacing-md);
+    box-shadow: var(--level-4);
+    color: var(--black);
+    padding: var(--spacing-md);
+}
+
+.modalBody header {
+    padding-bottom: var(--spacing-sx);
+    padding-top: var(--spacing-sx);
+    padding: var(--spacing-none);
+    text-align: right;
+}
+
+.modalBody header span {
+    cursor: pointer;
+}
