@@ -1,0 +1,29 @@
+.backButton {
+    align-items: center;
+    background-color: var(--white);
+    border-radius: 1rem;
+    cursor: pointer;
+    left: 20px;
+    padding: 0.5rem 0.75rem;
+    position: fixed;
+    top: 70px;
+    z-index: 9999;
+}
+
+.gameHeader {
+    position: relative;
+}
+
+.gameSummary {
+    display: inline;
+    text-align: left;
+}
+
+.gameBadgeContainer {
+    display: flex;
+    padding: var(--spacing-md) 0;
+}
+
+.gameBadgeContainer div + div {
+    margin-left: 10px;
+}

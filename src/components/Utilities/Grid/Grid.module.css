@@ -1,17 +1,20 @@
 .grid {
+    --gridCols: 1;
     display: grid;
-    grid-gap: 1rem;
-    justify-items: center;
+    grid-gap: var(--spacing-md);
+    grid-template-columns: repeat(var(--gridCols), 1fr);
 }
 
 @media (min-width: 768px) {
     .grid {
-        grid-template-columns: repeat(2, 1fr);
+        --gridCols: 3;
+        grid-template-columns: repeat(var(--gridCols), 1fr);
     }
 }
 
 @media (min-width: 1024px) {
     .grid {
-        grid-template-columns: repeat(3, 1fr);
+        --gridCols: 4;
+        grid-template-columns: repeat(var(--gridCols), 1fr);
     }
 }

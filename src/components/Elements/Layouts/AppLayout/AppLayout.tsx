@@ -15,6 +15,8 @@ type AppLayoutProps = {
 
 const settings = {
     infinite: true,
+    dots: false,
+    arrows: false,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000
@@ -23,7 +25,7 @@ const settings = {
 const renderScreenshots = (screenshots: any) =>
     screenshots.map(({ id, url }: { id: string; url: string }) => (
         <div key={id}>
-            <img src={url.replace('t_thumb', 't_1080p')} />
+            <img style={{ width: '100%' }} src={url.replace('t_thumb', 't_1080p')} />
         </div>
     ))
 

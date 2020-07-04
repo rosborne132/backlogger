@@ -17,3 +17,19 @@
     border-width: 0;
     height: 16rem;
 }
+
+.game {
+    display: none;
+}
+
+.gameLink {
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .game {
+        display: flex;
+    }
+}

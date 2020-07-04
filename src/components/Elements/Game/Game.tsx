@@ -29,7 +29,7 @@ export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id
     return canHover ? (
         <motion.div
             data-testid="game"
-            className="flex pointer"
+            className={styles.gameLink}
             whileHover={{ y: -5 }}
             whileTap={{ y: -3 }}
             onClick={() => router.push({ pathname: `/app/game/${id}`, query: { userGameId } })}
@@ -37,7 +37,7 @@ export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id
             {children}
         </motion.div>
     ) : (
-        <div data-testid="game" className="flex">
+        <div data-testid="game" className={styles.game}>
             {children}
         </div>
     )

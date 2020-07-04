@@ -8,6 +8,8 @@ import { Grid } from 'src/components/Utilities'
 
 import { withApollo } from 'src/lib/apollo'
 
+import styles from './gameInfo.module.css'
+
 // todo
 // Use query on load to see if the user has this game in there backlog
 
@@ -71,20 +73,17 @@ export default withApollo(() => {
 
     return (
         <AppLayout displayNav={false} images={screenshots}>
-            <button
-                onClick={() => router.back()}
-                className="ba bg-white bn br4 fixed h2 mv2 pointer shadow-1 w2 z-5"
-                style={{ top: '60px', left: '20px' }}
-            >
+            <button onClick={() => router.back()} className={styles.backButton}>
                 {'<'}
             </button>
 
-            <header className="relative pv3">
+            <header className={styles.gameHeader}>
                 <h1 className="tc">
                     {name} {router.query.userGameId && <button>Remove</button>}
                 </h1>
+
                 {!isEmpty(game, 'getGameByGameId') ? (
-                    <div className="absolute" id="game" style={{ bottom: '100px' }}>
+                    <div id="game" style={{ position: 'absolute', bottom: '130px', left: '30px' }}>
                         <Game
                             canHover={false}
                             cover={game.getGameByGameId.cover}
@@ -93,16 +92,16 @@ export default withApollo(() => {
                             slug={game.getGameByGameId.slug}
                         />
                     </div>
-                ) : (
-                    ''
-                )}
+                ) : null}
             </header>
 
             <section>
-                <p className="tl">{summary}</p>
+                <p className={styles.gameSummary}>{summary}</p>
             </section>
 
-            {!isEmpty(game, 'themes') && <div className="flex">{renderThemeBadges(game.getGameByGameId.themes)}</div>}
+            {!isEmpty(game, 'themes') && (
+                <div className={styles.gameBadgeContainer}>{renderThemeBadges(game.getGameByGameId.themes)}</div>
+            )}
 
             <section>
                 <h2 className="tc">Similar Games</h2>
