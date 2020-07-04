@@ -39,8 +39,14 @@ export const GameForm: React.FC = React.memo(
 
         React.useEffect(() => {
             if (data !== undefined) {
-                setConsoles(data.getUserConsoles)
-                setSelectedConsoleId(data.getUserConsoles[0].console.id)
+                const filteredConsoles = data.getUserConsoles.map(userConsole => {
+                    return {
+                        value: userConsole.console.id,
+                        label: userConsole.console.name,
+                        slug: userConsole.console.slug
+                    }
+                })
+                setConsoles(filteredConsoles)
             }
         }, [data])
 
@@ -48,16 +54,15 @@ export const GameForm: React.FC = React.memo(
             e.preventDefault()
             setIsLoading(true)
 
-            const submitedConsole = consoles.find(
-                ({ console: { id } }: { console: { id: string } }) => id === selectedConsoleId
-            )
+            const submitedConsole = consoles.find(({ value }: { value: string }) => value === selectedConsoleId)
+            const { value, label, slug } = submitedConsole
 
             await addUserGame({
                 variables: {
                     game: {
-                        consoleId: submitedConsole.console.id,
-                        consoleName: submitedConsole.console.name,
-                        consoleSlug: submitedConsole.console.slug,
+                        consoleId: value,
+                        consoleName: label,
+                        consoleSlug: slug,
                         name
                     }
                 }
@@ -73,6 +78,8 @@ export const GameForm: React.FC = React.memo(
             closeModal()
         }
 
+        console.log(selectedConsoleId)
+
         if (!data) return <FormLoadingScreen />
 
         return (
@@ -87,14 +94,9 @@ export const GameForm: React.FC = React.memo(
                     <ConsoleSelect
                         inputId="consoleSelect"
                         labelText="Console: "
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsoleId(e.target.value)}
-                    >
-                        {consoles.map(({ console: { id, name } }: { console: { id: string; name: string } }) => (
-                            <option className="overflow-scroll" key={id} value={id}>
-                                {name}
-                            </option>
-                        ))}
-                    </ConsoleSelect>
+                        onChange={(newValue: string) => setSelectedConsoleId(newValue)}
+                        options={consoles}
+                    />
 
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Button

@@ -1,17 +1,17 @@
 import * as React from 'react'
+import Select from 'react-select'
 
 export type SelectType = {
-    children?: React.ReactNode
     labelText?: string
     inputId: string
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+    onChange: (string) => void
+    options: any[]
 }
 
-export const ConsoleSelect = ({ children, labelText = '', inputId, onChange }: SelectType) => (
+export const ConsoleSelect = ({ labelText = '', inputId, onChange, options }: SelectType) => (
     <div style={{ paddingTop: 'var(--spacing-md)', paddingBottom: 'var(--spacing-md)' }}>
         {labelText.length ? <label htmlFor={inputId}>{labelText}</label> : null}
-        <select name={inputId} id={inputId} data-testid={inputId} onChange={onChange}>
-            {children}
-        </select>
+
+        <Select options={options} onChange={({ value }) => onChange(value)} defaultInputValue="" />
     </div>
 )

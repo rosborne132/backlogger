@@ -39,8 +39,14 @@ export const ConsoleForm: React.FC = React.memo(
 
         React.useEffect(() => {
             if (data !== undefined) {
-                setConsoles(data.getConsoles)
-                setSelectedConsole(data.getConsoles[0].id)
+                const filteredConsoles = data.getConsoles.map(userConsole => {
+                    return {
+                        value: userConsole.id,
+                        label: userConsole.name,
+                        slug: userConsole.slug
+                    }
+                })
+                setConsoles(filteredConsoles)
             }
         }, [data])
 
@@ -48,11 +54,11 @@ export const ConsoleForm: React.FC = React.memo(
             e.preventDefault()
             setIsLoading(true)
 
-            const submitedConsole = consoles.find(({ id }: { id: string }) => id === selectedConsole)
-            const { id, name, slug } = submitedConsole
+            const submitedConsole = consoles.find(({ value }: { value: string }) => value === selectedConsole)
+            const { value, label, slug } = submitedConsole
 
             await addUserConsole({
-                variables: { console: { id, name, slug } }
+                variables: { console: { id: value, name: label, slug } }
             })
 
             setIsLoading(false)
@@ -76,14 +82,9 @@ export const ConsoleForm: React.FC = React.memo(
                     <ConsoleSelect
                         inputId="consoleSelect"
                         labelText="Console: "
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedConsole(e.target.value)}
-                    >
-                        {consoles.map(({ id, name }: { id: string; name: string }) => (
-                            <option key={id} value={id}>
-                                {name}
-                            </option>
-                        ))}
-                    </ConsoleSelect>
+                        onChange={(newValue: string) => setSelectedConsole(newValue)}
+                        options={consoles}
+                    />
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', top: 20 }}>
                         <Button
