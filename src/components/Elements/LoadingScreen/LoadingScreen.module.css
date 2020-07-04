@@ -1,5 +1,5 @@
 .loadingScreen {
-    background-color: var(--white);
+    background-color: var(--background);
     left: 50%;
     position: fixed;
     top: 50%;

@@ -1,0 +1,21 @@
+.header {
+    color: var(--white);
+    width: 100%;
+    height: var(--headerHeight);
+    background: var(--headerBackground);
+    box-shadow: var(--level-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--containerPadding);
+}
+
+.header nav a {
+    color: var(--white);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header nav a + a {
+    margin-left: 10px;
+}

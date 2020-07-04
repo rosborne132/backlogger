@@ -22,19 +22,28 @@
 }
 
 .consoleListItemSelect {
+    background-color: var(--purple);
+    color: var(--black);
+}
+
+.consoleListItem {
     background-color: var(--black);
     color: var(--white);
 }
 
-.consoleListItem {
-    background-color: var(--white);
+.consoleBackground {
+    background: none;
+    box-shadow: none;
 }
 
 .consoleButton {
-    background-color: var(--white);
-    border-radius: 1rem;
-    padding: 0.5rem 0.75rem;
-    display: flex;
-    cursor: pointer;
     align-items: center;
+    background-color: var(--black);
+    border-radius: 1rem;
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    padding: 0.5rem 0.75rem;
+    top: 60px;
+    left: 20px;
 }

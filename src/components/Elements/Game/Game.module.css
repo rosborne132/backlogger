@@ -1,9 +1,10 @@
 .noGameImg {
     align-items: center;
-    background-color: #cccccc;
+    background-color: var(--lightGrey);
     border-radius: 1rem;
     border-style: none;
     border-width: 0;
+    color: var(--black);
     display: flex;
     height: 16rem;
     justify-content: center;

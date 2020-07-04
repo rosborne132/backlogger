@@ -72,7 +72,7 @@ export const ConsoleForm: React.FC = React.memo(
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
                 data-testid="consoleForm"
             >
-                <fieldset style={{ border: 'none' }}>
+                <fieldset>
                     <ConsoleSelect
                         inputId="consoleSelect"
                         labelText="Console: "

@@ -1,2 +1,2 @@
 export * from './shared/icons'
-export * from './shared/styles'
+export * from './shared/typography'

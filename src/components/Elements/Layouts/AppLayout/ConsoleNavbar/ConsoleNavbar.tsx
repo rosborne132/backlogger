@@ -7,7 +7,7 @@ import { ConsoleForm, GameForm, Icon } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
-import style from './ConsoleNavbar.module.css'
+import styles from './ConsoleNavbar.module.css'
 
 type ConsoleNavbarProps = {
     consoles: any[]
@@ -32,7 +32,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
     const router = useRouter()
     const variants = {
         open: { opacity: 1, x: '0vw' },
-        closed: { opacity: 1, x: '-70%' }
+        closed: { opacity: 1, x: '-75%' }
     }
 
     React.useEffect(() => {
@@ -51,7 +51,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                 animate={isShowing ? 'open' : 'closed'}
                 variants={variants}
             >
-                <div className={style.consoleNavbar}>
+                <div className={styles.consoleNavbar}>
                     <ul data-testid="consoleNavbar">
                         {navbarButtons.map(({ component, type }: { component: any; type: string }) => {
                             if (type === 'game' && !consoles.length) return false
@@ -59,37 +59,45 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                             return (
                                 <li
                                     key={type}
-                                    className={showTab === type ? style.consoleListItemSelect : style.consoleListItem}
+                                    className={showTab === type ? styles.consoleListItemSelect : styles.consoleListItem}
                                     onClick={() => {
                                         setShowTab(type)
                                         openModal(component())
                                     }}
                                 >
-                                    <span>
+                                    <span
+                                        style={{
+                                            alignItems: 'center',
+                                            display: 'inline-flex',
+                                            flexWrap: 'wrap',
+                                            gap: 12
+                                        }}
+                                    >
                                         <Icon
                                             icon="add"
                                             size="m1"
                                             style={{
-                                                fill: showTab === type ? 'white' : 'black'
+                                                fill: showTab === type ? 'black' : 'white'
                                             }}
                                             aria-hidden
                                         />
-                                        {` ${upperFirst(type)}`}
+                                        {upperFirst(type)}
                                     </span>
                                 </li>
                             )
                         })}
 
                         <li
-                            className={selected === '' ? style.consoleListItemSelect : style.consoleListItem}
+                            className={selected === '' ? styles.consoleListItemSelect : styles.consoleListItem}
                             onClick={() => router.push('/app')}
                         >
                             Backlog
                         </li>
+
                         {consoles.map(({ console: { id, name } }: { console: { id: string; name: string } }) => (
                             <li
                                 key={id}
-                                className={selected === id ? style.consoleListItemSelect : style.consoleListItem}
+                                className={selected === id ? styles.consoleListItemSelect : styles.consoleListItem}
                                 onClick={() => router.push('/app/[id]', `/app/${id}`)}
                             >
                                 {name}
@@ -99,12 +107,10 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
 
                     <button
                         onClick={() => setIsShowing(!isShowing)}
-                        style={{ background: 'none', boxShadow: 'none', outline: 'none' }}
-                        className="bn pointer"
+                        style={{ outline: 'none', boxShadow: 'none' }}
+                        className={styles.consoleBackground}
                     >
-                        <div className={style.consoleButton} style={{ top: '60px', left: '20px' }}>
-                            {isShowing ? '<' : '>'}
-                        </div>
+                        <div className={styles.consoleButton}>{isShowing ? '<' : '>'}</div>
                     </button>
                 </div>
             </motion.div>

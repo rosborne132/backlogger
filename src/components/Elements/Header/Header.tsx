@@ -3,13 +3,15 @@ import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
 
+import styles from './Header.module.css'
+
 export const LandingHeader: React.FC = React.memo(
     (): JSX.Element => {
         const router = useRouter()
         const { login } = useAuthFunctions()
 
         return (
-            <header data-testid="header" className="header">
+            <header data-testid="header" className={styles.header}>
                 <h1 className="logo">
                     <a onClick={() => router.push({ pathname: `/` })}>Backlogger</a>
                 </h1>
@@ -27,7 +29,7 @@ export const AppHeader: React.FC = React.memo(
         const { logout } = useAuthFunctions()
 
         return (
-            <header data-testid="header" className="header">
+            <header data-testid="header" className={styles.header}>
                 <h1 className="logo">
                     <a onClick={() => router.push({ pathname: `/app` })}>Backlogger</a>
                 </h1>

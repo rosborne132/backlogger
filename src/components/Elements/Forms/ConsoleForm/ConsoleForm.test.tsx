@@ -1,11 +1,5 @@
 import * as React from 'react'
-import {
-    act,
-    cleanup,
-    fireEvent,
-    render,
-    waitFor
-} from '@testing-library/react'
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
 import { MockedProvider } from '@apollo/react-testing'
 
 import { GET_USER_CONSOLES } from 'src/pages/app/[id]'

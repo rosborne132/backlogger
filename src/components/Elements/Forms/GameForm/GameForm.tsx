@@ -77,7 +77,7 @@ export const GameForm: React.FC = React.memo(
 
         return (
             <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="gameForm">
-                <fieldset className="bn">
+                <fieldset style={{ border: 'none' }}>
                     <Input
                         labelText="Name: "
                         inputId="gameInput"

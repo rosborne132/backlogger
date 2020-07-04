@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import gql from 'graphql-tag'
 
-import { AppLayout, Badge, Game, LoadingScreen } from 'src/components/Elements'
+import { AppLayout, Game, LoadingScreen } from 'src/components/Elements'
 import { Grid } from 'src/components/Utilities'
 
 import { withApollo } from 'src/lib/apollo'
@@ -52,7 +52,11 @@ const GET_GAME_BY_GAME_ID = gql`
 `
 
 const renderThemeBadges = (badges: any) =>
-    badges.map(({ name, slug }: { name: string; slug: string }) => <Badge key={slug} name={name} slug={slug} />)
+    badges.map(({ name, slug }: { name: string; slug: string }) => (
+        <div key={slug} className="badge">
+            {name}
+        </div>
+    ))
 
 const renderGames = (games: any) =>
     games.map((game: any) => <Game key={game.id} cover={game.cover} id={game.id} name={game.name} />)
