@@ -3,7 +3,7 @@ import { cleanup, render } from '@testing-library/react'
 
 import { ConsoleSelect } from './Select'
 
-xdescribe('<ConsoleSelect />', () => {
+describe('<ConsoleSelect />', () => {
     afterEach(cleanup)
     let defaultProps
 
@@ -11,18 +11,17 @@ xdescribe('<ConsoleSelect />', () => {
         defaultProps = {
             labelText: 'testInput',
             inputId: 'testInput',
-            onChange: jest.fn()
+            onChange: jest.fn(),
+            options: [
+                { value: 1, label: '1' },
+                { value: 2, label: '2' },
+                { value: 3, label: '3' }
+            ]
         }
     })
 
     test('renders ConsoleSelect with label', () => {
-        const { getByText, queryByTestId } = render(
-            <ConsoleSelect {...defaultProps}>
-                <option className="overflow-scroll" value="val1">
-                    val1
-                </option>
-            </ConsoleSelect>
-        )
+        const { getByText, queryByTestId } = render(<ConsoleSelect {...defaultProps} />)
 
         expect(queryByTestId('testInput')).toBeTruthy()
         expect(getByText('testInput')).toBeTruthy()
@@ -30,35 +29,9 @@ xdescribe('<ConsoleSelect />', () => {
 
     test('renders ConsoleSelect without label', () => {
         defaultProps.labelText = ''
-        const { queryByText, queryByTestId } = render(
-            <ConsoleSelect {...defaultProps}>
-                <option className="overflow-scroll" value="val1">
-                    val1
-                </option>
-            </ConsoleSelect>
-        )
+        const { queryByText, queryByTestId } = render(<ConsoleSelect {...defaultProps} />)
 
         expect(queryByTestId('testInput')).toBeTruthy()
         expect(queryByText('testInput')).not.toBeTruthy()
-    })
-
-    test('renders ConsoleSelect with options', () => {
-        defaultProps.labelText = ''
-        const { getByTestId } = render(
-            <ConsoleSelect {...defaultProps}>
-                <option className="overflow-scroll" value="val1">
-                    val1
-                </option>
-                <option className="overflow-scroll" value="val2">
-                    val2
-                </option>
-                <option className="overflow-scroll" value="val3">
-                    val3
-                </option>
-            </ConsoleSelect>
-        )
-
-        expect(getByTestId('testInput')).toBeTruthy()
-        expect(getByTestId('testInput').children.length).toBe(3)
     })
 })

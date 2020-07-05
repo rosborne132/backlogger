@@ -12,6 +12,8 @@ export const ConsoleSelect = ({ labelText = '', inputId, onChange, options }: Se
     <div style={{ paddingTop: 'var(--spacing-md)', paddingBottom: 'var(--spacing-md)' }}>
         {labelText.length ? <label htmlFor={inputId}>{labelText}</label> : null}
 
-        <Select options={options} onChange={({ value }) => onChange(value)} defaultInputValue="" />
+        <div data-testid={inputId}>
+            <Select options={options} onChange={({ value }) => onChange(value)} defaultInputValue="" />
+        </div>
     </div>
 )
