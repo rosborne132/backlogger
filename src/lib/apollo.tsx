@@ -117,7 +117,7 @@ export const withApollo = (PageComponent: any) => {
                     />
                 )
             } catch (err) {
-                console.log(err)
+                console.error(err)
             }
 
             Head.rewind()

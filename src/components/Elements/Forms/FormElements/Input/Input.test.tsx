@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { cleanup, render } from '@testing-library/react'
 
-import { Input } from './Input'
+import { GameSuggestionInput } from './Input'
 
-describe('<Input />', () => {
+describe('<GameSuggestionInput />', () => {
     afterEach(cleanup)
     let defaultProps
 
@@ -11,13 +11,12 @@ describe('<Input />', () => {
         defaultProps = {
             labelText: 'testInput',
             inputId: 'testInput',
-            inputType: 'text',
             onChange: jest.fn()
         }
     })
 
     test('renders input with label', () => {
-        const { getByText, queryByTestId } = render(<Input {...defaultProps} />)
+        const { getByText, queryByTestId } = render(<GameSuggestionInput {...defaultProps} />)
 
         expect(queryByTestId('testInput')).toBeTruthy()
         expect(getByText('testInput')).toBeTruthy()
@@ -25,7 +24,7 @@ describe('<Input />', () => {
 
     test('renders input without label', () => {
         defaultProps.labelText = ''
-        const { queryByText, queryByTestId } = render(<Input {...defaultProps} />)
+        const { queryByText, queryByTestId } = render(<GameSuggestionInput {...defaultProps} />)
 
         expect(queryByTestId('testInput')).toBeTruthy()
         expect(queryByText('testInput')).not.toBeTruthy()

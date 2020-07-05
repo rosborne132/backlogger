@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { User } from 'src/types'
-import { getGames, getGamesByConsoleId, getGameByGameId } from './services'
+import { getGames, getGamesByConsoleId, getGameByGameId, getGamesByName } from './services'
 
 export const gameResolvers = {
     Query: {
@@ -38,6 +38,13 @@ export const gameResolvers = {
         async getGameByGameId(parent, args) {
             try {
                 return await getGameByGameId(args.gameId)
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        async getGamesByName(parent, args) {
+            try {
+                return await getGamesByName(args.name)
             } catch (err) {
                 console.error(err)
             }

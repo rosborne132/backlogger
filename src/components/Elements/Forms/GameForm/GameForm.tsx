@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 
 import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
 
-import { Button, ConsoleSelect, FormLoadingScreen, Input } from 'src/components/Elements'
+import { Button, ConsoleSelect, FormLoadingScreen, GameSuggestionInput } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
@@ -78,23 +78,21 @@ export const GameForm: React.FC = React.memo(
             closeModal()
         }
 
-        console.log(selectedConsoleId)
-
         if (!data) return <FormLoadingScreen />
 
         return (
             <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="gameForm">
                 <fieldset style={{ border: 'none' }}>
-                    <Input
+                    <GameSuggestionInput
                         labelText="Name: "
                         inputId="gameInput"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                        onChange={(value: string) => setName(value)}
                     />
 
                     <ConsoleSelect
                         inputId="consoleSelect"
                         labelText="Console: "
-                        onChange={(newValue: string) => setSelectedConsoleId(newValue)}
+                        onChange={(value: string) => setSelectedConsoleId(value)}
                         options={consoles}
                     />
 

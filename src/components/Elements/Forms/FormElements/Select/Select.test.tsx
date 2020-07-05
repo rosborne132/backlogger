@@ -3,7 +3,7 @@ import { cleanup, render } from '@testing-library/react'
 
 import { ConsoleSelect } from './Select'
 
-describe('<ConsoleSelect />', () => {
+xdescribe('<ConsoleSelect />', () => {
     afterEach(cleanup)
     let defaultProps
 

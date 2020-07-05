@@ -132,3 +132,11 @@ export const getGameByGameId = async (gameId: string) => {
 
     return gameFetched.data[0]
 }
+
+export const getGamesByName = async (name: string) => {
+    const query = `fields name; search "${name}";`
+
+    const gameFetched = await queryAPI('games', query)
+
+    return gameFetched.data
+}

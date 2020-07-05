@@ -32,10 +32,10 @@ type Theme {
 type Game {
     console: Console
     cover: Cover
-    id: String!
-    inBacklog: Boolean!
+    id: String
+    inBacklog: Boolean
     name: String!
-    slug: String!
+    slug: String
 }
 
 type APIGame {
@@ -63,6 +63,7 @@ type Query {
     getGames: [UserGame]
     getGamesByConsoleId(consoleId: String!): [UserGame]
     getGameByGameId(gameId: String!): APIGame
+    getGamesByName(name: String): [Game]
 }
 
 input UserGameInput {

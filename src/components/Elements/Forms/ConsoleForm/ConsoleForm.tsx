@@ -86,7 +86,7 @@ export const ConsoleForm: React.FC = React.memo(
                         options={consoles}
                     />
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', top: 20 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', top: 5 }}>
                         <Button
                             onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
                             className="cancel"
