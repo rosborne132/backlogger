@@ -36,7 +36,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
     }
 
     React.useEffect(() => {
-        const pageSelected = router.query.id != undefined ? router.query.id : ''
+        const pageSelected = router.query.id != undefined ? router.query.id : router.pathname.replace('/app', '')
         setSelected(pageSelected)
     }, [consoles])
 
@@ -90,6 +90,13 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         <li
                             className={selected === '' ? styles.consoleListItemSelect : styles.consoleListItem}
                             onClick={() => router.push('/app')}
+                        >
+                            Collection
+                        </li>
+
+                        <li
+                            className={selected === '/backlog' ? styles.consoleListItemSelect : styles.consoleListItem}
+                            onClick={() => router.push('/app/backlog')}
                         >
                             Backlog
                         </li>

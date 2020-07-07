@@ -43,21 +43,16 @@ export const createSlug = (str: string) =>
 const TableName = `backlogger-${stage}-user-games`
 
 export const getGames = async (userId: string) => {
-    const inBacklog = true
     const { Items } = await dbClient
         .query({
             TableName,
             IndexName: 'userId-index',
             ProjectionExpression: 'game, id',
             KeyConditionExpression: '#user = :v_user',
-            FilterExpression: '#game.#inBacklog = :inBacklog',
             ExpressionAttributeNames: {
-                '#game': 'game',
-                '#inBacklog': 'inBacklog',
                 '#user': 'userId'
             },
             ExpressionAttributeValues: {
-                ':inBacklog': { BOOL: inBacklog },
                 ':v_user': { S: userId }
             }
         })
