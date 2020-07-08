@@ -14,12 +14,13 @@ const GET_GAMES_BY_CONSOLE_ID = gql`
         getGamesByConsoleId(consoleId: $consoleId) {
             id
             game {
-                id
-                name
-                slug
                 cover {
                     url
                 }
+                id
+                inBacklog
+                name
+                slug
             }
         }
     }

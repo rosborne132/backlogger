@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 
 import { GET_USER_CONSOLES } from './[id]'
 
-import { AppLayout, Game, LoadingScreen } from 'src/components/Elements'
+import { AppLayout, UserGame, LoadingScreen } from 'src/components/Elements'
 import { Grid } from 'src/components/Utilities'
 
 import { withApollo } from 'src/lib/apollo'
@@ -18,6 +18,7 @@ export const GET_USER_GAMES = gql`
                     url
                 }
                 id
+                inBacklog
                 name
                 slug
             }
@@ -33,10 +34,11 @@ export const renderUserGames = (games: any[], objName: string): JSX.Element[] =>
         const userGameId = listedGame.id !== undefined ? listedGame.id : ''
 
         return (
-            <Game
+            <UserGame
                 key={game.id}
                 cover={game.cover}
                 id={game.id}
+                inBacklog={game.inBacklog}
                 name={game.name}
                 slug={game.slug}
                 userGameId={userGameId}
