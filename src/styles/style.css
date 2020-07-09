@@ -212,7 +212,11 @@ button[disabled] {
 
 button.cancel {
     --buttonColor: var(--danger);
-    --textColor: white;
+}
+
+button.secorndary {
+    --buttonColor: var(--white);
+    --buttonTextColor: var(--black);
 }
 
 button.small {

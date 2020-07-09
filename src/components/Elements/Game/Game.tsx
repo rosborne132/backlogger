@@ -62,41 +62,69 @@ export const Game: React.FC<GameProps> = React.memo(
     }
 )
 
-const ButtonContainer = ({ gameId, inBacklog, userGameId }) => {
+const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
     const router = useRouter()
+    const variants = {
+        open: { y: 0 },
+        closed: { y: 50 }
+    }
     return (
-        <div>
-            {inBacklog ? (
-                <button onClick={() => console.log(`Remove game ${userGameId} from backlog`)}>-</button>
-            ) : (
-                <>
-                    <button onClick={() => console.log(`Remove game ${userGameId} from collection`)}>-</button>
-                    <button onClick={() => console.log(`Add game ${userGameId} to backlog`)}>+</button>
-                </>
-            )}
+        <motion.div
+            variants={variants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            className={styles.buttonContainerBackground}
+            onClick={onClick}
+        >
+            <div className={styles.buttonContainer}>
+                {inBacklog ? (
+                    <button onClick={() => console.log(`Remove game ${userGameId} from backlog`)} className="cancel">
+                        -
+                    </button>
+                ) : (
+                    <>
+                        <button
+                            onClick={() => console.log(`Remove game ${userGameId} from collection`)}
+                            className="cancel"
+                        >
+                            -
+                        </button>
+                        <button onClick={() => console.log(`Add game ${userGameId} to backlog`)}>+</button>
+                    </>
+                )}
 
-            <button onClick={() => router.push({ pathname: `/app/game/${gameId}` })}>O</button>
-        </div>
+                <button onClick={() => router.push({ pathname: `/app/game/${gameId}` })} className="secorndary">
+                    O
+                </button>
+            </div>
+        </motion.div>
     )
 }
 
 export const UserGame: React.FC<GameProps> = React.memo(
-    ({ canHover = true, cover, id, inBacklog, name, slug, userGameId }: GameProps): JSX.Element => {
+    ({ cover, id, inBacklog, name, slug, userGameId }: GameProps): JSX.Element => {
         const [showButtonOptions, setShowButtonOptions] = React.useState(true)
         const coverUrl = cover.url.length ? cover.url.replace('t_thumb', 't_cover_big') : ''
 
-        console.log(inBacklog)
-
         return (
-            <>
-                {showButtonOptions && <ButtonContainer gameId={id} inBacklog={inBacklog} userGameId={userGameId} />}
+            <div className={styles.userGame}>
+                {showButtonOptions && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        <ButtonContainer
+                            gameId={id}
+                            inBacklog={inBacklog}
+                            userGameId={userGameId}
+                            onClick={() => setShowButtonOptions(false)}
+                        />
+                    </motion.div>
+                )}
 
                 <motion.div
                     data-testid="game"
-                    className={styles.gameLink}
-                    whileHover={{ y: -5 }}
-                    whileTap={{ y: -3 }}
-                    onClick={() => setShowButtonOptions(!showButtonOptions)}
+                    className={`${styles.gameLink} ${showButtonOptions ? styles.gameSelected : ''}`}
+                    whileTap={{ y: 3 }}
+                    onClick={() => setShowButtonOptions(true)}
                 >
                     {coverUrl.length ? (
                         <img data-testid="gameImage" src={coverUrl} alt={slug} className={styles.gameImg} />
@@ -106,7 +134,7 @@ export const UserGame: React.FC<GameProps> = React.memo(
                         </div>
                     )}
                 </motion.div>
-            </>
+            </div>
         )
     }
 )
