@@ -146,6 +146,21 @@
     url "^0.11.0"
     zen-observable-ts "0.8.19"
 
+"@aws-amplify/core@^3.4.0":
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.4.2.tgz#a853d56628622fc596c62c940ebca0a5bb8820ba"
+  integrity sha512-eVkuSMyVELNDnF4FROb1NoXSNbIoY02JUKsPMEURMEsrbSIt0I5S3PE+jxbdbOyKIHD4MjQA3jjXBx41q6vYWQ==
+  dependencies:
+    "@aws-crypto/sha256-js" "1.0.0-alpha.0"
+    "@aws-sdk/client-cognito-identity" "1.0.0-gamma.2"
+    "@aws-sdk/credential-provider-cognito-identity" "1.0.0-gamma.2"
+    "@aws-sdk/node-http-handler" "1.0.0-gamma.1"
+    "@aws-sdk/types" "1.0.0-gamma.1"
+    "@aws-sdk/util-hex-encoding" "1.0.0-gamma.1"
+    "@aws-sdk/util-user-agent-browser" "1.0.0-gamma.1"
+    url "^0.11.0"
+    zen-observable-ts "0.8.19"
+
 "@aws-crypto/ie11-detection@^1.0.0-alpha.0":
   version "1.0.0-alpha.0"
   resolved "https://registry.yarnpkg.com/@aws-crypto/ie11-detection/-/ie11-detection-1.0.0-alpha.0.tgz#16ca4a9233ec4a90e1d0b2f1712f4aa2043457bd"
