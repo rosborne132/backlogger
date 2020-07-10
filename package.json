@@ -21,7 +21,7 @@
         "@aws-amplify/auth": "^3.2.12",
         "@aws-amplify/core": "^3.3.2",
         "@next/bundle-analyzer": "^9.4.4",
-        "@testing-library/jest-dom": "^5.9.0",
+        "@testing-library/jest-dom": "^5.10.1",
         "apollo-boost": "^0.4.7",
         "apollo-cache-inmemory": "^1.6.5",
         "apollo-server-micro": "^2.15.0",
