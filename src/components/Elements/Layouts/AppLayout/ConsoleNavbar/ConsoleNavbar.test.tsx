@@ -30,7 +30,7 @@ describe('<ConsoleNavbar />', () => {
         expect(queryByText('Console')).toBeTruthy()
         expect(queryByText('Game')).not.toBeTruthy()
         expect(queryByTestId('consoleNavbar')).toBeTruthy()
-        expect(queryByTestId('consoleNavbar').children.length).toBe(2)
+        expect(queryByTestId('consoleNavbar').children.length).toBe(3)
 
         defaultProps.consoles = [{ console: { id: '1', name: 'Wii', slug: 'wii' } }]
 
@@ -39,6 +39,6 @@ describe('<ConsoleNavbar />', () => {
         expect(queryByText('Console')).toBeTruthy()
         expect(queryByText('Game')).toBeTruthy()
         expect(queryByTestId('consoleNavbar')).toBeTruthy()
-        expect(queryByTestId('consoleNavbar').children.length).toBe(4)
+        expect(queryByTestId('consoleNavbar').children.length).toBe(5)
     })
 })

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 import upperFirst from 'lodash/upperFirst'
 
-import { ConsoleForm, GameForm, Icon } from 'src/components/Elements'
+import { AddConsole, AddGame, Icon } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
@@ -16,11 +16,11 @@ type ConsoleNavbarProps = {
 const navbarButtons = [
     {
         type: 'game',
-        component: () => <GameForm />
+        component: () => <AddGame />
     },
     {
         type: 'console',
-        component: () => <ConsoleForm />
+        component: () => <AddConsole />
     }
 ]
 

@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 
 import { Cover, Platform } from 'src/types'
 
+import { ModalContext } from 'src/context'
+
 import styles from './Game.module.css'
 
 type GameProps = {
@@ -63,6 +65,7 @@ export const Game: React.FC<GameProps> = React.memo(
 )
 
 const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
+    const { modalIsShowing, openModal } = React.useContext(ModalContext)
     const router = useRouter()
     const variants = {
         open: { y: 0 },
@@ -79,7 +82,7 @@ const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
         >
             <div className={styles.buttonContainer}>
                 {inBacklog ? (
-                    <button onClick={() => console.log(`Remove game ${userGameId} from backlog`)} className="cancel">
+                    <button onClick={() => openModal(<h1>Remove game from backlog</h1>)} className="cancel">
                         -
                     </button>
                 ) : (

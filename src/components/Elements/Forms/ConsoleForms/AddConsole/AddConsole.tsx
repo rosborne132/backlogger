@@ -26,7 +26,7 @@ export const ADD_USER_CONSOLE = gql`
     }
 `
 
-export const ConsoleForm: React.FC = React.memo(
+export const AddConsole: React.FC = React.memo(
     (): JSX.Element => {
         const [consoles, setConsoles] = React.useState([])
         const [selectedConsole, setSelectedConsole] = React.useState({})
@@ -76,7 +76,7 @@ export const ConsoleForm: React.FC = React.memo(
             <form
                 style={{ width: 'var(--spacing-xxxlg)', height: 'var(--spacing-xxlg)' }}
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
-                data-testid="consoleForm"
+                data-testid="addConsole"
             >
                 <fieldset>
                     <ConsoleSelect

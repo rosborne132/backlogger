@@ -11,21 +11,21 @@ import { ModalContext } from 'src/context'
 export const ADD_USER_GAME = gql`
     mutation addUserGame($game: UserGameInput) {
         addUserGame(game: $game) {
-            id
-            name
-            inBacklog
-            cover {
-                url
-            }
             console {
                 id
                 name
             }
+            cover {
+                url
+            }
+            id
+            inBacklog
+            name
         }
     }
 `
 
-export const GameForm: React.FC = React.memo(
+export const AddGame: React.FC = React.memo(
     (): JSX.Element => {
         const [consoles, setConsoles] = React.useState([])
         const [selectedConsoleId, setSelectedConsoleId] = React.useState('')
