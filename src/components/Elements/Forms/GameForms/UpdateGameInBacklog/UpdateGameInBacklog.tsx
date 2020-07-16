@@ -6,23 +6,24 @@ import { Button } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
-export const DELETE_USER_GAME = gql`
-    mutation removeGame($game: GameInput) {
-        removeGame(game: $game) {
+export const UPDATE_USER_GAME = gql`
+    mutation updateGame($game: GameInput) {
+        updateGame(game: $game) {
             status
         }
     }
 `
 
-export type RemoveFromBacklogProps = {
+export type UpdateGameInBacklogProps = {
     userGameId: string
+    inBacklog: boolean
 }
 
-export const RemoveFromBacklog: React.FC<RemoveFromBacklogProps> = React.memo(
-    ({ userGameId }): JSX.Element => {
+export const UpdateGameInBacklog: React.FC<UpdateGameInBacklogProps> = React.memo(
+    ({ userGameId, inBacklog }): JSX.Element => {
         const [isLoading, setIsLoading] = React.useState(false)
         const { closeModal } = React.useContext(ModalContext)
-        const [removeGame] = useMutation(DELETE_USER_GAME, {
+        const [updateGame] = useMutation(UPDATE_USER_GAME, {
             refetchQueries: ['GetUserGames']
         })
 
@@ -30,10 +31,11 @@ export const RemoveFromBacklog: React.FC<RemoveFromBacklogProps> = React.memo(
             e.preventDefault()
             setIsLoading(true)
 
-            await removeGame({
+            await updateGame({
                 variables: {
                     game: {
-                        gameId: userGameId
+                        gameId: userGameId,
+                        inBacklog
                     }
                 }
             })
@@ -50,7 +52,12 @@ export const RemoveFromBacklog: React.FC<RemoveFromBacklogProps> = React.memo(
         return (
             <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="gameForm">
                 <fieldset style={{ border: 'none' }}>
-                    <p>Would you like to remove this game from your collection?</p>
+                    {inBacklog ? (
+                        <p>Would you like to add this game to your backlog?</p>
+                    ) : (
+                        <p>Would you like to remove this game from your backlog?</p>
+                    )}
+
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Button
                             onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}

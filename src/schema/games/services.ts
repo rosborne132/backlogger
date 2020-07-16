@@ -3,6 +3,15 @@ import { dbClient, docClient, parseData } from 'src/lib/dynamodb'
 import { stage } from 'src/lib/stage'
 import { Game as GameType, UserGame } from 'src/types'
 
+const TableName = `backlogger-${stage}-user-games`
+
+export const createSlug = (str: string) =>
+    str
+        .toLowerCase()
+        .replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
+        .split(' ')
+        .join('-')
+
 export const dataIsValid = (fetchedData: any) => fetchedData !== null || fetchedData !== undefined || fetchedData.length
 
 export const queryAPI = async (endpoint: string, query: string) =>
@@ -33,14 +42,67 @@ export const getGameByConsole = (games: GameType[], params: GameType) => {
     return result !== undefined ? result : null
 }
 
-export const createSlug = (str: string) =>
-    str
-        .toLowerCase()
-        .replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
-        .split(' ')
-        .join('-')
+export const fetchGameDetailsById = async (gameId: string) => {
+    const query = `
+    fields
+    artworks.url,
+    cover.url,
+    name,
+    platforms.abbreviation,
+    platforms.name,
+    screenshots.id,
+    screenshots.url,
+    similar_games.name,
+    similar_games.cover.url,
+    slug,
+    storyline,
+    summary,
+    themes.name,
+    themes.slug;
+    where id = ${gameId};`
 
-const TableName = `backlogger-${stage}-user-games`
+    const gameFetched = await queryAPI('games', query)
+
+    return gameFetched.data[0]
+}
+
+export const fetchGamesByName = async (name: string) => {
+    const query = `fields name; search "${name}";`
+
+    const gameFetched = await queryAPI('games', query)
+
+    return gameFetched.data
+}
+
+// ------------------------------------------------------------
+// ------------------------------------------------------------
+// ---------------------- CRUD OPS ----------------------------
+// ------------------------------------------------------------
+// ------------------------------------------------------------
+
+export const deleteGame = async (id: string) => {
+    let status: string = '200'
+
+    const params = {
+        TableName,
+        Key: {
+            id
+        },
+        ConditionExpression: 'id = :id',
+        ExpressionAttributeValues: {
+            ':id': id
+        }
+    }
+
+    try {
+        await docClient.delete(params).promise()
+    } catch (err) {
+        console.error(err)
+        status = err.status
+    }
+
+    return { status }
+}
 
 export const getGames = async (userId: string) => {
     const { Items } = await dbClient
@@ -85,7 +147,35 @@ export const getGamesByConsoleId = async (consoleId: string, userId: string) => 
     return Items.map(item => parseData.unmarshall(item))
 }
 
-export const putGame = async (userGame: UserGame) => {
+export const patchGame = async (id: string, inBacklog: boolean) => {
+    let status: string = '200'
+
+    const params = {
+        TableName,
+        Key: {
+            id
+        },
+        UpdateExpression: 'set #game.#inBacklog = :val',
+        ExpressionAttributeNames: {
+            '#game': 'game',
+            '#inBacklog': 'inBacklog'
+        },
+        ExpressionAttributeValues: {
+            ':val': inBacklog
+        }
+    }
+
+    try {
+        await docClient.update(params).promise()
+    } catch (err) {
+        console.error(err)
+        status = err.status
+    }
+
+    return { status }
+}
+
+export const postGame = async (userGame: UserGame) => {
     const params = {
         TableName,
         Item: {
@@ -103,77 +193,3 @@ export const putGame = async (userGame: UserGame) => {
         return userGame
     }
 }
-
-export const getGameByGameId = async (gameId: string) => {
-    const query = `
-    fields
-    artworks.url,
-    cover.url,
-    name,
-    platforms.abbreviation,
-    platforms.name,
-    screenshots.id,
-    screenshots.url,
-    similar_games.name,
-    similar_games.cover.url,
-    slug,
-    storyline,
-    summary,
-    themes.name,
-    themes.slug;
-    where id = ${gameId};`
-
-    const gameFetched = await queryAPI('games', query)
-
-    return gameFetched.data[0]
-}
-
-export const getGamesByName = async (name: string) => {
-    const query = `fields name; search "${name}";`
-
-    const gameFetched = await queryAPI('games', query)
-
-    return gameFetched.data
-}
-
-export const deleteGame = async (userGameId: string) => {
-    let status: string = '200'
-
-    const params = {
-        TableName,
-        Key: {
-            id: userGameId
-        },
-        ConditionExpression: 'id = :id',
-        ExpressionAttributeValues: {
-            ':id': userGameId
-        }
-    }
-
-    try {
-        await docClient.delete(params).promise()
-    } catch (err) {
-        console.error(err)
-        status = err.status
-    }
-
-    return { status }
-}
-
-// export const patchItem = async ({ item, username }) => {
-//     const { itemId, isPurchased, itemName } = item
-//     const newValue = !isPurchased
-//     const params = {
-//         TableName,
-//         Key: {
-//             itemId,
-//             username
-//         },
-//         UpdateExpression: 'set isPurchased = :val',
-//         ExpressionAttributeValues: {
-//             ':val': newValue
-//         },
-
-//         ReturnValues: 'UPDATED_NEW'
-//     }
-// }

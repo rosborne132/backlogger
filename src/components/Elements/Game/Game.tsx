@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
-import { RemoveFromBacklog } from 'src/components/Elements'
+import { RemoveFromBacklog, UpdateGameInBacklog } from 'src/components/Elements'
 
 import { Cover, Platform } from 'src/types'
 
@@ -84,7 +84,10 @@ const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
         >
             <div className={styles.buttonContainer}>
                 {inBacklog ? (
-                    <button onClick={() => console.log(`Removed game ${userGameId} from backlog`)} className="cancel">
+                    <button
+                        onClick={() => openModal(<UpdateGameInBacklog userGameId={userGameId} inBacklog={false} />)}
+                        className="cancel"
+                    >
                         -
                     </button>
                 ) : (
@@ -95,7 +98,11 @@ const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
                         >
                             -
                         </button>
-                        <button onClick={() => console.log(`Add game ${userGameId} to backlog`)}>+</button>
+                        <button
+                            onClick={() => openModal(<UpdateGameInBacklog userGameId={userGameId} inBacklog={true} />)}
+                        >
+                            +
+                        </button>
                     </>
                 )}
 
@@ -109,7 +116,7 @@ const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
 
 export const UserGame: React.FC<GameProps> = React.memo(
     ({ cover, id, inBacklog, name, slug, userGameId }: GameProps): JSX.Element => {
-        const [showButtonOptions, setShowButtonOptions] = React.useState(true)
+        const [showButtonOptions, setShowButtonOptions] = React.useState(false)
         const coverUrl = cover.url.length ? cover.url.replace('t_thumb', 't_cover_big') : ''
 
         return (

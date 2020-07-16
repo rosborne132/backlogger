@@ -10,8 +10,8 @@ export type InputType = {
 }
 
 export const GET_GAMES_BY_NAME = gql`
-    query GetGamesByName($name: String) {
-        getGamesByName(name: $name) {
+    query FetchGamesByName($name: String) {
+        fetchGamesByName(name: $name) {
             name
         }
     }
@@ -29,8 +29,8 @@ export const GameSuggestionInput = ({ labelText = '', inputId, onChange }: Input
     }, [value])
 
     React.useEffect(() => {
-        if (data !== undefined && data.getGamesByName !== undefined) {
-            setSuggestions(data.getGamesByName)
+        if (data !== undefined && data.fetchGamesByName !== undefined) {
+            setSuggestions(data.fetchGamesByName)
         }
     }, [data])
 

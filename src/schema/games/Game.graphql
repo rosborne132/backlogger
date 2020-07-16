@@ -20,8 +20,8 @@ type Screenshot {
 }
 
 type Similar_Game {
-    name: String
     cover: Cover
+    name: String
 }
 
 type Theme {
@@ -59,11 +59,11 @@ type UserGame {
 }
 
 type Query {
+    fetchGameDetailsById(gameId: String!): APIGame
     fetchGames: [Game]
+    fetchGamesByName(name: String): [Game]
     getGames: [UserGame]
     getGamesByConsoleId(consoleId: String!): [UserGame]
-    getGameByGameId(gameId: String!): APIGame
-    getGamesByName(name: String): [Game]
 }
 
 input UserGameInput {
@@ -75,6 +75,7 @@ input UserGameInput {
 
 input GameInput {
     gameId: String
+    inBacklog: Boolean
 }
 
 type Response {
@@ -84,4 +85,5 @@ type Response {
 type Mutation {
     addUserGame(game: UserGameInput): Game
     removeGame(game: GameInput): Response
+    updateGame(game: GameInput): Response
 }
