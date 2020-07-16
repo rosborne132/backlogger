@@ -2,6 +2,8 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
+import { RemoveFromBacklog } from 'src/components/Elements'
+
 import { Cover, Platform } from 'src/types'
 
 import { ModalContext } from 'src/context'
@@ -65,7 +67,7 @@ export const Game: React.FC<GameProps> = React.memo(
 )
 
 const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
-    const { modalIsShowing, openModal } = React.useContext(ModalContext)
+    const { openModal } = React.useContext(ModalContext)
     const router = useRouter()
     const variants = {
         open: { y: 0 },
@@ -82,13 +84,13 @@ const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
         >
             <div className={styles.buttonContainer}>
                 {inBacklog ? (
-                    <button onClick={() => openModal(<h1>Remove game from backlog</h1>)} className="cancel">
+                    <button onClick={() => console.log(`Removed game ${userGameId} from backlog`)} className="cancel">
                         -
                     </button>
                 ) : (
                     <>
                         <button
-                            onClick={() => console.log(`Remove game ${userGameId} from collection`)}
+                            onClick={() => openModal(<RemoveFromBacklog userGameId={userGameId} />)}
                             className="cancel"
                         >
                             -

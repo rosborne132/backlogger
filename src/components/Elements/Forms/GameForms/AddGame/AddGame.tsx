@@ -69,6 +69,7 @@ export const AddGame: React.FC = React.memo(
             })
 
             setIsLoading(false)
+            closeModal()
         }
 
         const closeForm = (e: React.MouseEvent<HTMLButtonElement>): any => {

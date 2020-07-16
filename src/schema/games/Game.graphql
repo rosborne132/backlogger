@@ -73,6 +73,15 @@ input UserGameInput {
     name: String!
 }
 
+input GameInput {
+    gameId: String
+}
+
+type Response {
+    status: String
+}
+
 type Mutation {
     addUserGame(game: UserGameInput): Game
+    removeGame(game: GameInput): Response
 }

@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import axios from 'axios'
 import { User } from 'src/types'
-import { createSlug, getGameByConsole, putGame } from './services'
+import { createSlug, deleteGame, getGameByConsole, putGame } from './services'
 
 export const gameMutations = {
     Mutation: {
@@ -67,6 +67,10 @@ export const gameMutations = {
             } catch (err) {
                 console.error(err)
             }
+        },
+        async removeGame(parent: any, args: any, { user }: { user: User }) {
+            if (user === undefined) return
+            return await deleteGame(args.game.gameId)
         }
     }
 }

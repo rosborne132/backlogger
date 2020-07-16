@@ -135,3 +135,45 @@ export const getGamesByName = async (name: string) => {
 
     return gameFetched.data
 }
+
+export const deleteGame = async (userGameId: string) => {
+    let status: string = '200'
+
+    const params = {
+        TableName,
+        Key: {
+            id: userGameId
+        },
+        ConditionExpression: 'id = :id',
+        ExpressionAttributeValues: {
+            ':id': userGameId
+        }
+    }
+
+    try {
+        await docClient.delete(params).promise()
+    } catch (err) {
+        console.error(err)
+        status = err.status
+    }
+
+    return { status }
+}
+
+// export const patchItem = async ({ item, username }) => {
+//     const { itemId, isPurchased, itemName } = item
+//     const newValue = !isPurchased
+//     const params = {
+//         TableName,
+//         Key: {
+//             itemId,
+//             username
+//         },
+//         UpdateExpression: 'set isPurchased = :val',
+//         ExpressionAttributeValues: {
+//             ':val': newValue
+//         },
+
+//         ReturnValues: 'UPDATED_NEW'
+//     }
+// }
