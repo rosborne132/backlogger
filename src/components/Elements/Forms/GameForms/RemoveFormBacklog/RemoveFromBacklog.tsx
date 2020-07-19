@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { ButtonGroup } from 'src/components/Elements'
+import { Form } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
@@ -48,16 +48,14 @@ export const RemoveFromBacklog: React.FC<RemoveFromBacklogProps> = React.memo(
         }
 
         return (
-            <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)} data-testid="gameForm">
-                <fieldset style={{ border: 'none' }}>
-                    <p>Would you like to remove this game from your collection?</p>
-
-                    <ButtonGroup
-                        isLoading={isLoading}
-                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
-                    />
-                </fieldset>
-            </form>
+            <Form
+                closeForm={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
+                formId="gameForm"
+                isLoading={isLoading}
+                onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
+            >
+                <p>Would you like to remove this game from your collection?</p>
+            </Form>
         )
     }
 )

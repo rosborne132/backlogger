@@ -68,9 +68,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                                     <span
                                         style={{
                                             alignItems: 'center',
-                                            display: 'inline-flex',
-                                            flexWrap: 'wrap',
-                                            gap: 12
+                                            display: 'flex'
                                         }}
                                     >
                                         <Icon
@@ -81,7 +79,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                                             }}
                                             aria-hidden
                                         />
-                                        {upperFirst(type)}
+                                        <span style={{ paddingLeft: 10 }}>{upperFirst(type)}</span>
                                     </span>
                                 </li>
                             )

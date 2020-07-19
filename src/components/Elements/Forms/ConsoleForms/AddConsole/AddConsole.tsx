@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { Button, ConsoleSelect, FormLoadingScreen } from 'src/components/Elements'
+import { ConsoleSelect, Form, FormLoadingScreen } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
@@ -74,34 +74,19 @@ export const AddConsole: React.FC = React.memo(
         if (!data) return <FormLoadingScreen />
 
         return (
-            <form
-                style={{ width: 'var(--spacing-xxxlg)', height: 'var(--spacing-xxlg)' }}
+            <Form
+                closeForm={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
+                formId="addConsole"
+                isLoading={isLoading}
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
-                data-testid="addConsole"
             >
-                <fieldset>
-                    <ConsoleSelect
-                        inputId="consoleSelect"
-                        labelText="Console: "
-                        onChange={(newValue: string) => setSelectedConsole(newValue)}
-                        options={consoles}
-                    />
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', top: 5 }}>
-                        <Button
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
-                            className="cancel"
-                            isLoading={isLoading}
-                        >
-                            Cancel
-                        </Button>
-
-                        <Button type="submit" isLoading={isLoading}>
-                            Submit
-                        </Button>
-                    </div>
-                </fieldset>
-            </form>
+                <ConsoleSelect
+                    inputId="consoleSelect"
+                    labelText="Console: "
+                    onChange={(newValue: string) => setSelectedConsole(newValue)}
+                    options={consoles}
+                />
+            </Form>
         )
     }
 )
