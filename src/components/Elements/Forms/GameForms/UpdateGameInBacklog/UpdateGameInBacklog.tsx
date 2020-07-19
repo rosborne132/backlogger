@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import { Button } from 'src/components/Elements'
+import { ButtonGroup } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
@@ -58,19 +58,10 @@ export const UpdateGameInBacklog: React.FC<UpdateGameInBacklogProps> = React.mem
                         <p>Would you like to remove this game from your backlog?</p>
                     )}
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
-                            className="cancel"
-                            isLoading={isLoading}
-                        >
-                            Cancel
-                        </Button>
-
-                        <Button type="submit" isLoading={isLoading}>
-                            Submit
-                        </Button>
-                    </div>
+                    <ButtonGroup
+                        isLoading={isLoading}
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
+                    />
                 </fieldset>
             </form>
         )

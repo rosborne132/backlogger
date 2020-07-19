@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 
 import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
 
-import { Button, ConsoleSelect, FormLoadingScreen, GameSuggestionInput } from 'src/components/Elements'
+import { ButtonGroup, ConsoleSelect, FormLoadingScreen, GameSuggestionInput } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
@@ -97,19 +97,10 @@ export const AddGame: React.FC = React.memo(
                         options={consoles}
                     />
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
-                            className="cancel"
-                            isLoading={isLoading}
-                        >
-                            Cancel
-                        </Button>
-
-                        <Button type="submit" isLoading={isLoading}>
-                            Submit
-                        </Button>
-                    </div>
+                    <ButtonGroup
+                        isLoading={isLoading}
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
+                    />
                 </fieldset>
             </form>
         )
