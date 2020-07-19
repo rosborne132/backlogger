@@ -77,5 +77,6 @@
             "pre-commit": "pretty-quick --staged",
             "pre-push": "export CI=true && yarn run test"
         }
-    }
+    },
+    "snyk": true
 }
