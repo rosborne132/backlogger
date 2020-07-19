@@ -2,7 +2,7 @@ import * as React from 'react'
 import { act, cleanup, render, waitFor } from '@testing-library/react'
 import { MockedProvider } from '@apollo/react-testing'
 
-import { GameForm } from './GameForm'
+import { AddGame } from './AddGame'
 
 describe('<GameForm />', () => {
     afterEach(cleanup)
@@ -11,7 +11,7 @@ describe('<GameForm />', () => {
         await act(async () => {
             const { queryByTestId } = render(
                 <MockedProvider mocks={[]} addTypename={false}>
-                    <GameForm />
+                    <AddGame />
                 </MockedProvider>
             )
             await waitFor(() => {

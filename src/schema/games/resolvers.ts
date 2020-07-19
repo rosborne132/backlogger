@@ -1,9 +1,16 @@
 import axios from 'axios'
 import { User } from 'src/types'
-import { getGames, getGamesByConsoleId, getGameByGameId, getGamesByName } from './services'
+import { getGames, getGamesByConsoleId, fetchGameDetailsById, fetchGamesByName } from './services'
 
 export const gameResolvers = {
     Query: {
+        async fetchGameDetailsById(parent, args) {
+            try {
+                return await fetchGameDetailsById(args.gameId)
+            } catch (err) {
+                console.error(err)
+            }
+        },
         async fetchGames(parent, args) {
             try {
                 const gamesFetched = await axios({
@@ -21,6 +28,13 @@ export const gameResolvers = {
                 console.error(err)
             }
         },
+        async fetchGamesByName(parent, args) {
+            try {
+                return await fetchGamesByName(args.name)
+            } catch (err) {
+                console.error(err)
+            }
+        },
         async getGames(parent, args, { user }: { user: User }) {
             try {
                 return await getGames(user.client_id)
@@ -31,20 +45,6 @@ export const gameResolvers = {
         async getGamesByConsoleId(parent, args, { user }: { user: User }) {
             try {
                 return await getGamesByConsoleId(args.consoleId, user.client_id)
-            } catch (err) {
-                console.error(err)
-            }
-        },
-        async getGameByGameId(parent, args) {
-            try {
-                return await getGameByGameId(args.gameId)
-            } catch (err) {
-                console.error(err)
-            }
-        },
-        async getGamesByName(parent, args) {
-            try {
-                return await getGamesByName(args.name)
             } catch (err) {
                 console.error(err)
             }

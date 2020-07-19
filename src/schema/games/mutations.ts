@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import axios from 'axios'
 import { User } from 'src/types'
-import { createSlug, getGameByConsole, putGame } from './services'
+import { createSlug, deleteGame, getGameByConsole, patchGame, postGame } from './services'
 
 export const gameMutations = {
     Mutation: {
@@ -47,7 +47,7 @@ export const gameMutations = {
                     params.game.slug = createSlug(args.game.name)
 
                     // insert into DB
-                    userGame = await putGame(params)
+                    userGame = await postGame(params)
 
                     return userGame.game
                 }
@@ -61,9 +61,27 @@ export const gameMutations = {
                 params.game.slug = selectedGame.slug
 
                 // insert into DB
-                userGame = await putGame(params)
+                userGame = await postGame(params)
 
                 return userGame.game
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        async removeGame(parent: any, args: any, { user }: { user: User }) {
+            if (user === undefined) return
+
+            try {
+                return await deleteGame(args.game.gameId)
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        async updateGame(parent: any, args: any, { user }: { user: User }) {
+            if (user === undefined) return
+
+            try {
+                return await patchGame(args.game.gameId, args.game.inBacklog)
             } catch (err) {
                 console.error(err)
             }

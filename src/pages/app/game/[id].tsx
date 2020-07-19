@@ -14,8 +14,8 @@ import styles from './gameInfo.module.css'
 // Use query on load to see if the user has this game in there backlog
 
 const GET_GAME_BY_GAME_ID = gql`
-    query GetGameByGameId($gameId: String!) {
-        getGameByGameId(gameId: $gameId) {
+    query FetchGameDetailsById($gameId: String!) {
+        fetchGameDetailsById(gameId: $gameId) {
             artworks {
                 url
             }
@@ -61,7 +61,8 @@ const renderThemeBadges = (badges: any) =>
 const renderGames = (games: any) =>
     games.map((game: any) => <Game key={game.id} cover={game.cover} id={game.id} name={game.name} />)
 
-const isEmpty = (game: any, value: any) => game.getGameByGameId === null || game.getGameByGameId[value] === null
+const isEmpty = (game: any, value: any) =>
+    game.fetchGameDetailsById === null || game.fetchGameDetailsById[value] === null
 
 export default withApollo(() => {
     const router = useRouter()
@@ -71,9 +72,9 @@ export default withApollo(() => {
 
     if (!game) return <LoadingScreen />
 
-    const screenshots = !isEmpty(game, 'screenshots') ? game.getGameByGameId.screenshots : []
-    const name = !isEmpty(game, 'name') ? game.getGameByGameId.name : ''
-    const summary = !isEmpty(game, 'summary') ? game.getGameByGameId.summary : ''
+    const screenshots = !isEmpty(game, 'screenshots') ? game.fetchGameDetailsById.screenshots : []
+    const name = !isEmpty(game, 'name') ? game.fetchGameDetailsById.name : ''
+    const summary = !isEmpty(game, 'summary') ? game.fetchGameDetailsById.summary : ''
 
     return (
         <AppLayout displayNav={false} images={screenshots}>
@@ -86,14 +87,14 @@ export default withApollo(() => {
                     {name} {router.query.userGameId && <button>Remove</button>}
                 </h1>
 
-                {!isEmpty(game, 'getGameByGameId') ? (
+                {!isEmpty(game, 'fetchGameDetailsById') ? (
                     <div id="game" style={{ position: 'absolute', bottom: '130px', left: '30px' }}>
                         <Game
                             canHover={false}
-                            cover={game.getGameByGameId.cover}
-                            id={game.getGameByGameId.id}
-                            name={game.getGameByGameId.name}
-                            slug={game.getGameByGameId.slug}
+                            cover={game.fetchGameDetailsById.cover}
+                            id={game.fetchGameDetailsById.id}
+                            name={game.fetchGameDetailsById.name}
+                            slug={game.fetchGameDetailsById.slug}
                         />
                     </div>
                 ) : null}
@@ -104,12 +105,12 @@ export default withApollo(() => {
             </section>
 
             {!isEmpty(game, 'themes') && (
-                <div className={styles.gameBadgeContainer}>{renderThemeBadges(game.getGameByGameId.themes)}</div>
+                <div className={styles.gameBadgeContainer}>{renderThemeBadges(game.fetchGameDetailsById.themes)}</div>
             )}
 
             <section>
                 <h2 className="tc">Similar Games</h2>
-                {!isEmpty(game, 'similar_games') && <Grid>{renderGames(game.getGameByGameId.similar_games)}</Grid>}
+                {!isEmpty(game, 'similar_games') && <Grid>{renderGames(game.fetchGameDetailsById.similar_games)}</Grid>}
             </section>
         </AppLayout>
     )

@@ -8,8 +8,8 @@
     display: flex;
     height: 16rem;
     justify-content: center;
-    width: 12rem;
     text-align: center;
+    width: 12rem;
 }
 
 .gameImg {
@@ -24,9 +24,45 @@
 }
 
 .gameLink {
-    display: flex;
     cursor: pointer;
+    display: flex;
     justify-content: center;
+}
+
+.gameSelected {
+    opacity: 0.4;
+}
+
+.userGame {
+    position: relative;
+    z-index: 1;
+}
+
+.buttonContainerBackground {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 3;
+}
+
+.buttonContainer button {
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+}
+
+.buttonContainer button + button {
+    margin-top: var(--spacing-xs);
 }
 
 @media (min-width: 768px) {

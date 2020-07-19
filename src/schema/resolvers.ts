@@ -1,2 +1,2 @@
-export * from './games/resolvers'
 export * from './consoles/resolvers'
+export * from './games/resolvers'
