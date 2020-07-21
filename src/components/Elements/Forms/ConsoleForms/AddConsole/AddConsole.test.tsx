@@ -3,16 +3,16 @@ import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react
 import { MockedProvider } from '@apollo/react-testing'
 
 import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
-import { ConsoleForm, GET_CONSOLES } from './ConsoleForm'
+import { AddConsole, GET_CONSOLES } from './AddConsole'
 
-describe('<ConsoleForm />', () => {
+describe('<AddConsole />', () => {
     afterEach(cleanup)
 
     test('renders loading screen', async () => {
         await act(async () => {
             const { queryByTestId } = render(
                 <MockedProvider mocks={[]} addTypename={false}>
-                    <ConsoleForm />
+                    <AddConsole />
                 </MockedProvider>
             )
 
@@ -69,7 +69,7 @@ describe('<ConsoleForm />', () => {
         await act(async () => {
             const { getByTestId, queryByTestId } = render(
                 <MockedProvider mocks={mocks} addTypename={false}>
-                    <ConsoleForm />
+                    <AddConsole />
                 </MockedProvider>
             )
 
@@ -77,7 +77,7 @@ describe('<ConsoleForm />', () => {
                 const consoleSelect = getByTestId('consoleSelect')
 
                 expect(consoleSelect.childElementCount).toBe(1)
-                expect(queryByTestId('consoleForm')).toBeTruthy()
+                expect(queryByTestId('addConsole')).toBeTruthy()
             })
         })
     })

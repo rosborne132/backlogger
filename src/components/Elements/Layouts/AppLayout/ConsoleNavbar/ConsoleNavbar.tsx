@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 import upperFirst from 'lodash/upperFirst'
 
-import { ConsoleForm, GameForm, Icon } from 'src/components/Elements'
+import { AddConsole, AddGame, Icon } from 'src/components/Elements'
 
 import { ModalContext } from 'src/context'
 
@@ -16,11 +16,11 @@ type ConsoleNavbarProps = {
 const navbarButtons = [
     {
         type: 'game',
-        component: () => <GameForm />
+        component: () => <AddGame />
     },
     {
         type: 'console',
-        component: () => <ConsoleForm />
+        component: () => <AddConsole />
     }
 ]
 
@@ -36,7 +36,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
     }
 
     React.useEffect(() => {
-        const pageSelected = router.query.id != undefined ? router.query.id : ''
+        const pageSelected = router.query.id != undefined ? router.query.id : router.pathname.replace('/app', '')
         setSelected(pageSelected)
     }, [consoles])
 
@@ -68,9 +68,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                                     <span
                                         style={{
                                             alignItems: 'center',
-                                            display: 'inline-flex',
-                                            flexWrap: 'wrap',
-                                            gap: 12
+                                            display: 'flex'
                                         }}
                                     >
                                         <Icon
@@ -81,7 +79,7 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                                             }}
                                             aria-hidden
                                         />
-                                        {upperFirst(type)}
+                                        <span style={{ paddingLeft: 10 }}>{upperFirst(type)}</span>
                                     </span>
                                 </li>
                             )
@@ -90,6 +88,13 @@ export const ConsoleNavbar: React.FC<ConsoleNavbarProps> = React.memo(({ console
                         <li
                             className={selected === '' ? styles.consoleListItemSelect : styles.consoleListItem}
                             onClick={() => router.push('/app')}
+                        >
+                            Collection
+                        </li>
+
+                        <li
+                            className={selected === '/backlog' ? styles.consoleListItemSelect : styles.consoleListItem}
+                            onClick={() => router.push('/app/backlog')}
                         >
                             Backlog
                         </li>

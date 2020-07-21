@@ -33,7 +33,9 @@
 
 .consoleBackground {
     background: none;
-    box-shadow: none;
+    height: 100%;
+    position: sticky;
+    top: 50%;
 }
 
 .consoleButton {
@@ -44,6 +46,4 @@
     cursor: pointer;
     display: flex;
     padding: 0.5rem 0.75rem;
-    top: 60px;
-    left: 20px;
 }
