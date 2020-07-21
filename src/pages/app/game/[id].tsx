@@ -1,55 +1,15 @@
 import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
-import gql from 'graphql-tag'
 
 import { AppLayout, Game, LoadingScreen } from 'src/components/Elements'
+import { GET_GAME_BY_GAME_ID } from 'src/lib/queries'
 import { Grid } from 'src/components/Utilities'
-
 import { withApollo } from 'src/lib/apollo'
-
 import styles from './gameInfo.module.css'
 
 // todo
 // Use query on load to see if the user has this game in there backlog
-
-const GET_GAME_BY_GAME_ID = gql`
-    query FetchGameDetailsById($gameId: String!) {
-        fetchGameDetailsById(gameId: $gameId) {
-            artworks {
-                url
-            }
-            cover {
-                url
-            }
-            id
-            name
-            platforms {
-                abbreviation
-                id
-                name
-            }
-            screenshots {
-                id
-                url
-            }
-            similar_games {
-                id
-                name
-                cover {
-                    url
-                }
-            }
-            slug
-            storyline
-            summary
-            themes {
-                name
-                slug
-            }
-        }
-    }
-`
 
 const renderThemeBadges = (badges: any) =>
     badges.map(({ name, slug }: { name: string; slug: string }) => (

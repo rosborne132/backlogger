@@ -1,31 +1,10 @@
 import * as React from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
 
-import { GET_USER_CONSOLES } from 'src/pages/app/[id]'
-
-import { UserGame } from 'src/types'
-
+import { ADD_USER_GAME, GET_USER_CONSOLES } from 'src/lib/queries'
 import { ConsoleSelect, Form, FormLoadingScreen, GameSuggestionInput } from 'src/components/Elements'
-
 import { ModalContext } from 'src/context'
-
-export const ADD_USER_GAME = gql`
-    mutation addUserGame($game: UserGameInput) {
-        addUserGame(game: $game) {
-            console {
-                id
-                name
-            }
-            cover {
-                url
-            }
-            id
-            inBacklog
-            name
-        }
-    }
-`
+import { UserGame } from 'src/types'
 
 export const AddGame: React.FC = React.memo(
     (): JSX.Element => {

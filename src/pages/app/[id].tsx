@@ -1,42 +1,12 @@
 import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
-import gql from 'graphql-tag'
 
 import { AppLayout, LoadingScreen } from 'src/components/Elements'
+import { GET_GAMES_BY_CONSOLE_ID, GET_USER_CONSOLES } from 'src/lib/queries'
 import { Grid } from 'src/components/Utilities'
 import { renderUserGames } from './index'
-
 import { withApollo } from 'src/lib/apollo'
-
-const GET_GAMES_BY_CONSOLE_ID = gql`
-    query GetGamesByConsoleId($consoleId: String!) {
-        getGamesByConsoleId(consoleId: $consoleId) {
-            id
-            game {
-                cover {
-                    url
-                }
-                id
-                inBacklog
-                name
-                slug
-            }
-        }
-    }
-`
-
-export const GET_USER_CONSOLES = gql`
-    query GetUserConsoles {
-        getUserConsoles {
-            console {
-                id
-                name
-                slug
-            }
-        }
-    }
-`
 
 export default withApollo(() => {
     const router = useRouter()

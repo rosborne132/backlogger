@@ -1,35 +1,16 @@
 import * as React from 'react'
 import { useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
-
-import { GET_USER_CONSOLES } from './[id]'
 
 import { AppLayout, UserGame, LoadingScreen } from 'src/components/Elements'
+import { GET_USER_CONSOLES, GET_USER_GAMES } from 'src/lib/queries'
 import { Grid } from 'src/components/Utilities'
-
+import { UserGame as Game } from 'src/types'
 import { withApollo } from 'src/lib/apollo'
 
-export const GET_USER_GAMES = gql`
-    query GetUserGames {
-        getGames {
-            id
-            game {
-                cover {
-                    url
-                }
-                id
-                inBacklog
-                name
-                slug
-            }
-        }
-    }
-`
-
-export const renderUserGames = (games: any[], objName: string): JSX.Element[] => {
+export const renderUserGames = (games: Game[], objName: string): JSX.Element[] => {
     const gameList = games[objName] !== undefined ? games[objName] : games
 
-    return gameList.map(listedGame => {
+    return gameList.map((listedGame: Game) => {
         const { game } = listedGame
         const userGameId = listedGame.id !== undefined ? listedGame.id : ''
 

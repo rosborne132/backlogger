@@ -3,7 +3,7 @@ import { LandingHeader } from 'src/components/Elements'
 import { Meta } from 'src/components/Utilities'
 
 export const LandingLayout: React.FC = React.memo(
-    ({ children }: { children: React.ReactNode }): JSX.Element => (
+    ({ children }: { children: React.ReactNode }): React.ReactNode => (
         <>
             <Meta />
             <LandingHeader />

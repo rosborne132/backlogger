@@ -1,25 +1,16 @@
 import * as React from 'react'
 import { useMutation } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
 
+import { DELETE_USER_GAME } from 'src/lib/queries'
 import { Form } from 'src/components/Elements'
-
 import { ModalContext } from 'src/context'
-
-export const DELETE_USER_GAME = gql`
-    mutation removeGame($game: GameInput) {
-        removeGame(game: $game) {
-            status
-        }
-    }
-`
 
 export type RemoveFromBacklogProps = {
     userGameId: string
 }
 
-export const RemoveFromBacklog: React.FC<RemoveFromBacklogProps> = React.memo(
-    ({ userGameId }): JSX.Element => {
+export const RemoveFromBacklog: React.FC = React.memo(
+    ({ userGameId }: RemoveFromBacklogProps): JSX.Element => {
         const [isLoading, setIsLoading] = React.useState(false)
         const { closeModal } = React.useContext(ModalContext)
         const [removeGame] = useMutation(DELETE_USER_GAME, {

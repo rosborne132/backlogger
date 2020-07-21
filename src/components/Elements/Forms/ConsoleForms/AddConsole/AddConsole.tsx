@@ -1,30 +1,10 @@
 import * as React from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
 
+import { ADD_USER_CONSOLE, GET_CONSOLES } from 'src/lib/queries'
 import { ConsoleSelect, Form, FormLoadingScreen } from 'src/components/Elements'
-
 import { ModalContext } from 'src/context'
-
-export const GET_CONSOLES = gql`
-    query GetConsoles {
-        getConsoles {
-            id
-            name
-            slug
-        }
-    }
-`
-
-export const ADD_USER_CONSOLE = gql`
-    mutation addUserConsole($console: UserConsoleInput) {
-        addUserConsole(console: $console) {
-            id
-            name
-            slug
-        }
-    }
-`
+import { Platform as Console } from 'src/types'
 
 export const AddConsole: React.FC = React.memo(
     (): JSX.Element => {
@@ -39,7 +19,7 @@ export const AddConsole: React.FC = React.memo(
 
         React.useEffect(() => {
             if (data !== undefined) {
-                const filteredConsoles = data.getConsoles.map(userConsole => {
+                const filteredConsoles = data.getConsoles.map((userConsole: Console) => {
                     return {
                         value: userConsole.id,
                         label: userConsole.name,
