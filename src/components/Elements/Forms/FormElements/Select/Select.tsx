@@ -4,7 +4,7 @@ import Select from 'react-select'
 export type SelectType = {
     labelText?: string
     inputId: string
-    onChange: (string) => void
+    onChange: (str: string) => void
     options: any[]
 }
 
@@ -13,7 +13,11 @@ export const ConsoleSelect = ({ labelText = '', inputId, onChange, options }: Se
         {labelText.length ? <label htmlFor={inputId}>{labelText}</label> : null}
 
         <div data-testid={inputId}>
-            <Select options={options} onChange={({ value }) => onChange(value)} defaultInputValue="" />
+            <Select
+                options={options}
+                onChange={({ value }: { value: string }) => onChange(value)}
+                defaultInputValue=""
+            />
         </div>
     </div>
 )

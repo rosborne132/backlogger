@@ -1,4 +1,4 @@
-import { Cover, Platform as Console } from 'src/types'
+import { Cover, Platform as Console } from 'src/lib/types'
 
 export type Game = {
     console?: Console

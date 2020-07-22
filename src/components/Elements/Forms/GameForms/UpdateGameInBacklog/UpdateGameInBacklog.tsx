@@ -1,26 +1,17 @@
 import * as React from 'react'
 import { useMutation } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
 
 import { Form } from 'src/components/Elements'
-
 import { ModalContext } from 'src/context'
-
-export const UPDATE_USER_GAME = gql`
-    mutation updateGame($game: GameInput) {
-        updateGame(game: $game) {
-            status
-        }
-    }
-`
+import { UPDATE_USER_GAME } from 'src/lib/queries'
 
 export type UpdateGameInBacklogProps = {
     userGameId: string
     inBacklog: boolean
 }
 
-export const UpdateGameInBacklog: React.FC<UpdateGameInBacklogProps> = React.memo(
-    ({ userGameId, inBacklog }): JSX.Element => {
+export const UpdateGameInBacklog: React.FC = React.memo(
+    ({ userGameId, inBacklog }: UpdateGameInBacklogProps): JSX.Element => {
         const [isLoading, setIsLoading] = React.useState(false)
         const { closeModal } = React.useContext(ModalContext)
         const [updateGame] = useMutation(UPDATE_USER_GAME, {
@@ -52,7 +43,7 @@ export const UpdateGameInBacklog: React.FC<UpdateGameInBacklogProps> = React.mem
         return (
             <Form
                 closeForm={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
-                formId="moveGameToBacklog"
+                formId="updateGameInBacklog"
                 isLoading={isLoading}
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
             >

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { dbClient, docClient, parseData } from 'src/lib/dynamodb'
 import { stage } from 'src/lib/stage'
-import { Game as GameType, UserGame } from 'src/types'
+import { Console, Game as GameType, UserGame } from 'src/lib/types'
 
 const TableName = `backlogger-${stage}-user-games`
 
@@ -28,12 +28,12 @@ export const queryAPI = async (endpoint: string, query: string) =>
 export const getGameByConsole = (games: GameType[], params: GameType) => {
     if (!dataIsValid(games)) return null
 
-    const result = games.find(game => {
+    const result = games.find((game: GameType) => {
         if (game.platforms === undefined) return false
 
         // Select game does not exist within the console the user selected
         const checkConsole = game.platforms.find(
-            gameConsole => parseInt(gameConsole.id) === parseInt(params.console.id)
+            (gameConsole: Console) => parseInt(gameConsole.id) === parseInt(params.console.id)
         )
 
         return checkConsole
@@ -120,7 +120,7 @@ export const getGames = async (userId: string) => {
         })
         .promise()
 
-    return Items.map(item => parseData.unmarshall(item))
+    return Items.map((item: GameType) => parseData.unmarshall(item))
 }
 
 export const getGamesByConsoleId = async (consoleId: string, userId: string) => {
@@ -189,7 +189,7 @@ export const postGame = async (userGame: UserGame) => {
         await docClient.put(params).promise()
     } catch (err) {
         console.error(err)
-    } finally {
-        return userGame
     }
+
+    return userGame
 }

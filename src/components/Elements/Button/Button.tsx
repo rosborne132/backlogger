@@ -10,7 +10,7 @@ type ButtonProps = {
     type?: 'button' | 'submit' | 'reset'
 }
 
-export const Button: React.FC<ButtonProps> = ({ className, children, isLoading, onClick, type }): JSX.Element => (
+export const Button: React.FC = ({ className, children, isLoading, onClick, type }: ButtonProps): React.ReactNode => (
     <motion.button
         whileHover={{ scale: 1.005 }}
         whileTap={{ scale: 0.99 }}

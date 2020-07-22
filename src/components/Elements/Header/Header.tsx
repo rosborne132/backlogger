@@ -2,11 +2,10 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 
 import { useAuthFunctions } from 'src/lib/auth'
-
 import styles from './Header.module.css'
 
 export const LandingHeader: React.FC = React.memo(
-    (): JSX.Element => {
+    (): React.ReactNode => {
         const router = useRouter()
         const { login } = useAuthFunctions()
 
@@ -24,7 +23,7 @@ export const LandingHeader: React.FC = React.memo(
 )
 
 export const AppHeader: React.FC = React.memo(
-    (): JSX.Element => {
+    (): React.ReactNode => {
         const router = useRouter()
         const { logout } = useAuthFunctions()
 

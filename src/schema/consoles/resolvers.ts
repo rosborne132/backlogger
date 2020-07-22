@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { User } from 'src/types'
+import { User } from 'src/lib/types'
 
 import { getConsoles } from './services'
 

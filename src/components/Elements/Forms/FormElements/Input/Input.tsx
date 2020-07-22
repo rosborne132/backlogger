@@ -1,21 +1,14 @@
 import * as React from 'react'
 import Autosuggest from 'react-autosuggest'
-import gql from 'graphql-tag'
 import { useLazyQuery } from '@apollo/react-hooks'
+
+import { GET_GAMES_BY_NAME } from 'src/lib/queries'
 
 export type InputType = {
     labelText?: string
     inputId: string
     onChange: (value: string) => void
 }
-
-export const GET_GAMES_BY_NAME = gql`
-    query FetchGamesByName($name: String) {
-        fetchGamesByName(name: $name) {
-            name
-        }
-    }
-`
 
 export const GameSuggestionInput = ({ labelText = '', inputId, onChange }: InputType) => {
     const [value, setValue] = React.useState('')
@@ -34,10 +27,10 @@ export const GameSuggestionInput = ({ labelText = '', inputId, onChange }: Input
         }
     }, [data])
 
-    const renderSuggestion = suggestion => <div>{suggestion.name}</div>
-    const getSuggestionValue = suggestion => suggestion.name
+    const renderSuggestion = ({ name }: { name: string }) => <div>{name}</div>
+    const getSuggestionValue = ({ name }: { name: string }) => name
     const onSuggestionsClearRequested = () => setSuggestions([])
-    const onSuggestionsFetchRequested = async ({ value }) => {
+    const onSuggestionsFetchRequested = async ({ value }: { value: string }) => {
         if (value.length % 2 === 0) {
             await getGames()
         }
@@ -46,7 +39,7 @@ export const GameSuggestionInput = ({ labelText = '', inputId, onChange }: Input
     const inputProps = {
         placeholder: 'Type a game',
         value,
-        onChange: (event, { newValue }) => setValue(newValue)
+        onChange: (event: any, { newValue }: { newValue: string }) => setValue(newValue)
     }
 
     return (
