@@ -7,7 +7,7 @@ export type GroupButtonProps = {
 }
 
 export const ButtonGroup = ({ isLoading, onClick }: GroupButtonProps) => (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }} data-testid="buttonGroup">
         <Button onClick={onClick} className="cancel" isLoading={isLoading}>
             Cancel
         </Button>

@@ -5,12 +5,12 @@ import { DELETE_USER_GAME } from 'src/lib/queries'
 import { Form } from 'src/components/Elements'
 import { ModalContext } from 'src/context'
 
-export type RemoveFromBacklogProps = {
+export type RemoveFromCollectionProps = {
     userGameId: string
 }
 
-export const RemoveFromBacklog: React.FC = React.memo(
-    ({ userGameId }: RemoveFromBacklogProps): JSX.Element => {
+export const RemoveFromCollection: React.FC = React.memo(
+    ({ userGameId }: RemoveFromCollectionProps): JSX.Element => {
         const [isLoading, setIsLoading] = React.useState(false)
         const { closeModal } = React.useContext(ModalContext)
         const [removeGame] = useMutation(DELETE_USER_GAME, {
@@ -41,7 +41,7 @@ export const RemoveFromBacklog: React.FC = React.memo(
         return (
             <Form
                 closeForm={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
-                formId="gameForm"
+                formId="removeFromCollection"
                 isLoading={isLoading}
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
             >

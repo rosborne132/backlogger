@@ -2,9 +2,9 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
-import { Cover, Platform } from 'src/types'
+import { Cover, Platform } from 'src/lib/types'
 import { ModalContext } from 'src/context'
-import { RemoveFromBacklog, UpdateGameInBacklog } from 'src/components/Elements'
+import { RemoveFromCollection, UpdateGameInBacklog } from 'src/components/Elements'
 import styles from './Game.module.css'
 
 type GameProps = {
@@ -97,7 +97,7 @@ const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }: ButtonConta
                 ) : (
                     <>
                         <button
-                            onClick={() => openModal(<RemoveFromBacklog userGameId={userGameId} />)}
+                            onClick={() => openModal(<RemoveFromCollection userGameId={userGameId} />)}
                             className="cancel"
                         >
                             -

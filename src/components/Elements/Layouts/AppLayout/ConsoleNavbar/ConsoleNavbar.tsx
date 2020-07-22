@@ -5,7 +5,7 @@ import upperFirst from 'lodash/upperFirst'
 
 import { AddConsole, AddGame, Icon } from 'src/components/Elements'
 import { ModalContext } from 'src/context'
-import { Platform as Console } from 'src/types'
+import { Platform as Console } from 'src/lib/types'
 import styles from './ConsoleNavbar.module.css'
 
 const navbarButtons = [

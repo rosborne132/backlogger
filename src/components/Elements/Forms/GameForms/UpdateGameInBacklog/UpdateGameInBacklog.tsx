@@ -43,7 +43,7 @@ export const UpdateGameInBacklog: React.FC = React.memo(
         return (
             <Form
                 closeForm={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
-                formId="moveGameToBacklog"
+                formId="updateGameInBacklog"
                 isLoading={isLoading}
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
             >

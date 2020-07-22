@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 import { ADD_USER_CONSOLE, GET_CONSOLES } from 'src/lib/queries'
 import { ConsoleSelect, Form, FormLoadingScreen } from 'src/components/Elements'
 import { ModalContext } from 'src/context'
-import { Platform as Console } from 'src/types'
+import { Platform as Console } from 'src/lib/types'
 
 export const AddConsole: React.FC = React.memo(
     (): JSX.Element => {

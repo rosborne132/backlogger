@@ -5,7 +5,7 @@ import { AppLayout, LoadingScreen } from 'src/components/Elements'
 import { GET_USER_CONSOLES, GET_USER_GAMES } from 'src/lib/queries'
 import { Grid } from 'src/components/Utilities'
 import { renderUserGames } from '../index'
-import { UserGame } from 'src/types'
+import { UserGame } from 'src/lib/types'
 import { withApollo } from 'src/lib/apollo'
 
 export default withApollo(() => {

@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { AppLayout, UserGame, LoadingScreen } from 'src/components/Elements'
 import { GET_USER_CONSOLES, GET_USER_GAMES } from 'src/lib/queries'
 import { Grid } from 'src/components/Utilities'
-import { UserGame as Game } from 'src/types'
+import { UserGame as Game } from 'src/lib/types'
 import { withApollo } from 'src/lib/apollo'
 
 export const renderUserGames = (games: Game[], objName: string): JSX.Element[] => {

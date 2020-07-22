@@ -8,7 +8,7 @@ import { Grid } from 'src/components/Utilities'
 import { withApollo } from 'src/lib/apollo'
 import styles from './gameInfo.module.css'
 
-// todo
+// TODO
 // Use query on load to see if the user has this game in there backlog
 
 const renderThemeBadges = (badges: any) =>

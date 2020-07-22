@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 import { ADD_USER_GAME, GET_USER_CONSOLES } from 'src/lib/queries'
 import { ConsoleSelect, Form, FormLoadingScreen, GameSuggestionInput } from 'src/components/Elements'
 import { ModalContext } from 'src/context'
-import { UserGame } from 'src/types'
+import { UserGame } from 'src/lib/types'
 
 export const AddGame: React.FC = React.memo(
     (): JSX.Element => {
