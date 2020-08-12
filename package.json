@@ -30,7 +30,7 @@
         "axios": "^0.19.0",
         "babel-plugin-import-graphql": "^2.7.0",
         "dotenv": "^8.2.0",
-        "framer-motion": "^2.1.0",
+        "framer-motion": "^2.1.2",
         "graphql": "^15.0.0",
         "graphql-tag": "^2.10.1",
         "isomorphic-unfetch": "^3.0.0",
