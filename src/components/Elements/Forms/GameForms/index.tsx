@@ -1,3 +1,3 @@
 export * from './AddGame/AddGame'
-export * from './RemoveFormBacklog/RemoveFromBacklog'
+export * from './RemoveFromCollection/RemoveFromCollection'
 export * from './UpdateGameInBacklog/UpdateGameInBacklog'

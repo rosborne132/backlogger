@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 import axios from 'axios'
-import { User } from 'src/types'
+import { User } from 'src/lib/types'
 import { createSlug, deleteGame, getGameByConsole, patchGame, postGame } from './services'
 
 export const gameMutations = {

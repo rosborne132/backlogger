@@ -9,8 +9,8 @@ type IconProps = {
     style?: any
 }
 
-export const Icon: React.FC<IconProps> = React.memo(
-    ({ block = false, icon, size = 'm1', style }): JSX.Element => (
+export const Icon: React.FC = React.memo(
+    ({ block = false, icon, size = 'm1', style }: IconProps): React.ReactNode => (
         <svg
             data-testid="icon"
             viewBox="0 0 1024 1024"
@@ -23,7 +23,7 @@ export const Icon: React.FC<IconProps> = React.memo(
             }}
             {...style}
         >
-            {icons[icon].map(path => (
+            {icons[icon].map((path: string) => (
                 <path key={path} d={path} />
             ))}
         </svg>

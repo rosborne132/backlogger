@@ -1,20 +1,19 @@
 import * as React from 'react'
 import { useMutation } from '@apollo/react-hooks'
 
+import { DELETE_USER_GAME } from 'src/lib/queries'
 import { Form } from 'src/components/Elements'
 import { ModalContext } from 'src/context'
-import { UPDATE_USER_GAME } from 'src/lib/queries'
 
-export type UpdateGameInBacklogProps = {
+export type RemoveFromCollectionProps = {
     userGameId: string
-    inBacklog: boolean
 }
 
-export const UpdateGameInBacklog: React.FC = React.memo(
-    ({ userGameId, inBacklog }: UpdateGameInBacklogProps): JSX.Element => {
+export const RemoveFromCollection: React.FC = React.memo(
+    ({ userGameId }: RemoveFromCollectionProps): JSX.Element => {
         const [isLoading, setIsLoading] = React.useState(false)
         const { closeModal } = React.useContext(ModalContext)
-        const [updateGame] = useMutation(UPDATE_USER_GAME, {
+        const [removeGame] = useMutation(DELETE_USER_GAME, {
             refetchQueries: ['GetUserGames']
         })
 
@@ -22,11 +21,10 @@ export const UpdateGameInBacklog: React.FC = React.memo(
             e.preventDefault()
             setIsLoading(true)
 
-            await updateGame({
+            await removeGame({
                 variables: {
                     game: {
-                        gameId: userGameId,
-                        inBacklog
+                        gameId: userGameId
                     }
                 }
             })
@@ -43,15 +41,11 @@ export const UpdateGameInBacklog: React.FC = React.memo(
         return (
             <Form
                 closeForm={(e: React.MouseEvent<HTMLButtonElement>) => closeForm(e)}
-                formId="updateGameInBacklog"
+                formId="removeFromCollection"
                 isLoading={isLoading}
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
             >
-                {inBacklog ? (
-                    <p>Would you like to add this game to your backlog?</p>
-                ) : (
-                    <p>Would you like to remove this game from your backlog?</p>
-                )}
+                <p>Would you like to remove this game from your collection?</p>
             </Form>
         )
     }

@@ -29,8 +29,8 @@ const renderScreenshots = (screenshots: any) =>
         </div>
     ))
 
-export const AppLayout: React.FC<AppLayoutProps> = React.memo(
-    ({ children, consoles = [], displayNav = true, images = [], header }: AppLayoutProps): JSX.Element => {
+export const AppLayout: React.FC = React.memo(
+    ({ children, consoles = [], displayNav = true, images = [], header }: AppLayoutProps): React.ReactNode => {
         return (
             <>
                 <Meta />

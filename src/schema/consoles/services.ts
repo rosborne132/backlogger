@@ -1,6 +1,6 @@
 import { dbClient, docClient, parseData } from 'src/lib/dynamodb'
 import { stage } from 'src/lib/stage'
-import { UserConsole } from 'src/types'
+import { UserConsole } from 'src/lib/types'
 
 const TableName = `backlogger-${stage}-user-consoles`
 

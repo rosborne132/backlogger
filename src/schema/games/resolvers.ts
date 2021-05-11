@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { User } from 'src/types'
+import { User } from 'src/lib/types'
 import { getGames, getGamesByConsoleId, fetchGameDetailsById, fetchGamesByName } from './services'
 
 export const gameResolvers = {

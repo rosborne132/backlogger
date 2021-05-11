@@ -2,12 +2,9 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
-import { RemoveFromBacklog, UpdateGameInBacklog } from 'src/components/Elements'
-
-import { Cover, Platform } from 'src/types'
-
+import { Cover, Platform } from 'src/lib/types'
 import { ModalContext } from 'src/context'
-
+import { RemoveFromCollection, UpdateGameInBacklog } from 'src/components/Elements'
 import styles from './Game.module.css'
 
 type GameProps = {
@@ -28,7 +25,14 @@ type GameWrapperProps = {
     userGameId?: string
 }
 
-export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id, userGameId }) => {
+type ButtonContainerProps = {
+    onClick: () => void
+    userGameId: string | undefined
+    inBacklog: boolean
+    gameId: string
+}
+
+export const GameWrapper: React.FC = ({ canHover, children, id }: GameWrapperProps): React.ReactNode => {
     const router = useRouter()
 
     return canHover ? (
@@ -48,8 +52,8 @@ export const GameWrapper: React.FC<GameWrapperProps> = ({ canHover, children, id
     )
 }
 
-export const Game: React.FC<GameProps> = React.memo(
-    ({ canHover = true, cover, id, name, slug, userGameId }: GameProps): JSX.Element => {
+export const Game: React.FC = React.memo(
+    ({ canHover = true, cover, id, name, slug, userGameId }: GameProps): React.ReactNode => {
         const coverUrl = cover.url.length ? cover.url.replace('t_thumb', 't_cover_big') : ''
 
         return (
@@ -66,7 +70,7 @@ export const Game: React.FC<GameProps> = React.memo(
     }
 )
 
-const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
+const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }: ButtonContainerProps): React.ReactNode => {
     const { openModal } = React.useContext(ModalContext)
     const router = useRouter()
     const variants = {
@@ -93,7 +97,7 @@ const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
                 ) : (
                     <>
                         <button
-                            onClick={() => openModal(<RemoveFromBacklog userGameId={userGameId} />)}
+                            onClick={() => openModal(<RemoveFromCollection userGameId={userGameId} />)}
                             className="cancel"
                         >
                             -
@@ -114,8 +118,8 @@ const ButtonContainer = ({ gameId, inBacklog, onClick, userGameId }) => {
     )
 }
 
-export const UserGame: React.FC<GameProps> = React.memo(
-    ({ cover, id, inBacklog, name, slug, userGameId }: GameProps): JSX.Element => {
+export const UserGame: React.FC = React.memo(
+    ({ cover, id, inBacklog, name, slug, userGameId }: GameProps): React.ReactNode => {
         const [showButtonOptions, setShowButtonOptions] = React.useState(false)
         const coverUrl = cover.url.length ? cover.url.replace('t_thumb', 't_cover_big') : ''
 

@@ -6,8 +6,10 @@ type GridProps = {
     children: React.ReactNode
 }
 
-export const Grid: React.FC<GridProps> = React.memo(({ children }) => (
-    <div className={styles.grid} data-testid="grid">
-        {children}
-    </div>
-))
+export const Grid: React.FC = React.memo(
+    ({ children }: GridProps): React.ReactNode => (
+        <div className={styles.grid} data-testid="grid">
+            {children}
+        </div>
+    )
+)

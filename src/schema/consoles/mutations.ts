@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { User } from 'src/types'
+import { User } from 'src/lib/types'
 import { putConsole } from './services'
 
 export const consoleMutations = {
