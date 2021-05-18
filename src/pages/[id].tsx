@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { AppLayout, LoadingScreen } from 'src/components/Elements'
 import { GET_GAMES_BY_CONSOLE_ID, GET_USER_CONSOLES } from 'src/lib/queries'
 import { Grid } from 'src/components/Utilities'
-import { renderUserGames } from './index'
+import { renderUserGames } from './app/index'
 import { withApollo } from 'src/lib/apollo'
 
 export default withApollo(() => {
