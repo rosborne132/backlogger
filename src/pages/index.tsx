@@ -9,13 +9,18 @@ import { UserGame as Game } from 'src/lib/types'
 import { listUserConsoles, listUserGames } from '../graphql/queries'
 
 export async function getServerSideProps({ req }) {
-    let consoles
-    let games
-    const { API } = withSSRContext({ req })
-    const userConsoles = await API.graphql({ query: listUserConsoles })
-    const userGames = await API.graphql({ query: listUserGames })
-    consoles = userConsoles.data.listUserConsoles.items ?? []
-    games = userGames.data.listUserGames.items ?? []
+    console.log('hello')
+    let consoles = []
+    let games = []
+    try {
+        const { API } = withSSRContext({ req })
+        const userConsoles = await API.graphql({ authMode: 'AMAZON_COGNITO_USER_POOLS', query: listUserConsoles })
+        const userGames = await API.graphql({ authMode: 'AMAZON_COGNITO_USER_POOLS', query: listUserGames })
+        consoles = userConsoles.data.listUserConsoles.items ?? []
+        games = userGames.data.listUserGames.items ?? []
+    } catch ({ errors }) {
+        console.error(errors)
+    }
 
     return {
         props: {

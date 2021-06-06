@@ -20,7 +20,7 @@ const navbarButtons = [
 ]
 
 export const ConsoleNavbar: React.FC = React.memo(
-    ({ consoles }: { consoles: Console[] }): React.ReactNode => {
+    ({ consoles }: { consoles: Console[] }): JSX.Element => {
         const [isShowing, setIsShowing] = React.useState(true)
         const [selected, setSelected] = React.useState<string | string[]>('')
         const [showTab, setShowTab] = React.useState('')
@@ -103,7 +103,7 @@ export const ConsoleNavbar: React.FC = React.memo(
                                 <li
                                     key={id}
                                     className={selected === id ? styles.consoleListItemSelect : styles.consoleListItem}
-                                    onClick={() => router.push('/app/[id]', `/app/${id}`)}
+                                    onClick={() => router.push('/[id]', `/${id}`)}
                                 >
                                     {name}
                                 </li>

@@ -30,25 +30,23 @@ const renderScreenshots = (screenshots: any) =>
     ))
 
 export const AppLayout: React.FC = React.memo(
-    ({ children, consoles = [], displayNav = true, images = [], header }: AppLayoutProps): React.ReactNode => {
-        return (
-            <>
-                <Meta />
-                <AppHeader />
-                <main data-testid="appLayout">
-                    {header?.length ? (
-                        <header className="tc">
-                            <h2>{header}</h2>
-                        </header>
-                    ) : null}
+    ({ children, consoles = [], displayNav = true, images = [], header }: AppLayoutProps): JSX.Element => (
+        <>
+            <Meta />
+            <AppHeader />
+            <main data-testid="appLayout">
+                {header?.length ? (
+                    <header className="tc">
+                        <h2>{header}</h2>
+                    </header>
+                ) : null}
 
-                    {images?.length ? <Slider {...settings}>{renderScreenshots(images)}</Slider> : null}
+                {images?.length ? <Slider {...settings}>{renderScreenshots(images)}</Slider> : null}
 
-                    {displayNav ? <ConsoleNavbar consoles={consoles} /> : null}
+                {displayNav ? <ConsoleNavbar consoles={consoles} /> : null}
 
-                    <section className="layout">{children}</section>
-                </main>
-            </>
-        )
-    }
+                <section className="layout">{children}</section>
+            </main>
+        </>
+    )
 )

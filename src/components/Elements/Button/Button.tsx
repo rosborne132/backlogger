@@ -6,11 +6,11 @@ type ButtonProps = {
     className?: string
     children: React.ReactNode
     isLoading?: boolean
-    onClick?: any
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
     type?: 'button' | 'submit' | 'reset'
 }
 
-export const Button: React.FC = ({ className, children, isLoading, onClick, type }: ButtonProps): React.ReactNode => (
+export const Button: React.FC = ({ className, children, isLoading, onClick, type }: ButtonProps) => (
     <motion.button
         whileHover={{ scale: 1.005 }}
         whileTap={{ scale: 0.99 }}

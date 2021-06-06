@@ -4,11 +4,11 @@ import { ButtonGroup } from 'src/components/Elements'
 import styles from './Form.module.css'
 
 export type FormProps = {
-    closeForm: () => void
+    closeForm: (e: React.MouseEvent<HTMLButtonElement>) => void
     children: React.ReactNode
     formId: string
     isLoading: boolean
-    onSubmit: () => void
+    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
 export const Form = ({ closeForm, children, formId, isLoading, onSubmit }: FormProps) => (
