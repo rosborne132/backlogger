@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
+import { Auth } from 'aws-amplify'
 
-import { useAuthFunctions } from 'src/lib/auth'
+// import { useAuthFunctions } from 'src/lib/auth'
 import styles from './Header.module.css'
 
 export const LandingHeader: React.FC = React.memo(
     (): React.ReactNode => {
         const router = useRouter()
-        const { login } = useAuthFunctions()
+        // const { login } = useAuthFunctions()
 
         return (
             <header data-testid="header" className={styles.header}>
@@ -15,7 +16,7 @@ export const LandingHeader: React.FC = React.memo(
                     <a onClick={() => router.push({ pathname: `/` })}>Backlogger</a>
                 </h1>
                 <nav>
-                    <a onClick={() => login()}>Login</a>
+                    <a onClick={() => router.push({ pathname: `/app` })}>Login</a>
                 </nav>
             </header>
         )
@@ -25,7 +26,7 @@ export const LandingHeader: React.FC = React.memo(
 export const AppHeader: React.FC = React.memo(
     (): React.ReactNode => {
         const router = useRouter()
-        const { logout } = useAuthFunctions()
+        // const { logout } = useAuthFunctions()
 
         return (
             <header data-testid="header" className={styles.header}>
@@ -33,7 +34,7 @@ export const AppHeader: React.FC = React.memo(
                     <a onClick={() => router.push({ pathname: `/app` })}>Backlogger</a>
                 </h1>
                 <nav>
-                    <a onClick={() => logout()}>Logout</a>
+                    <a onClick={() => Auth.signOut()}>Logout</a>
                 </nav>
             </header>
         )

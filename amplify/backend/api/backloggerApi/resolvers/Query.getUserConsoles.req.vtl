@@ -1,0 +1,19 @@
+## Query.getUserConsoles.req.vtl **
+
+{
+  "version": "2017-02-28",
+  "operation": "Query",
+  "query": {
+    "expression": "#userId = :userId",
+    "expressionNames": {
+        "#userId": "userId"
+    },
+    "expressionValues": {
+        ":userId": {
+            "S": "$context.args.userId"
+        }
+    }
+  },
+  "scanIndexForward": true,
+  "index": "gsi-UserId"
+}

@@ -1,0 +1,30 @@
+type Console {
+    abbreviation: String
+    id: String
+    name: String
+    slug: String
+}
+
+type Cover {
+    id: String!
+    url: String!
+}
+
+type Game {
+    console: Console
+    cover: Cover
+    id: String
+    inBacklog: Boolean
+    name: String!
+    slug: String
+}
+
+type UserGame @model {
+    game: Game!
+    id: ID!
+}
+
+type UserConsole @model {
+    console: Console!
+    id: ID!
+}

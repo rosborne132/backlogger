@@ -1,0 +1,8 @@
+{
+    "AppSyncApiName": "backloggerApi",
+    "DynamoDBBillingMode": "PROVISIONED",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": ["authbacklogger05470806", "Outputs.UserPoolId"]
+    }
+}

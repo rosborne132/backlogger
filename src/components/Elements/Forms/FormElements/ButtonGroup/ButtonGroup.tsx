@@ -3,7 +3,7 @@ import { Button } from 'src/components/Elements'
 
 export type GroupButtonProps = {
     isLoading: boolean
-    onClick: () => void
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const ButtonGroup = ({ isLoading, onClick }: GroupButtonProps) => (

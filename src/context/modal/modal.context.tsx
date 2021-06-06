@@ -7,14 +7,14 @@ type ModalContent = React.ReactNode | null
 type initialValues = {
     closeModal: () => void
     modalIsShowing: boolean
-    openModal: (content: any) => void
+    openModal: (content: React.ReactNode) => void
     modalContent: ModalContent
 }
 
 const initialValues = {
     closeModal: () => {},
     modalIsShowing: false,
-    openModal: (content: any) => {},
+    openModal: (content: React.ReactNode) => {},
     modalContent: null
 }
 
